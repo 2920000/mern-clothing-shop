@@ -1,0 +1,8 @@
+export const caculateSale = (product) => {
+    const salePrice = (product.sale * (product.price)) / 100;
+    const newPrice = product.price - salePrice
+    if(product.amount){
+      return newPrice*product.amount;
+    }
+    return newPrice
+  };
