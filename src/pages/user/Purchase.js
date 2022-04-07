@@ -2,7 +2,9 @@ import React from 'react'
 
 function Purchase() {
   return (
-    <div>a</div>
+    <div>
+      
+    </div>
   )
 }
 

@@ -25,7 +25,8 @@ module.exports = {
         money_line_through_color:'#808080',
         quick_view_color:'rgba(255, 255, 255, 0.75)',
         pagination_color:'rgba(93,92,92,0.2)',
-        border_input:'#e0dede'
+        border_input:'#e0dede',
+        border:'#f1f0ed'
       },
     },
 

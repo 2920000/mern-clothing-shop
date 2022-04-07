@@ -1,11 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { collectionSelector } from "../../features/collectionSlice";
+import { collectionSelector, isLoadSelector } from "../../features/collectionSlice";
 import Filter from "./filter/Filter";
 import RefineBy from "./refineBy/RefineBy";
 
 function IndexFilter() {
   const products = useSelector(collectionSelector);
+  const isLoadCollection=useSelector(isLoadSelector)
   const size = ["L", "M", "S", "XL", "XXL", "XXXL"];
   const price = ["Dưới 600.000", "Từ 600.000 - 1.200.000", "Trên 1.200.000"];
 
@@ -31,7 +32,9 @@ function IndexFilter() {
       name: "pricess",
     },
   ];
-
+ if(isLoadCollection){
+   return <></>
+ }
   return (
     <div className="w-[30%] hidden mder:block mr-10">
       <RefineBy/>

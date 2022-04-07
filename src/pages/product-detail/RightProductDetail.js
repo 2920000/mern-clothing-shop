@@ -10,6 +10,7 @@ import addProductToLocal from "../../helper/addProductToLocal";
 import { AiFillQuestionCircle } from "react-icons/ai";
 import { FaShippingFast, FaCentercode } from "react-icons/fa";
 import { IoShieldCheckmarkOutline } from "react-icons/io5";
+import Skeleton from "../../components/skeleton1/Skeleton";
 function RightProductDetail({ productDetail }) {
   const [productSize, setProductSize] = useState("S");
   const dispatch = useDispatch();
@@ -35,7 +36,7 @@ function RightProductDetail({ productDetail }) {
       <div id="right-detail-inner">
         <div>
           <div className="flex justify-between items-center mb-2">
-            <span>{productDetail.brand}</span>
+            <span className="inline-block min-w-[60px]">{productDetail.brand}</span>
             {productDetail.sale > 0 && (
               <span className="bg-red text-white py-1.5 px-5 font-bold">
                 Sale

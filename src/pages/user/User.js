@@ -18,11 +18,11 @@ function User() {
 }
 const UserLeft = () => {
   const user = [
-    {
-      title: "Tài khoản của tôi",
-      link: "/user/profile",
-      icon: <VscAccount />,
-    },
+    // {
+    //   title: "Tài khoản của tôi",
+    //   link: "/user/profile",
+    //   icon: <VscAccount />,
+    // },
     {
       title: "Đơn mua",
       link: "/user/purchase",
@@ -37,7 +37,7 @@ const UserLeft = () => {
         <Link to={e.link} key={index} className="block mb-2">
           <span className=" flex items-center gap-2">
             <span className="text-xl">{e.icon}</span>
-            <span className={`${path===e.link?'text-red':''}`}> {e.title}</span>
+            <span className={`${path===e.link?'text-':''}`}> {e.title}</span>
           </span>
         </Link>
       ))}

@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from "react";
 import ReactDom from "react-dom";
-import { useSelector } from "react-redux";
-import { updateShippingInfor } from "../api/userApi";
+import { useDispatch, useSelector } from "react-redux";
+import Loading from "../components/loading/Loading";
 import { userSelector } from "../features/accountSlice";
+import {Link} from 'react-router-dom'
+import {  fetchShippingInfor, isUpdateShippingInforSelector, updateShippingInforToDatabase } from "../features/userSlice";
 import validateForm from "../helper/validateForm";
 function ShippingInforModal() {
+  const dispatch=useDispatch()
   const [shippingInfor, setShippingInfor] = useState({
     fullName: "",
     phoneNumber: "",
     address: "",
   });
-  const user=useSelector(userSelector)
+  const user = useSelector(userSelector);
+  const isUpdateShippingInfor = useSelector(isUpdateShippingInforSelector);
   const allowSubmit = !!(
     shippingInfor.fullName &&
     shippingInfor.phoneNumber &&
@@ -23,11 +27,12 @@ function ShippingInforModal() {
   useEffect(() => {
     validateForm("shippingInforForm");
   });
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const notAllowSubmitToDatabase = validateForm.validate();
     if (notAllowSubmitToDatabase) return;
-    updateShippingInfor({userId:user._id,...shippingInfor})
+    dispatch(updateShippingInforToDatabase({userId: user._id, ...shippingInfor}))
   };
   const handleOnchangeInput = (e) => {
     setShippingInfor({ ...shippingInfor, [e.target.name]: e.target.value });
@@ -72,10 +77,10 @@ function ShippingInforModal() {
             />
             <span className="error-message"></span>
           </div>
-          <div className="float-right mt-5">
-            <button className="w-[140px] h-[40px] hover:opacity-80 mr-2 ">
+          <div className="flex items-center justify-end mt-5">
+            <a href='/' className="flex items-center justify-center w-[140px] h-[40px] hover:opacity-60 mr-2 ">
               Trở về
-            </button>
+            </a>
             <button
               disabled={!allowSubmit && true}
               onClick={handleSubmit}
@@ -90,6 +95,7 @@ function ShippingInforModal() {
           </div>
         </form>
       </div>
+      {isUpdateShippingInfor&&<Loading/>}
     </div>,
     document.getElementById("modal")
   );

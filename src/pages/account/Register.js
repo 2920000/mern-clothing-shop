@@ -14,8 +14,8 @@ function Register() {
   const load = useSelector(loadSelector);
   useEffect(()=>{
     const payload={
-      userId:user._id,
-      username:user.username
+      userId:user?._id,
+      username:user?.username
     }
     if(user?.register==='success'){
       createUser(payload)

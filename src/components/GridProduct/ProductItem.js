@@ -10,10 +10,6 @@ const ProductItem = ({ product }) => {
   const quickviewRef = useRef();
   const addToCartRef = useRef();
   const isSale = product.sale !== 0;
-  window.scrollTo({
-    behavior: "smooth",
-    top: 0,
-  });
   const productProps = {
     product,
     quickviewRef,

@@ -1,0 +1,38 @@
+.skeleton{
+    width: 100%;
+    background-color: rgb(183, 183, 183);
+    animation: skeleton 1s linear infinite alternate;
+}
+.skeleton.text{
+    height: 1rem;   
+    margin-bottom: 20px;
+}
+.skeleton.title{
+    height: 2.5rem;   
+    margin-bottom: 20px;
+}
+.skeleton.button{
+    height: 3rem;
+    margin-bottom: 15px;
+}
+.skeleton.price{
+    height: 2rem;
+    margin-bottom: 25px;
+}
+.skeleton.size{
+    margin-bottom: 15px;
+    margin-right: 10px;
+}
+.skeleton.description{
+    height: 3rem;
+}
+
+
+@keyframes skeleton {
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}

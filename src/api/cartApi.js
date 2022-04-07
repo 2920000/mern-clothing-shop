@@ -8,11 +8,7 @@ const addProductToMongodb = async (payload) => {
 };
 
 const getCartFromDatabase = (userId) => {
-  return instance.get(`/cart/get`, {
-    params: {
-      _id: userId,
-    },
-  });
+  return instance.get(`/cart/get/${userId}`);
 };
 
 const removeCartProductFromDatabase = (payload) => {

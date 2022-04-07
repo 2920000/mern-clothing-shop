@@ -13,14 +13,12 @@ import User from "./pages/user/User";
 import Profile from "./pages/user/Profile";
 import Purchase from "./pages/user/Purchase";
 function App() {
-  const path = window.location.pathname;
-
   return (
     <div>
       <Router>
         <AnnouncemetBar />
         <Header />
-        {path !== "/checkout" && <Navigation />}
+        <Navigation />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/collection/:collection" element={<Collection />} />
@@ -33,7 +31,7 @@ function App() {
             <Route path="purchase" element={<Purchase />} />
           </Route>
         </Routes>
-        {path !== "/checkout" && <Footer />}
+        <Footer />
       </Router>
     </div>
   );

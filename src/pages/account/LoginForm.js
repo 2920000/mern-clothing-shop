@@ -1,7 +1,6 @@
 import { useEffect, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { addProductToMongodb } from "../../api/cartApi";
 import { FormGroup } from "../../components/form-group/FormGroup";
 import {
   CLEAR_ERRORMESSAGE,
@@ -11,8 +10,6 @@ import {
 } from "../../features/accountSlice";
 import {
   addLocalStorage,
-  getLocalStorage,
-  removeLocalStorage,
 } from "../../helper/localStoragefunction";
 import validateForm from "../../helper/validateForm";
 import formProps from "./form-group/login";
@@ -24,7 +21,6 @@ const LoginForm = () => {
   const user = useSelector(userSelector);
   const errorMessage = useSelector(errorMessageSelector);
 
-  const cartFromLocal = getLocalStorage("cart");
   const handleSubmit = (e) => {
     e.preventDefault();
     const isAllowLogin = validateForm.validate();
@@ -42,12 +38,6 @@ const LoginForm = () => {
     errorMessage && validateForm.addErrorMessage(errorMessage, "login-form");
     if (user?.login === "success") {
       addLocalStorage("profile", user);
-      removeLocalStorage("cart");
-      const payload = {
-        userId: user._id,
-        cartDataFromLocal: cartFromLocal,
-      };
-      addProductToMongodb(payload);
       navigate("/");
     }
     return () => dispatch(CLEAR_ERRORMESSAGE(""));

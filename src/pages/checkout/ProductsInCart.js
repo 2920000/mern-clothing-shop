@@ -1,20 +1,7 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { userSelector } from "../../features/accountSlice";
-import {
-  allCartProductsSelector,
-  fetchCartDataFromDatabase,
-} from "../../features/cartSlice";
 import { convertToPrice } from "../../helper/converToPrice";
 
-function ProductsInCart() {
-  const dispatch = useDispatch();
-  const user = useSelector(userSelector); 
-  const cartProduct = useSelector(allCartProductsSelector);
+function ProductsInCart({cartProduct}) {
 
-  useEffect(() => {
-    dispatch(fetchCartDataFromDatabase(user._id));
-  }, []);
   return (
     <div className="w-full bg-white py-10 px-8">
       <div className="flex font-medium mb-5">
@@ -52,8 +39,8 @@ const OrderItem = ({ order }) => {
         <span className="inline-block w-[30%] text-center">
           {order.amount}
         </span>
-        <span className="flex justify-end grow">
-          {convertToPrice(order.price * order.amount)}
+        <span className="flex justify-end grow text-sm font-medium ">
+          {convertToPrice(order.price * order.amount)} đ
         </span>
       </div>
     </li>

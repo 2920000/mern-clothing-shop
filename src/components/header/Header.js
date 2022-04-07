@@ -1,37 +1,39 @@
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import image from "../../logo.png";
 import HeaderIconLeft from "./HeaderIconLeft";
 import HeaderIconRight from "./HeaderIconRight";
-import { addLocalStorage, getLocalStorage } from "../../helper/localStoragefunction";
+import {
+  addLocalStorage,
+  getLocalStorage,
+} from "../../helper/localStoragefunction";
 import Search from "../search/Search";
 import NeedsClick from "../../modal/NeedsClick";
+import { Link, useLocation } from "react-router-dom";
 function Header() {
   const [search, setSearch] = useState(true);
   const [backgroundHeader, setBackgroundHeader] = useState(false);
-  const [discountForm,setDiscountForm]=useState(false)
- 
-  const param=window.location.pathname
-  
+  const [discountForm, setDiscountForm] = useState(false);
+  const param = useLocation().pathname;
   const props = {
     setSearch,
     setBackgroundHeader,
   };
-  
-  const needsclickProps={
+
+  const needsclickProps = {
     discountForm,
-    setDiscountForm
-  }
+    setDiscountForm,
+  };
 
-
-  useEffect(()=>{
-    const allowPopUp=getLocalStorage('discountForm')
-    if(!allowPopUp){
-      setTimeout(()=>{
-        setDiscountForm(true)
-      },3000)
-      addLocalStorage('discountForm',true)
+  useEffect(() => {
+    const allowPopUp = getLocalStorage("discountForm");
+    if (!allowPopUp) {
+      setTimeout(() => {
+        setDiscountForm(true);
+      }, 3000);
+      addLocalStorage("discountForm", true);
     }
-  },[])
+  }, []);
+
   return (
     <div
       className={` relative  ${
@@ -45,34 +47,39 @@ function Header() {
       >
         {search ? (
           <>
-            {param!=='/checkout'&&<HeaderIconLeft {...props} />}
+            {param !== "/checkout" && <HeaderIconLeft {...props} />}
             <HeaderIconCenter param={param} />
-            {param!=='/checkout'&&<HeaderIconRight {...props} />}
+            {param !== "/checkout" && <HeaderIconRight {...props} />}
           </>
         ) : (
           <Search {...props} />
         )}
       </div>
-      {discountForm&&<NeedsClick {...needsclickProps}/>}
+      {discountForm && <NeedsClick {...needsclickProps} />}
     </div>
   );
 }
 
 export default Header;
 
-
-
-const HeaderIconCenter = ({param}) => {
+const HeaderIconCenter = ({ param }) => {
   return (
-    <div style={param==='/checkout'?{display:'block'}:{}} className="flex grow justify-center  max-w-[33.33%]">
-      <a href="/" className="flex items-center">
+    <div
+      style={param === "/checkout" ? { display: "block" } : {}}
+      className="flex grow justify-center  max-w-[33.33%]"
+    >
+      <Link to="/" className="flex items-center">
         <img
           src={image}
           alt=""
           className="w-[45px] lg:w-[50px]  cursor-pointer "
         />
-        {param==='/checkout'&&<p className="ml-4 flex items-center border-l border-black pl-4 min-h-[30px] text-lg" >Thanh Toán</p>}
-      </a>
+        {param === "/checkout" && (
+          <p className="ml-4 flex items-center border-l border-black pl-4 min-h-[30px] text-lg">
+            Thanh Toán
+          </p>
+        )}
+      </Link>
     </div>
   );
 };

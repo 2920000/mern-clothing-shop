@@ -1,6 +1,11 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import navName from "./navName";
 function Navigation() {
+  const path=useLocation().pathname
+  if(path==='/checkout'){
+    return <></>
+  }
   return (
     <div className="bg-black font-montserrat text-white hidden lg:block">
       <NavList>

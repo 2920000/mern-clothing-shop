@@ -7,7 +7,7 @@ import SortOption from "../components/GridProduct/SortOption";
 import IndexFilter from "../components/filterProduct/IndexFilter";
 function Collection() {
   const { collection } = useParams();
-
+  window.scrollTo(0,0);
   return (
     <>
       <div className="pt-10 ">
@@ -16,7 +16,7 @@ function Collection() {
             Trang chủ
           </Link>
           <span className="mr-2">/</span>
-          <span>{convertToVietnamese(collection)}</span>
+          <span >{convertToVietnamese(collection)}</span>
         </div>
         <div className="block w-full text-right pr-[20px] lg:pr-[72px] mb-2 ">
           <SortOption />
