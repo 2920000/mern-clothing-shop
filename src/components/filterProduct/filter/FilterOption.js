@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import convertPriceFilter from "../../../helper/convertPriceFilter";
 import convertToVietnamese from "../../../helper/convertToVietnamese";
@@ -63,7 +62,7 @@ const SelectionItem = ({ index, name, e }) => {
       key={index}
       className="flex items-center justify-between container cursor-pointer mb-2 text-[0.93rem]  "
     >
-      <div className="whitespace-nowrap">
+      <div className="whitespace-nowrap text-sm">
         <input
           type="checkbox"
           id={`${name}-${index}`}

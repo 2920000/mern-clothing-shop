@@ -6,21 +6,28 @@ import cartSlice from "../features/cartSlice";
 import collectionSlice from "../features/collectionSlice";
 import searchSlice from "../features/searchSlice";
 import userSlice from "../features/userSlice";
+import checkoutSlice from "../features/checkoutSlice";
+import { orderedApi } from "../services/orderedApi";
 
 const store = configureStore({
   reducer: {
     [productDetailApi.reducerPath]: productDetailApi.reducer,
     [cartProductsApi.reducerPath]: cartProductsApi.reducer,
+    [orderedApi.reducerPath]: orderedApi.reducer,
     collection: collectionSlice,
     search: searchSlice,
     cart: cartSlice,
     account: accountSlice,
     user: userSlice,
+    checkout: checkoutSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
-    }).concat(productDetailApi.middleware),
+    })
+      .concat(productDetailApi.middleware)
+      .concat(orderedApi.middleware)
+      .concat(cartProductsApi.middleware),
 });
 
 export default store;

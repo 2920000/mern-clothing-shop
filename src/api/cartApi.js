@@ -23,9 +23,15 @@ const updateCartProductAmountFromDatabase = (payload) => {
   });
 };
 
+const clearCartFromDatabase=(userId)=>{
+  return instance.post('/cart/clearCart',{
+    userId
+  })
+}
 export {
   addProductToMongodb,
   getCartFromDatabase,
   removeCartProductFromDatabase,
   updateCartProductAmountFromDatabase,
+  clearCartFromDatabase
 };

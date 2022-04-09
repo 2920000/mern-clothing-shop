@@ -63,3 +63,6 @@ input.number-input{
 ::placeholder{
   font-size: 14px;
 }
+.swiper-horizontal>.swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal{
+  bottom: -5px;
+}

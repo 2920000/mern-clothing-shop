@@ -14,13 +14,13 @@ function FilterName({ title, name, filterToggle, setFilterToggle }) {
     setFilterToggle(!filterToggle);
   };
   return (
-    <div className="flex justify-between items-center ">
-      <h3 className="font-bold ">{title}</h3>
+    <div className="flex justify-between text-sm items-center  ">
+      <h3 className="font-bold  ">{title}</h3>
       <div
         onClick={() => {
           handleToggleOption(name);
         }}
-        className="text-sm cursor-pointer text-light_grey "
+        className="cursor-pointer text-light_grey "
       >
         {filterToggle ? <CgLoadbar /> : <HiPlusSm className="text-lg" />}
       </div>

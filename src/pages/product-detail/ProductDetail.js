@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import LeftProductDetail from "./LeftProductDetail";
-import RightProductDetail from "./RightProductDetail";
+import RightProductDetail from "./rightProductDetail/RightProductDetail";
 import Review from "./Review";
 import ProductDetailSkeleton from "../../components/skeleton1/ProductDetailSkeleton";
 import { useGetProductDetailQuery } from "../../services/detailProductApi";
@@ -13,7 +13,7 @@ function ProductDetail() {
     return <ProductDetailSkeleton />;
   }
   return (
-    <div className="max-w-[1350px] px-10 m-auto pt-[20px] ">
+    <div className="max-w-[1350px] px-2 lg:px-10 m-auto pt-[20px]">
       <p className="text-xs mb-5 ">
         <Link to="/">Trang chủ</Link>
         <span className="mx-2">
@@ -21,7 +21,7 @@ function ProductDetail() {
         </span>
         {data.title}
       </p>
-      <div className="flex relative  ">
+      <div  className="flex flex-col lg:flex-row relative  ">
         <LeftProductDetail productDetail={data} />
         <RightProductDetail productDetail={data} />
       </div>

@@ -20,7 +20,10 @@ const MainBlockFirst = () => {
     mainBlockFirstElement.style.transform = "translateY(0)";
   }, []);
   return (
-    <div ref={mainBlockFirstRef} className='opacity-0 transition-all duration-700 translate-y-[-60px]' >
+    <div
+      ref={mainBlockFirstRef}
+      className="opacity-0 transition-all duration-700 translate-y-[-60px]"
+    >
       <div>
         <Link to="/collection/mens-sale">
           <img
@@ -110,15 +113,17 @@ const MainBlockSecond = () => {
       <div className="text-center font-bold text-xl ">
         <div className=" inline py-2 px-5 border border-black">BỘ SƯU TẬP</div>
       </div>
-      <div className="flex w-full  mt-10 cursor-pointer ">
+      <div className=" grid grid-cols-2 lg:flex w-full mt-10 cursor-pointer ">
         {collection.map((e, index) => (
           <div key={index} className="relative">
             <img className="min-w-[100%]" src={e.image} alt="" />
-            <span className="absolute bottom-[100px] left-[15px]  text-white text-[24px] tracking-wider ">
-              {e.title}
-            </span>
-            <div className="absolute bottom-[20px] font-bold left-[15px] bg-black text-white py-2 px-6 cursor-pointer hover:bg-white hover:text-black transition-all duration-150 ">
-              MUA SẮM{" "}
+            <div className="absolute px-6 w-full bottom-10 lg:flex lg:flex-col lg:items-start">
+              <span className="block whitespace-nowrap mb-5 text-center lg:text-[24px] text-white  tracking-wider ">
+                {e.title}
+              </span>
+              <div className="w-full font-semibold lg:font-bold text-[14px] py-0.5 text-center lg:max-w-[130px] lg:min-h-[40px] lg:flex lg:items-center lg:justify-center bg-black text-white cursor-pointer hover:bg-white hover:text-black transition-all duration-150 ">
+                MUA SẮM{" "}
+              </div>
             </div>
           </div>
         ))}

@@ -10,11 +10,13 @@ import { convertToPrice } from "../../helper/converToPrice";
 const SidebarHeaderCart = () => {
   const dispatch = useDispatch();
   const allCartProducts = useSelector(allCartProductsSelector);
+
   const [amount, setAmount] = useState();
 
   useEffect(() => {
+    if(!allCartProducts){return}
     let amount = 0;
-    for (let i = 0; i < allCartProducts?.length; i++) {
+    for (let i = 0; i < allCartProducts.length; i++) {
       amount = Number(amount) + Number(allCartProducts[i]?.amount);
     }
     setAmount(amount);

@@ -2,14 +2,17 @@ import { useEffect, useState } from "react";
 import { BsCart3 } from "react-icons/bs";
 import { IoIosSearch } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import {
   allCartProductsSelector,
   OPEN_CART_SIDEBAR,
 } from "../../features/cartSlice";
 import SidebarCart from "../Cart/SidebarCart";
+import ErrorBoundary from "../error-boundary/ErrorBoundary";
 
 const HeaderIconRight = ({ setSearch, setBackgroundHeader }) => {
   const dispatch = useDispatch();
+  const path=useLocation().pathname
   const [amount, setAmount] = useState();
   const allCartProducts = useSelector(allCartProductsSelector);
 
@@ -30,6 +33,10 @@ const HeaderIconRight = ({ setSearch, setBackgroundHeader }) => {
     setSearch(false);
     setBackgroundHeader(true);
   };
+  
+  if (path === "/checkout") {
+    return <></>;
+  }
   return (
     <div className="flex grow justify-end items-center max-w-[33.33%]">
       <IoIosSearch
@@ -47,7 +54,9 @@ const HeaderIconRight = ({ setSearch, setBackgroundHeader }) => {
           </div>
         </div>
       </div>
-      <SidebarCart />
+      <ErrorBoundary>
+        <SidebarCart />
+      </ErrorBoundary>
     </div>
   );
 };

@@ -3,7 +3,7 @@ import { IoIosClose } from "react-icons/io";
 import SuggestBox from './SuggestBox'
 import Input from "./Input";
 import useClickOutside from "../../hooks/useClickOutside";
-function Search({ setSearch, setBackgroundHeader }) {
+function Search({ setSearch }) {
   const [input, setInput] = useState("");
   const [openSuggestionBox, setOpenSuggestionBox] = useState(false);
 
@@ -25,7 +25,6 @@ function Search({ setSearch, setBackgroundHeader }) {
 
   const handleOffSearch = () => {
     setSearch(true);
-    setBackgroundHeader(false);
   };
 
   useEffect(() => {

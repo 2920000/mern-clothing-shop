@@ -17,6 +17,7 @@ import {
   removeLocalStorage,
 } from "../../helper/localStoragefunction";
 import { addProductToMongodb } from "../../api/cartApi";
+import ErrorBoundary from "../error-boundary/ErrorBoundary";
 
 const SidebarCart = () => {
   const dispatch = useDispatch();
@@ -30,13 +31,13 @@ const SidebarCart = () => {
 
   useEffect(() => {
     return () => dispatch(OPEN_CART_SIDEBAR(false));
-  },[]);
-  
+  }, []);
+
   const cartFromLocal = getLocalStorage("cart");
 
   useEffect(() => {
     // sai , khi register thành công ,sẽ có user và cart from local nên sẽ bị add 2 lần
-    if (!cartFromLocal||!user) {
+    if (!cartFromLocal || !user) {
       return;
     }
     const userId = user._id;
@@ -87,7 +88,11 @@ const SidebarBodyCart = () => {
   }, [user]);
 
   if (allCartProducts) {
-    return <CartData />;
+    return (
+      <ErrorBoundary>
+        <CartData />
+      </ErrorBoundary>
+    );
   }
   return <EmptyCart />;
 };

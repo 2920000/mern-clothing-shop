@@ -25,7 +25,7 @@ const Filter = ({ title, selection, name }) => {
 
   return (
     <div
-      className={`py-4 ${
+      className={`py-4 ${name==='brand'?'pt-0':''} ${
         name !== "pricess" && "border-b border-border_bottom_filter"
       }`}
     >

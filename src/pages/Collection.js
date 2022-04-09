@@ -5,9 +5,10 @@ import { useParams } from "react-router-dom";
 import convertToVietnamese from "../helper/convertToVietnamese";
 import SortOption from "../components/GridProduct/SortOption";
 import IndexFilter from "../components/filterProduct/IndexFilter";
+import ErrorBoundary from "../components/error-boundary/ErrorBoundary";
 function Collection() {
   const { collection } = useParams();
-  window.scrollTo(0,0);
+  window.scrollTo(0, 0);
   return (
     <>
       <div className="pt-10 ">
@@ -16,15 +17,17 @@ function Collection() {
             Trang chủ
           </Link>
           <span className="mr-2">/</span>
-          <span >{convertToVietnamese(collection)}</span>
+          <span>{convertToVietnamese(collection)}</span>
         </div>
         <div className="block w-full text-right pr-[20px] lg:pr-[72px] mb-2 ">
           <SortOption />
         </div>
       </div>
       <div className="flex pb-10 mx-4 mder:mx-10">
-        <IndexFilter />
-        <GridProducts />
+        <ErrorBoundary>
+          <IndexFilter />
+          <GridProducts />
+        </ErrorBoundary>
       </div>
     </>
   );
