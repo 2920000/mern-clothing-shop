@@ -18,6 +18,7 @@ function Purchase() {
   }
   // let newData=[...data]
   // newData=newData.sort((a,b) => Date.parse(b.date) - Date.parse(a.date))
+  console.log(data)
   return (
     <div>
       {data.map((order) => (

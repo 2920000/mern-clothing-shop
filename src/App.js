@@ -1,17 +1,17 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
-import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
-import Navigation from "./components/navigation/Navigation";
-import AnnouncemetBar from "./components/announcement-bar/AnnouncemetBar";
-import Collection from "./pages/Collection";
-import ProductDetail from "./pages/product-detail/ProductDetail";
-import Account from "./pages/account/Account";
-import NotFoundPage from "./pages/NotFoundPage";
-import CheckoutPage from "./pages/checkout/CheckoutPage";
-import User from "./pages/user/User";
-import Profile from "./pages/user/Profile";
-import Purchase from "./pages/user/Purchase";
+import { AnnouncemetBar, Header, Navigation } from "./components";
+import {
+  Account,
+  CheckoutPage,
+  Collection,
+  Home,
+  NotFoundPage,
+  ProductDetail,
+  Profile,
+  Purchase,
+  User,
+} from "./pages";
 function App() {
   return (
     <div>

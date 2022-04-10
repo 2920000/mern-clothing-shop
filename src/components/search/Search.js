@@ -1,9 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { IoIosClose } from "react-icons/io";
-import SuggestBox from './SuggestBox'
-import Input from "./Input";
+import { useDispatch } from "react-redux";
+import { openSearchHeader } from "../../helper";
 import useClickOutside from "../../hooks/useClickOutside";
-function Search({ setSearch }) {
+import SearchInput from "./search-input";
+import SuggestBox from "./suggest-box";
+function Search() {
+  const dispatch = useDispatch();
   const [input, setInput] = useState("");
   const [openSuggestionBox, setOpenSuggestionBox] = useState(false);
 
@@ -23,10 +26,6 @@ function Search({ setSearch }) {
     openSuggestionBox,
   };
 
-  const handleOffSearch = () => {
-    setSearch(true);
-  };
-
   useEffect(() => {
     return () => setOpenSuggestionBox(false);
   }, []);
@@ -34,11 +33,11 @@ function Search({ setSearch }) {
   return (
     <div className="flex items-center justify-center w-full ">
       <IoIosClose
-        onClick={handleOffSearch}
+        onClick={() => openSearchHeader(false, dispatch)}
         className="text-white text-3xl mr-2  cursor-pointer"
       />
       <div ref={boxRef} className="min-w-[580px] relative h-full">
-        <Input {...inputProps} />
+        <SearchInput {...inputProps} />
         <SuggestBox {...suggestBoxProps} />
       </div>
     </div>

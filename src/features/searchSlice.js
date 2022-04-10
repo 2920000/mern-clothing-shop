@@ -12,6 +12,7 @@ const initialState = {
   preProductsBySearch: [],
   loading: false,
   currentProductsSearch: [],
+  isOpen:false
 };
 const searchSlice = createSlice({
   name: "search",
@@ -24,6 +25,9 @@ const searchSlice = createSlice({
     FINDING_PRODUCT: (state, action) => {
       state.loading = action.payload;
     },
+    SET_SEARCH_HEADER:(state,action)=>{
+      state.isOpen=action.payload
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(fetchProductsBySearch.fulfilled, (state, action) => {
@@ -51,6 +55,7 @@ export const preProductsBySearchSelector = (state) =>
 export const currentProductsBySearchSelector = (state) =>
   state.search.currentProductsSearch;
 export const loadingSelector = (state) => state.search.loading;
-export const { GET_CURRENT_SEARCH_PRODUCTS, FINDING_PRODUCT } =
+export const isOpenSelector=(state)=>state.search.isOpen
+export const { GET_CURRENT_SEARCH_PRODUCTS, FINDING_PRODUCT,SET_SEARCH_HEADER } =
   searchSlice.actions;
 export default searchSlice.reducer;

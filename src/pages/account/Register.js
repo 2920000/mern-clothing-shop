@@ -12,6 +12,7 @@ function Register() {
   const successBoxRef=useRef()
   const user = useSelector(userSelector);
   const load = useSelector(loadSelector);
+  
   useEffect(()=>{
     const payload={
       userId:user?._id,

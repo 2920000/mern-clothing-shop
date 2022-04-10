@@ -2,27 +2,16 @@ import React, { useEffect, useRef } from "react";
 import ReactDom from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  allCartProductsSelector,
-  fetchCartDataFromDatabase,
   isOpenCartSidebarSelector,
   OPEN_CART_SIDEBAR,
 } from "../../features/cartSlice";
 import useClickOutside from "../../hooks/useClickOutside";
-import CartData from "./CartData";
+import SidebarBodyCart from "./sidebar-body";
 import SidebarHeaderCart from "./SidebarHeaderCart";
-import EmptyCart from "./EmptyCart";
-import { userSelector } from "../../features/accountSlice";
-import {
-  getLocalStorage,
-  removeLocalStorage,
-} from "../../helper/localStoragefunction";
-import { addProductToMongodb } from "../../api/cartApi";
-import ErrorBoundary from "../error-boundary/ErrorBoundary";
 
 const SidebarCart = () => {
   const dispatch = useDispatch();
   const isOpen = useSelector(isOpenCartSidebarSelector);
-  const user = useSelector(userSelector);
   const cartSidebarRef = useRef();
 
   useClickOutside(cartSidebarRef, () => {
@@ -33,27 +22,6 @@ const SidebarCart = () => {
     return () => dispatch(OPEN_CART_SIDEBAR(false));
   }, []);
 
-  const cartFromLocal = getLocalStorage("cart");
-
-  useEffect(() => {
-    // sai , khi register thành công ,sẽ có user và cart from local nên sẽ bị add 2 lần
-    if (!cartFromLocal || !user) {
-      return;
-    }
-    const userId = user._id;
-    const payload = {
-      userId,
-      cartDataFromLocal: cartFromLocal,
-    };
-    const addProductToDatabase = async () => {
-      const res = await addProductToMongodb(payload);
-      if (res) {
-        removeLocalStorage("cart");
-        dispatch(fetchCartDataFromDatabase(userId));
-      }
-    };
-    addProductToDatabase();
-  }, [user]);
   return ReactDom.createPortal(
     <div
       style={!isOpen ? { right: "100%", opacity: "0" } : { opacity: "1" }}
@@ -74,25 +42,3 @@ const SidebarCart = () => {
 };
 
 export default SidebarCart;
-
-const SidebarBodyCart = () => {
-  const dispatch = useDispatch();
-  const allCartProducts = useSelector(allCartProductsSelector);
-  const user = useSelector(userSelector);
-
-  useEffect(() => {
-    if (user) {
-      const userId = user._id;
-      dispatch(fetchCartDataFromDatabase(userId));
-    }
-  }, [user]);
-
-  if (allCartProducts) {
-    return (
-      <ErrorBoundary>
-        <CartData />
-      </ErrorBoundary>
-    );
-  }
-  return <EmptyCart />;
-};

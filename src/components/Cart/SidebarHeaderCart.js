@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
+import { convertToPrice } from "../../helper/converToPrice";
 import {
   allCartProductsSelector,
   OPEN_CART_SIDEBAR,
 } from "../../features/cartSlice";
-import { convertToPrice } from "../../helper/converToPrice";
 
 const SidebarHeaderCart = () => {
   const dispatch = useDispatch();

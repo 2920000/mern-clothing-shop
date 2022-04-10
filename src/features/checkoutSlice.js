@@ -28,12 +28,15 @@ const checkoutSlice = createSlice({
     SET_ORDER_STATUS: (state, action) => {
       state.orderStatus = action.payload;
     },
+    SET_LOADING: (state, action) => {
+      state.isOrder = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(addOrdersToDatabase.pending, (state) => {
       state.isOrder = true;
     });
-    builder.addCase(addOrdersToDatabase.fulfilled, (state, action) => {
+    builder.addCase(addOrdersToDatabase.fulfilled, (state) => {
       state.orderStatus = true;
       state.isOrder = false;
     });
@@ -43,5 +46,5 @@ export const orderStatusSelector = (state) => state.checkout.orderStatus;
 export const isOrderSelector = (state) => state.checkout.isOrder;
 export const ordersSelector = (state) => state.checkout.orders;
 export const shippingFeeSelector = (state) => state.checkout.shippingFee;
-export const { SET_SHIPPING_FEE, SET_ORDER_STATUS } = checkoutSlice.actions;
+export const { SET_SHIPPING_FEE, SET_ORDER_STATUS,SET_LOADING } = checkoutSlice.actions;
 export default checkoutSlice.reducer;

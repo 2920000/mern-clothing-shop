@@ -14,8 +14,8 @@ const ShippingMethod = () => {
       price: 10000,
     });
     const methodListWrapperRef = useRef();
+    
     useEffect(() => {
-      console.log("run");
       dispatch(SET_SHIPPING_FEE(method.price));
     }, [method.price]);
   
@@ -30,12 +30,12 @@ const ShippingMethod = () => {
     const handleOpenSelectShippingMethod = () => {
       const iconElement = qs("#icon");
       if (open) {
-        setOpen(false);
         iconElement.style.transform = "rotate(0deg)";
       } else {
-        setOpen(true);
         iconElement.style.transform = "rotate(180deg)";
       }
+      setOpen(!open);
+
     };
     return (
       <div className="flex  gap-x-5  bg-white border-t border-border py-5 px-8">

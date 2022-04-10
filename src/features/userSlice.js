@@ -10,11 +10,11 @@ export const fetchShippingInfor = createAsyncThunk(
 );
 export const updateShippingInforToDatabase = createAsyncThunk(
   "user/updateShippingInfor",
-  async (payload,thunkApi) => {
+  async (payload, thunkApi) => {
     const response = await updateShippingInfor({ ...payload });
-   if( response.status===200){
-      thunkApi.dispatch(fetchShippingInfor(payload.userId))
-   }
+    if (response.status === 200) {
+      thunkApi.dispatch(fetchShippingInfor(payload.userId));
+    }
     return response.data;
   }
 );
@@ -31,9 +31,12 @@ const userSlice = createSlice({
     builder.addCase(updateShippingInforToDatabase.pending, (state, action) => {
       state.isUpdateShippingInfor = true;
     });
-    builder.addCase(updateShippingInforToDatabase.fulfilled, (state, action) => {
-      state.isUpdateShippingInfor = false;
-    });
+    builder.addCase(
+      updateShippingInforToDatabase.fulfilled,
+      (state, action) => {
+        state.isUpdateShippingInfor = false;
+      }
+    );
     builder.addCase(fetchShippingInfor.fulfilled, (state, action) => {
       state.shippingInfor = action.payload;
       if (Object.keys(action.payload).length === 1) {

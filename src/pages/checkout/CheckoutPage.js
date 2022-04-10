@@ -19,6 +19,7 @@ import ErrorBoundary from "../../components/error-boundary/ErrorBoundary";
 import Address from "./Address";
 import ShippingMethod from "./ShippingMethod";
 import Payment from "./Payment";
+import IsOrderingLoading from "../../components/loading/IsOrderingLoading";
 function CheckoutPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -50,6 +51,9 @@ function CheckoutPage() {
   if (isError) {
     return <>Something wrong</>;
   }
+  if (!data) {
+    return <>Bị lỗi</>;
+  }
   return (
     <div className="bg-[#f5f5f5] overflow-auto min-h-screen w-full h-full">
       <div className="max-w-[1200px] m-auto">
@@ -61,7 +65,7 @@ function CheckoutPage() {
         </ErrorBoundary>
       </div>
       {shouldUpdateShippingInfor && <ShippingInforModal />}
-      {isOrder && <Loading />}
+      {isOrder && <IsOrderingLoading/>}
     </div>
   );
 }

@@ -1,11 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
-import { moneyTotal } from "../../components/Cart/CartData";
 import { userSelector } from "../../features/accountSlice";
 import {
   addOrdersToDatabase,
+  SET_LOADING,
   shippingFeeSelector,
 } from "../../features/checkoutSlice";
 import { convertToPrice } from "../../helper/converToPrice";
+import { moneyTotal } from "../../helper/moneyTotal";
 
 const Payment = ({ cartProducts }) => {
   const dispatch = useDispatch();
@@ -32,8 +33,12 @@ const Payment = ({ cartProducts }) => {
       userId: user._id,
       orders: cartProducts,
     };
-    dispatch(addOrdersToDatabase(payload));
+    dispatch(SET_LOADING(true));
+    setTimeout(() => {
+      dispatch(addOrdersToDatabase(payload));
+    },1500);
   };
+  
   return (
     <div className="flex flex-col items-end mt-5 mb-16 bg-white">
       <div className="flex flex-col gap-y-3 m-6">

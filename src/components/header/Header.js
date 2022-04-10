@@ -1,75 +1,50 @@
-import React, { useEffect, useState } from "react";
-import image from "../../logo.png";
-import HeaderIconRight from "./HeaderIconRight";
-import {
-  addLocalStorage,
-  getLocalStorage,
-} from "../../helper/localStoragefunction";
-import Search from "../search/Search";
-import NeedsClick from "../../modal/NeedsClick";
 import { Link, useLocation } from "react-router-dom";
-import HeaderIconLeft from "./HeaderLeft.js/HeaderIconLeft";
+import Search from "../search/Search";
+import image from "../../logo.png";
+import { useSelector } from "react-redux";
+import { isOpenSelector } from "../../features/searchSlice";
+import HeaderLeft from "./HeaderLeft.js/HeaderLeft";
+import HeaderRight from "./HeaderRight";
+
 function Header() {
-  const [search, setSearch] = useState(true);
-  const [discountForm, setDiscountForm] = useState(false);
-
-  const needsclickProps = {
-    discountForm,
-    setDiscountForm,
-  };
-
-  const headerContentProps = {
-    search,
-    setSearch,
-  };
-  useEffect(() => {
-    const allowPopUp = getLocalStorage("discountForm");
-    if (!allowPopUp) {
-      setTimeout(() => {
-        setDiscountForm(true);
-      }, 3000);
-      addLocalStorage("discountForm", true);
-    }
-  }, []);
-
+  return (
+    <MainHeader>
+      <HeaderContent />
+    </MainHeader>
+  );
+}
+const MainHeader = (props) => {
+  const isOpen = useSelector(isOpenSelector);
   return (
     <div
-      className={` relative  ${
-        !search
-          ? "bg-black border-t border-bt_header border-b-[1.5px] border-b-white "
-          : ""
-      } transition-all duration-150 shadow-md `}
+      style={isOpen ? { backgroundColor: "black" } : {}}
+      className={` relative border-b border-b-white border-t-[0.1px] border-t-light_grey transition-all duration-150 `}
     >
       <div
         className={`flex box-border max-w-[1272px]  mx-auto px-8 lg:px-2 h-[70px] lg:h-[90px] border-b border-black lg:border-0 items-center`}
       >
-        <HeaderContent {...headerContentProps} />
+        {props.children}
       </div>
-      {discountForm && <NeedsClick {...needsclickProps} />}
     </div>
   );
-}
-
-const HeaderContent = ({ search, setSearch, setBackgroundHeader }) => {
-  const props = {
-    setSearch,
-    setBackgroundHeader,
-  };
-  if (!search) {
-    return <Search {...props} />;
+};
+const HeaderContent = () => {
+  const isOpen = useSelector(isOpenSelector);
+  if (isOpen) {
+    return <Search />;
   }
   return (
     <>
-      <HeaderIconLeft {...props} />
-      <HeaderIconCenter />
-      <HeaderIconRight {...props} />
+      <HeaderLeft />
+      <HeaderCenter />
+      <HeaderRight />
     </>
   );
 };
 
 export default Header;
 
-const HeaderIconCenter = () => {
+const HeaderCenter = () => {
   const param = useLocation().pathname;
 
   return (
