@@ -4,9 +4,8 @@ import { collectionSelector, isLoadSelector } from "../../../features/collection
 import Filter from "./filter/Filter";
 import RefineBy from "./refineBy/RefineBy";
 
-function IndexFilter() {
+function ProductsFilter() {
   const products = useSelector(collectionSelector);
-  const isLoadCollection=useSelector(isLoadSelector)
   const size = ["L", "M", "S", "XL", "XXL", "XXXL"];
   const price = ["Dưới 600.000", "Từ 600.000 - 1.200.000", "Trên 1.200.000"];
 
@@ -32,9 +31,6 @@ function IndexFilter() {
       name: "pricess",
     },
   ];
- if(isLoadCollection){
-   return <></>
- }
   return (
     <div className="w-[30%] hidden mder:block mr-10">
       <RefineBy/>
@@ -50,4 +46,4 @@ function IndexFilter() {
   );
 }
 
-export default IndexFilter;
+export default ProductsFilter;

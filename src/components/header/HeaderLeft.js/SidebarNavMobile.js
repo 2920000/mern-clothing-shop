@@ -1,6 +1,11 @@
 import { useState } from "react";
-
-const HeaderSidebarNav = ({ resizeToggle }) => {
+import { RiMapPinUserLine } from "react-icons/ri";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { userSelector } from "../../../features/accountSlice";
+import { FiChevronDown } from "react-icons/fi";
+import { featureUserList } from "./HeaderLeft";
+const SidebarNavMobile = ({ resizeToggle }) => {
   return (
     <div
       id="sidebar-nav"
@@ -13,7 +18,7 @@ const HeaderSidebarNav = ({ resizeToggle }) => {
   );
 };
 
-export default HeaderSidebarNav;
+export default SidebarNavMobile;
 
 const HeaderSidebarNavParentsList = () => {
   const [active, setActive] = useState(0);
@@ -117,16 +122,55 @@ const HeaderSidebarNavChildList = ({ active, index, nav }) => {
       {nav.childTitle.map((navChild, index) => (
         <HeaderSidebarNavChildItem key={index} navChild={navChild} />
       ))}
+      <MobileUser />
     </div>
   );
 };
 
-const HeaderSidebarNavChildItem = ({navChild }) => {
+const HeaderSidebarNavChildItem = ({ navChild }) => {
   return (
     <p className="py-2">
-      <a className="block w-full" href={navChild.link}>
+      <Link className="flex items-center w-full" to={navChild.link}>
         {navChild.displayName}
-      </a>
+      </Link>
     </p>
+  );
+};
+
+const MobileUser = () => {
+  const user = useSelector(userSelector);
+  const [drop, setDrop] = useState(false);
+
+  const featureUser = featureUserList();
+  if (!user) {
+    return <div>Đăng nhập</div>;
+  }
+
+  return (
+    <div
+      className={`flex py-2 flex-col cursor-pointer relative justify-center `}
+    >
+      <div
+        onClick={() => setDrop(!drop)}
+        className="w-full flex justify-between"
+      >
+        Tài khoản
+        <FiChevronDown />
+      </div>
+      <div
+        style={drop ? { maxHeight: "200px", overflow: "hidden" } : {}}
+        className="flex flex-col overflow-hidden max-h-0  transition-[max-height] duration-300  top-full  "
+      >
+        <div className="ml-6">
+          <div className="flex items-center">
+            <RiMapPinUserLine className="text-lg mr-2" />
+            {user.username}
+          </div>
+          {featureUser.map((navChild) => (
+            <HeaderSidebarNavChildItem navChild={navChild} />
+          ))}
+        </div>
+      </div>
+    </div>
   );
 };

@@ -1,17 +1,21 @@
 import { MdOutlinePaid } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import { allCartProductsSelector, OPEN_CART_SIDEBAR } from "../../../../features/cartSlice";
-import {useNavigate} from 'react-router-dom'
+import {
+  allCartProductsSelector,
+  OPEN_CART_SIDEBAR,
+} from "../../../../features/cartSlice";
+import { useNavigate } from "react-router-dom";
 import { userSelector } from "../../../../features/accountSlice";
 import { moneyTotal } from "../../../../helper/moneyTotal";
 import ProductPrice from "./ProductPrice";
 import ProductName from "./ProductName";
 import ProductImage from "./ProductImage";
+import { convertToPrice } from "../../../../helper";
 
 const CartData = () => {
   return (
     <>
-      <CartProductsList /> 
+      <CartProductsList />
       <CartFooter />
     </>
   );
@@ -23,7 +27,11 @@ const CartProductsList = () => {
   return (
     <div className="border-y-[3px] border-border_bottom_filter pb-2">
       {allCartProducts?.map((product, index) => (
-        <CartProductItem product={product} index={index} allCartProducts={allCartProducts} />
+        <CartProductItem
+          product={product}
+          index={index}
+          allCartProducts={allCartProducts}
+        />
       ))}
     </div>
   );
@@ -62,7 +70,7 @@ const CartFooter = () => {
         <div className="flex justify-between py-7">
           <span className=" font-bold text-light_grey text-sm">Tổng tiền</span>
           <span className="font-bold text-light_grey text-sm">
-            {(moneyTotal(allCartProducts))} đ
+            {convertToPrice(moneyTotal(allCartProducts))} đ
           </span>
         </div>
 

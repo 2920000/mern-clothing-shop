@@ -10,6 +10,6 @@ export const moneyTotal = (allCartProducts) => {
       }
       return preValue + curProduct?.price * amount;
     }, initialValue);
-    return convertToPrice(total)
+    return (total)
   };
   

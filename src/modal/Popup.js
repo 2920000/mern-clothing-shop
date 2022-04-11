@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import useClickOutside from "../hooks/useClickOutside.js";
 import {
@@ -7,6 +7,7 @@ import {
 } from "../helper/localStoragefunction.js";
 import ReactDOM from "react-dom";
 import { qs } from "../helper/handleDOM.js";
+import useResizeObserver from "../hooks/useResizeObserver.js";
 
 const Popup = () => {
   const emailInputRef = useRef();
@@ -24,6 +25,7 @@ const Popup = () => {
     }, 500);
     setTransition(false);
     setIsObserver(false);
+    resizeObserver.disconnect();
   };
 
   useClickOutside(getDiscountBoxRef, () => {
@@ -51,28 +53,19 @@ const Popup = () => {
     }
   };
 
-  useEffect(() => {
-    if (!visible) {
-      return;
-    }
-    const body = qs("body");
-    const observer = new ResizeObserver((entries) => {
-      for (let entry of entries) {
-        const cr = entry.contentRect;
-        const subtract = (100 - (cr.width * 100) / 850) / 100;
-        if (window.innerWidth < 850) {
-          setScale(1 - subtract);
-        } else {
-          setScale(1);
-        }
-      }
-    });
-    if (!isObserver) {
-      observer.disconnect();
+  const bodyRef = useRef(qs("body"));
+  const callbackSaved = useCallback((entry) => {
+    const width = entry.contentRect.width;
+    const subtract = (100 - (width * 100) / 850) / 100;
+    if (window.innerWidth < 850) {
+      setScale(1 - subtract);
     } else {
-      observer.observe(body);
+      setScale(1);
     }
-  }, [visible, isObserver]);
+  }, []);
+
+  const { resizeObserver } = useResizeObserver(bodyRef, callbackSaved);
+
   useEffect(() => {
     visible && setTransition(true);
   }, [visible]);
@@ -95,7 +88,10 @@ const Popup = () => {
         ref={getDiscountBoxRef}
         className={` absolute opacity-0 translate-y-[100px] transition-all duration-700  `}
       >
-        <div style={{ transform: `scale(${scale})` }} className=" flex w-[800px] min-h-[400px] outline-dotted outline-[2px] outline-light_black bg-black" >
+        <div
+          style={{ transform: `scale(${scale})` }}
+          className=" flex w-[800px] min-h-[400px] outline-dotted outline-[2px] outline-light_black bg-black"
+        >
           <IoCloseCircleOutline
             onClick={handleClose}
             className="absolute right-2 text-white cursor-pointer top-2 text-[40px]"

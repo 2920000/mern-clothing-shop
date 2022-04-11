@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import useEventListener from "../../../hooks/useEventListener";
 import ProductSize from "./ProductSize";
 import ProductPrice from "./ProductPrice";
@@ -6,6 +6,8 @@ import ProductTitle from "./ProductTitle";
 import ProductPurchase from "./ProductPurchase";
 import ProductDescribe from "./ProductDescribe";
 import ProductPolicy from "./ProductPolicy";
+import useResizeObserver from "../../../hooks/useResizeObserver";
+import { qs } from "../../../helper/handleDOM";
 function RightProductDetail({ productDetail }) {
   const [productSize, setProductSize] = useState("S");
   const [styleDetailRight, setStyleDetailRight] = useState({});
@@ -19,7 +21,9 @@ function RightProductDetail({ productDetail }) {
     productSize,
     handleChangeSize,
   };
-  useEventListener("resize", () => {
+
+  const bodyRef = useRef(qs("body"));
+  const callbackSaved = useCallback((entry) => {
     if (window.innerWidth < 800) {
       setStyleDetailRight({});
       rightDetailInnerRef.current.style.width = `100%`;
@@ -27,7 +31,9 @@ function RightProductDetail({ productDetail }) {
     }
     const width = emptyRightRef.current.offsetWidth;
     rightDetailInnerRef.current.style.width = `${width}px`;
-  });
+  }, []);
+  useResizeObserver(bodyRef, callbackSaved);
+  
   useEventListener("scroll", () => {
     if (window.innerWidth < 800) {
       return;

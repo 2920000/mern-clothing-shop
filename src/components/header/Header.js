@@ -1,10 +1,10 @@
 import { Link, useLocation } from "react-router-dom";
-import Search from "../search/Search";
-import image from "../../logo.png";
-import { useSelector } from "react-redux";
 import { isOpenSelector } from "../../features/searchSlice";
+import { useSelector } from "react-redux";
 import HeaderLeft from "./HeaderLeft.js/HeaderLeft";
 import HeaderRight from "./HeaderRight";
+import Search from "../search/Search";
+import image from "../../logo.png";
 
 function Header() {
   return (

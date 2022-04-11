@@ -4,13 +4,13 @@ import { IoIosSearch } from "react-icons/io";
 import { IoClose } from "react-icons/io5";
 import { VscAccount } from "react-icons/vsc";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { userSelector } from "../../../features/accountSlice";
 import { removeLocalStorage } from "../../../helper/localStoragefunction";
 import { useLocation } from "react-router-dom";
 import useHover from "../../../hooks/useHover";
-import HeaderSidebarNav from "./HeaderSidebarNav";
 import { openSearchHeader } from "../../../helper";
+import SidebarNavMobile from "./SidebarNavMobile";
 
 const HeaderLeft = () => {
   const dispatch=useDispatch()
@@ -41,7 +41,7 @@ const HeaderLeft = () => {
         className="text-[2rem]  cursor-pointer hidden lg:block"
       />
       <MobileMenuToggleIcon />
-      <HeaderSidebarNav resizeToggle={resizeToggle} />
+      <SidebarNavMobile resizeToggle={resizeToggle} />
     </div>
   );
 };
@@ -55,9 +55,9 @@ const User = () => {
     return <UserExisting user={user} />;
   }
   return (
-    <a href="/account/login">
+    <Link to="/account/login">
       <VscAccount className="text-[1.75rem] font-thin mr-5 cursor-pointer hidden lg:block" />
-    </a>
+    </Link>
   );
 };
 const MobileMenuToggleIcon = () => {
@@ -109,19 +109,7 @@ const UserExisting = ({ user }) => {
   const userFeatureRef = useRef();
   const userExistingRef = useRef();
   const hovered = useHover(userExistingRef, userFeatureRef);
-  const featureUser = [
-    {
-      display: "Tài Khoản Của Tôi",
-      link: "user/profile",
-    },
-    {
-      display: "Đơn Mua",
-      link: "user/purchase",
-    },
-    {
-      display: "Đăng Xuất",
-    },
-  ];
+   const featureUser=featureUserList()
   const handleNavigate = (link) => {
     if (link) {
       navigate(link);
@@ -134,7 +122,7 @@ const UserExisting = ({ user }) => {
     <div className="relative">
       <div
         ref={userExistingRef}
-        className="flex items-center mr-5 text-sm cursor-pointer"
+        className="hidden md:flex items-center mr-5 text-sm cursor-pointer"
       >
         <img
           className="rounded-full w-8 mr-2"
@@ -145,7 +133,7 @@ const UserExisting = ({ user }) => {
         <ul
           style={hovered ? { display: "block" } : { display: "none" }}
           ref={userFeatureRef}
-          className={`absolute text-[0.95rem]  opacity-0 top-[calc(100%+8px)] left-[-12px] transition-opacity duration-150 shadow-lg bg-black z-30`}
+          className={`absolute text-[0.95rem] rounded-sm  opacity-0 top-[calc(100%+8px)] left-[-12px] transition-opacity duration-150 shadow-lg bg-black z-30`}
         >
           <span className="absolute w-8 h-5 bg-black z-[-1] rotate-45 top-[-1px] left-[16px] "></span>
           {featureUser.map((e, index) => (
@@ -153,10 +141,10 @@ const UserExisting = ({ user }) => {
               onClick={() => {
                 handleNavigate(e.link);
               }}
-              className="py-2.5 px-5 whitespace-nowrap z-20 text-white cursor-pointer hover:bg-light_grey"
+              className="py-2.5 px-4 text-sm whitespace-nowrap z-20 text-white cursor-pointer hover:bg-light_grey"
               key={index}
             >
-              {e.display}
+              {e.displayName}
             </li>
           ))}
         </ul>
@@ -164,3 +152,19 @@ const UserExisting = ({ user }) => {
     </div>
   );
 };
+export const featureUserList=()=>{
+  return   [
+    {
+      displayName: "Tài Khoản Của Tôi",
+      link: "user/profile",
+    },
+    {
+      displayName: "Đơn Mua",
+      link: "user/purchase",
+    },
+    {
+      displayName: "Đăng Xuất",
+      link:'/'
+    },
+  ];
+}

@@ -31,12 +31,12 @@ function Search() {
   }, []);
 
   return (
-    <div className="flex items-center justify-center w-full ">
+    <div className="flex items-center justify-center w-full">
       <IoIosClose
         onClick={() => openSearchHeader(false, dispatch)}
         className="text-white text-3xl mr-2  cursor-pointer"
       />
-      <div ref={boxRef} className="min-w-[580px] relative h-full">
+      <div ref={boxRef} className=" w-full max-w-[580px] flex relative h-full">
         <SearchInput {...inputProps} />
         <SuggestBox {...suggestBoxProps} />
       </div>

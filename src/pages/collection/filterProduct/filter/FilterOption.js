@@ -2,18 +2,16 @@ import { useNavigate, useParams } from "react-router-dom";
 import convertPriceFilter from "../../../../helper/convertPriceFilter";
 import convertToVietnamese from "../../../../helper/convertToVietnamese";
 
-function FilterOption({ name, filterToggle, selection }) {
+function FilterOption({ name, selection }) {
   return (
-    <div className={`overflow-auto ${filterToggle && "mt-4"}`}>
       <div
         id={name}
-        className="max-h-[200px]  opacity-100 transition-all duration-300  "
+        className="max-h-[200px] overflow-hidden  opacity-100 transition-all duration-300  "
       >
         {selection?.map((e, index) => (
           <SelectionItem key={index} e={e} name={name} index={index} />
         ))}
       </div>
-    </div>
   );
 }
 

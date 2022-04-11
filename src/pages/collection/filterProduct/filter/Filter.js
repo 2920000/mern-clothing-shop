@@ -1,20 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import FilterName from "./FilterName";
 import FilterOption from "./FilterOption";
 
 const Filter = ({ title, selection, name }) => {
-  const [filterToggle, setFilterToggle] = useState(true);
 
   const filterNameProps = {
     title,
     name,
-    setFilterToggle,
-    filterToggle,
   };
 
   const filterOptionProps = {
     name,
-    filterToggle,
     selection,
   };
 
@@ -25,7 +21,7 @@ const Filter = ({ title, selection, name }) => {
 
   return (
     <div
-      className={`py-4 ${name==='brand'?'pt-0':''} ${
+      className={`${
         name !== "pricess" && "border-b border-border_bottom_filter"
       }`}
     >

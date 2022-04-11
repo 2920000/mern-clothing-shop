@@ -1,2 +1,2 @@
-import HeaderIconLeft from "./HeaderIconLeft";
+import HeaderIconLeft from "./HeaderLeft";
 export default HeaderIconLeft

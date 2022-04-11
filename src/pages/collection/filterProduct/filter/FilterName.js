@@ -1,20 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { CgLoadbar } from "react-icons/cg";
 import { HiPlusSm } from "react-icons/hi";
-import { addClass, qs, removeClass } from "../../../../helper/handleDOM";
+import {qs } from "../../../../helper/handleDOM";
 
-function FilterName({ title, name, filterToggle, setFilterToggle }) {
+function FilterName({ title, name}) {
+  const [filterToggle, setFilterToggle] = useState(true);
   const handleToggleOption = (id) => {
     const elementOption = qs(`#${id}`)
     if (filterToggle) {
-     hideFilter(elementOption)
+      elementOption.style.maxHeight='0'
     } else {
-     showFilter(elementOption)
+      elementOption.style.maxHeight='200px'
     }
-    setFilterToggle(!filterToggle);
+    setFilterToggle(!filterToggle)
   };
   return (
-    <div className="flex justify-between text-sm items-center  ">
+    <div className={`flex justify-between text-sm items-center py-4 ${name==='brand'?'pt-0':''} `}>
       <h3 className="font-bold  ">{title}</h3>
       <div
         onClick={() => {
@@ -30,15 +31,3 @@ function FilterName({ title, name, filterToggle, setFilterToggle }) {
 
 export default FilterName;
 
-const hideFilter=(elementOption)=>{
-  addClass(elementOption, ["opacity-0", "translate-y-[-300px]", "max-h-0"]);
-  removeClass(elementOption, ["max-h-[200px]"]);
-}
-const showFilter=(elementOption)=>{
-  removeClass(elementOption, [
-    "opacity-0",
-    "translate-y-[-300px]",
-    "max-h-0",
-  ]);
-  addClass(elementOption, ["max-h-[200px]"]);
-}
