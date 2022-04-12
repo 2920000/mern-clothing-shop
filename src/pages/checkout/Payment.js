@@ -40,7 +40,7 @@ const Payment = ({ cartProducts }) => {
   };
   
   return (
-    <div className="flex flex-col items-end mt-5 mb-16 bg-white">
+    <div className="flex flex-col w-full px-2 items-end mt-5 mb-16 bg-white">
       <div className="flex flex-col gap-y-3 m-6">
         {inforPayment.map((infor, index) => (
           <div
@@ -54,10 +54,10 @@ const Payment = ({ cartProducts }) => {
           </div>
         ))}
       </div>
-      <div className="border-t w-full border-border">
+      <div className="w-full mder:m-6 border-border">
         <div
           onClick={handleOrder}
-          className="float-right flex justify-center items-center m-6 w-[200px] h-[40px] bg-black text-white cursor-pointer rounded-sm"
+          className="mder:float-right  flex justify-center items-center w-full mder:w-[200px] h-[40px] bg-black text-white cursor-pointer rounded-sm"
         >
           Đặt Hàng
         </div>

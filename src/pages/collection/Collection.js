@@ -19,7 +19,7 @@ function Collection() {
           <span className="mr-2">/</span>
           <span>{convertToVietnamese(collection)}</span>
         </div>
-        <div className="block w-full text-right pr-[20px] lg:pr-[72px] mb-2 ">
+        <div className="block w-full text-right pr-[25px] lg:pr-[72px] mb-2 ">
           <SortOption />
         </div>
       </div>

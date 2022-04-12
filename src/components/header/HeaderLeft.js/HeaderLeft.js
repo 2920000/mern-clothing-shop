@@ -122,7 +122,7 @@ const UserExisting = ({ user }) => {
     <div className="relative">
       <div
         ref={userExistingRef}
-        className="hidden md:flex items-center mr-5 text-sm cursor-pointer"
+        className="hidden lg:flex items-center mr-5 text-sm cursor-pointer"
       >
         <img
           className="rounded-full w-8 mr-2"

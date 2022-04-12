@@ -96,3 +96,10 @@ input.number-input{
     transform: rotate(1800deg);
   }
 }
+
+@media screen and (max-width:480px) {
+  html{
+    font-size: 0.9rem;
+  }
+  
+}

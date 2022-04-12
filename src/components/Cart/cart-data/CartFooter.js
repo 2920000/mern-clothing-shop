@@ -1,63 +1,13 @@
 import { MdOutlinePaid } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { userSelector } from "../../../features/accountSlice";
 import {
   allCartProductsSelector,
   OPEN_CART_SIDEBAR,
-} from "../../../../features/cartSlice";
-import { useNavigate } from "react-router-dom";
-import { userSelector } from "../../../../features/accountSlice";
-import { moneyTotal } from "../../../../helper/moneyTotal";
-import ProductPrice from "./ProductPrice";
-import ProductName from "./ProductName";
-import ProductImage from "./ProductImage";
-import { convertToPrice } from "../../../../helper";
-
-const CartData = () => {
-  return (
-    <>
-      <CartProductsList />
-      <CartFooter />
-    </>
-  );
-};
-export default CartData;
-
-const CartProductsList = () => {
-  const allCartProducts = useSelector(allCartProductsSelector);
-  return (
-    <div className="border-y-[3px] border-border_bottom_filter pb-2">
-      {allCartProducts?.map((product, index) => (
-        <CartProductItem
-          product={product}
-          index={index}
-          allCartProducts={allCartProducts}
-        />
-      ))}
-    </div>
-  );
-};
-const CartProductItem = ({ product, index, allCartProducts }) => {
-  const user = useSelector(userSelector);
-  const productPriceProps = {
-    allCartProducts,
-    user,
-  };
-  return (
-    <li
-      key={product?._id}
-      className="flex max-w-[90%] m-auto mt-2 border border-border_cart_color p-2"
-    >
-      <ProductImage product={product} />
-      <ProductName
-        product={product}
-        index={index}
-        user={user}
-        allCartProducts={allCartProducts}
-      />
-      <ProductPrice product={product} {...productPriceProps} />
-    </li>
-  );
-};
+} from "../../../features/cartSlice";
+import { convertToPrice } from "../../../helper/converToPrice";
+import { moneyTotal } from "../../../helper/moneyTotal";
 
 const CartFooter = () => {
   const dispatch = useDispatch();
@@ -102,3 +52,4 @@ const CartFooter = () => {
     </>
   );
 };
+export default CartFooter;

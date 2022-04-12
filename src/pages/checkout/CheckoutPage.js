@@ -14,7 +14,6 @@ import {
   SET_ORDER_STATUS,
 } from "../../features/checkoutSlice";
 import { useNavigate } from "react-router-dom";
-import Loading from "../../components/loading/Loading";
 import ErrorBoundary from "../../components/error-boundary/ErrorBoundary";
 import Address from "./Address";
 import ShippingMethod from "./ShippingMethod";
