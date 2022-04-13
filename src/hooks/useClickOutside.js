@@ -1,9 +1,11 @@
 import { useEffect } from "react";
+import { qs } from "../helper/handleDOM";
 
 const useClickOutside = async(ref, cb) => {
   useEffect(() => {
+  const html=qs('html')
     const event = window.addEventListener("mousedown", (event) => {
-      if (!ref.current || ref.current.contains(event.target)) return;
+      if (!ref.current ||event.target===html||ref.current.contains(event.target)) return;
       cb();
     });
     return () => {

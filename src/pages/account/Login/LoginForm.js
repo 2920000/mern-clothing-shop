@@ -1,27 +1,17 @@
 import { useEffect, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { addProductToMongodb } from "../../api/cartApi";
-import { FormGroup } from "../../components/form-group/FormGroup";
-import {
-  CLEAR_ERRORMESSAGE,
-  errorMessageSelector,
-  postAccount,
-  userSelector,
-} from "../../features/accountSlice";
-import { fetchCartDataFromDatabase } from "../../features/cartSlice";
-import {
-  addLocalStorage,
-  getLocalStorage,
-  removeLocalStorage,
-} from "../../helper/localStoragefunction";
-import validateForm from "../../helper/validateForm";
-import formProps from "./form-group/login";
+import { addProductToMongodb } from "../../../api/cartApi";
+import { FormGroup } from "../../../components/form-group/FormGroup";
+import { CLEAR_ERRORMESSAGE, errorMessageSelector, postAccount, userSelector } from "../../../features/accountSlice";
+import { fetchCartDataFromDatabase } from "../../../features/cartSlice";
+import { addLocalStorage, getLocalStorage, removeLocalStorage, validateForm } from "../../../helper";
+import formProps from "../form-group/login";
+
 
 const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { option } = useParams();
   const user = useSelector(userSelector);
   const errorMessage = useSelector(errorMessageSelector);
   const cartFromLocal = getLocalStorage("cart");
@@ -32,7 +22,7 @@ const LoginForm = () => {
     if (!isAllowLogin) {
       const values = validateForm.getAllValues();
       const payload = {
-        option: option,
+        option: 'login',
         data: values,
       };
       dispatch(postAccount(payload));

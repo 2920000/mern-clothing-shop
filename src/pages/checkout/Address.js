@@ -8,7 +8,7 @@ const Address = () => {
     return <>Bị lỗi</>
   }
   return (
-    <div className=" bg-white my-3 pt-6 pb-5 px-8 gap-2">
+    <div className=" bg-white my-3 pt-6 pb-5 px-2 md:px-8 gap-2">
       <div className="flex items-center text-xl mb-2">
         <MdOutlinePlace className="text-xl" /> Địa chỉ giao hàng
       </div>

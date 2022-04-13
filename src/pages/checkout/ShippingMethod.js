@@ -38,7 +38,7 @@ const ShippingMethod = () => {
 
     };
     return (
-      <div className="flex  gap-x-5  bg-white border-t border-border py-5 px-8">
+      <div className="flex  gap-x-5  bg-white border-t border-border py-5 px-2 md:px-8">
         <div>
           <p className="text-sm text-blue-600">Đơn vị vận chuyển</p>
           <div className="mt-2" ref={methodListWrapperRef}>

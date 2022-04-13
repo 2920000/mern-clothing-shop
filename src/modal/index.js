@@ -1,3 +1,4 @@
 import ShippingInforModal from "./ShippingInforModal";
 import Popup from "./Popup";
-export {Popup,ShippingInforModal}
+import RoomableImage from "./RoomableImage";
+export {Popup,ShippingInforModal,RoomableImage}

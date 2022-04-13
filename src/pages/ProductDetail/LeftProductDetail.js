@@ -73,25 +73,12 @@ function LeftProductDetail({ productDetail }) {
 export default LeftProductDetail;
 
 const ImageDetail = ({ img }) => {
+  const handleEnlarge=()=>{
+
+  }
   return (
-    <div className="min-w-full lg:min-w-0 lg:max-w-[calc(50%-16px)] lg:mr-2.5 mb-5">
-      <img className="w-full top-0 object-cover h-full" src={img} alt="" />
+    <div onClick={handleEnlarge} className="min-w-full lg:min-w-0 lg:max-w-[calc(50%-16px)] lg:mr-2.5 mb-5">
+      <img className="w-full cursor-pointer top-0 object-cover h-full" src={img} alt="" />
     </div>
   );
-};
-
-const fixedRightProductDetail = (allPictureRef, rightDetailInnnerElement) => {
-  const distanceLeftTop = allPictureRef.current.getBoundingClientRect().top;
-  const distanceLeftBottom =
-    allPictureRef.current.getBoundingClientRect().bottom;
-  const heightRight = rightDetailInnnerElement.getBoundingClientRect().height;
-  if (distanceLeftBottom <= heightRight) {
-    rightDetailInnnerElement.classList.remove("fixed", "top-[10px]");
-    rightDetailInnnerElement.classList.add("absolute", "bottom-0");
-  } else if (distanceLeftTop < 0 && distanceLeftBottom >= heightRight) {
-    rightDetailInnnerElement.classList.add("fixed", "top-[10px]");
-    rightDetailInnnerElement.classList.remove("absolute", "bottom-0");
-  } else if (distanceLeftTop > 0) {
-    rightDetailInnnerElement.classList.remove("fixed", "top-[10px]");
-  }
 };

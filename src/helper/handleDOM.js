@@ -21,5 +21,8 @@ const removeClass=(element,arrayClass)=>{
 const qs=(selector,parent=document)=>{
   return parent.querySelector(selector)
 }
+const qsa=(selector,parent=document)=>{
+  return [...parent.querySelectorAll(selector)]
+}
 
-export {qs,addClass,removeClass}
+export {qs,addClass,removeClass,qsa}

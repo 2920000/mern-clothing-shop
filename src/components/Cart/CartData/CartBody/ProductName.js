@@ -1,4 +1,4 @@
-import InputNumberBox from "../../../../pages/product-detail/InputNumberBox";
+import InputNumberBox from "../../../../pages/ProductDetail/InputNumberBox";
 
 const ProductName = ({ product, index, user, allCartProducts }) => {
     return (

@@ -14,11 +14,11 @@ import {
   SET_ORDER_STATUS,
 } from "../../features/checkoutSlice";
 import { useNavigate } from "react-router-dom";
-import ErrorBoundary from "../../components/error-boundary/ErrorBoundary";
 import Address from "./Address";
 import ShippingMethod from "./ShippingMethod";
 import Payment from "./Payment";
 import IsOrderingLoading from "../../components/loading/IsOrderingLoading";
+import ErrorBoundary from "../../components/ErrorBoundary";
 function CheckoutPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();

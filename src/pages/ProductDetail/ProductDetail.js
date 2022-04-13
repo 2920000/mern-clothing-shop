@@ -1,9 +1,10 @@
 import { Link, useParams } from "react-router-dom";
 import LeftProductDetail from "./LeftProductDetail";
-import RightProductDetail from "./rightProductDetail/RightProductDetail";
+import RightProductDetail from "./RightProductDetail/RightProductDetail";
 import Review from "./Review";
 import { useGetProductDetailQuery } from "../../services/detailProductApi";
 import ProductDetailSkeleton from "../../components/skeleton/ProductDetailSkeleton";
+import { RoomableImage } from "../../modal";
 function ProductDetail() {
   const { productId } = useParams();
   const {data,isLoading}=useGetProductDetailQuery(productId)

@@ -1,47 +1,39 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import {
-  collectionSelector,
-  isLoadSelector,
   fetchByCollection,
+  isLoadingSelector,
+  productsCollectionSelector,
 } from "../../../features/collectionSlice";
 import { useDispatch, useSelector } from "react-redux";
 import queryString from "query-string";
 import Pagination from "./Pagination";
 import ProductItem from "./ProductItem";
 import Skeleton from "../../../components/skeleton/Skeleton";
+import { qs } from "../../../helper/handleDOM";
 function GridProducts() {
-  const { collection } = useParams();
   const dispatch = useDispatch();
-  const productsSelector = useSelector(collectionSelector);
-  const isLoad = useSelector(isLoadSelector);
+  const { collection } = useParams();
+  const products = useSelector(productsCollectionSelector);
+  const isLoading = useSelector(isLoadingSelector);
+  const queryStr = useLocation().search;
+  const queryObject = queryString.parse(queryStr);
+  let page = queryObject.page || 1;
 
-  const queryUrl = useLocation().search.slice(1);
-  const queryObject = queryString.parse(queryUrl);
-  const currentPageNumber = queryObject.page;
-
-  let page = currentPageNumber || 1;
-
+  const gridRef = useRef();
   const payload = {
-    params: {
-      collection
+    pathParams: {
+      collection,
     },
-    query: {
+    queryParams: {
       ...queryObject,
       page,
     },
   };
 
-  const paginationProps = {
-    payload,
-    collection,
-    queryUrl,
-    productsTotal: productsSelector.total,
-  };
-
   useEffect(() => {
     dispatch(fetchByCollection(payload));
-  }, [collection, queryUrl]);
+  }, [collection, queryStr]);
 
   useEffect(() => {
     return () => {
@@ -49,32 +41,35 @@ function GridProducts() {
     };
   }, []);
 
-  useEffect(()=>{
-    gridTransition(productsSelector)
-  })
+  // xem lại
+  const [style, setStyle] = useState({});
+  useEffect(
+    function () {
+      if (products.length === 0) {
+        return;
+      }
+      setStyle({ transform: "translateY(0)", opacity: "1" });
+      return () => {
+        setStyle({});
+      };
+    },
+    [products]
+  );
 
+  if (isLoading) {
+    return <Skeleton type="collection" number={6} />;
+  }
   return (
-    <div id="grid" className="flex translate-y-[-40px] opacity-0 transition-all duration-500 flex-wrap h-full justify-around lg:justify-start box-border w-full ">
-      {!isLoad ? (
-        <>
-          {productsSelector.pageArray?.map((product) => (
-            <ProductItem key={product._id} product={product} />
-          ))}
-          <Pagination {...paginationProps} />
-        </>
-      ) : (
-        <Skeleton type="collection" number={6} />
-      )}
+    <div
+      style={style}
+      className="flex translate-y-[-40px] opacity-0 transition-all duration-500 flex-wrap h-full justify-around lg:justify-start box-border w-full "
+    >
+      {products?.map((product) => (
+        <ProductItem key={product._id} product={product} />
+      ))}
+      <Pagination />
     </div>
   );
 }
 
 export default GridProducts;
-
-const gridTransition=(productsSelector)=>{
-  const ele=document.querySelector('#grid')
-  if(productsSelector.pageArray?.length>0){
-    ele.style.transform='translateY(0)'
-    ele.style.opacity='1'
-  }
-}

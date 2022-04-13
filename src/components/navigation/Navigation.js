@@ -24,10 +24,16 @@ const NavList = (props) => {
   return <ul className="flex flex-wrap justify-center">{props.children}</ul>;
 };
 const NavItem = ({ e }) => {
-  const navItemRef = useRef();
   const navBoxRef = useRef();
-  const hovered = useHover(navItemRef, navBoxRef);
- 
+  const mouseout = () => {
+    navBoxRef.current.style.opacity = "0";
+  };
+  const mouseover = () => {
+    setTimeout(() => {
+      navBoxRef.current.style.opacity = "1";
+    }, 0);
+  };
+  const [navItemRef,hovered] = useHover({animation:true,mouseout,mouseover});
   return (
     <li
       ref={navItemRef}

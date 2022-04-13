@@ -3,7 +3,7 @@ import { IoIosClose } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import { openSearchHeader } from "../../helper";
 import useClickOutside from "../../hooks/useClickOutside";
-import SearchInput from "./search-input";
+import SearchInput from "./SearchInput";
 import SuggestBox from "./suggest-box";
 function Search() {
   const dispatch = useDispatch();

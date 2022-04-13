@@ -103,3 +103,8 @@ input.number-input{
   }
   
 }
+
+.translate-transition{
+  transform: translateY(0);
+  opacity: 1;
+}

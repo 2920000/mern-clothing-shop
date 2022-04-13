@@ -1,10 +1,10 @@
 import {  useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { createUser } from "../../api/userApi";
-import Loading from "../../components/loading/Loading";
-import { loadSelector, userSelector } from "../../features/accountSlice";
-import validateForm from "../../helper/validateForm";
+import { createUser } from "../../../api/userApi";
+import Loading from "../../../components/loading/Loading";
+import { loadSelector, userSelector } from "../../../features/accountSlice";
+import validateForm from "../../../helper/validateForm";
 import RegisterForm from "./RegisterForm";
 
 function Register() {

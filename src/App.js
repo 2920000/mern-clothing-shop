@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Footer from "./components/footer/Footer";
-import { AnnouncemetBar, Header, Navigation } from "./components";
+import { AnnouncemetBar, Footer, Header, Navigation } from "./components";
 import {
   Account,
   CheckoutPage,
@@ -12,6 +11,8 @@ import {
   Purchase,
   User,
 } from "./pages";
+import Login from "./pages/Account/Login/Login";
+import Register from "./pages/Account/Register/Register";
 function App() {
   return (
     <div>
@@ -23,7 +24,10 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/collection/:collection" element={<Collection />} />
           <Route path="/products/:productId" element={<ProductDetail />} />
-          <Route path="/account/:option" element={<Account />} />
+          <Route path="/account" element={<Account />}>
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
+          </Route>
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/user" element={<User />}>

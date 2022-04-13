@@ -166,9 +166,9 @@ const MobileUser = () => {
             <RiMapPinUserLine className="text-lg mr-2" />
             {user.username}
           </div>
-          {featureUser.map((navChild) => (
+          {/* {featureUser.map((navChild) => (
             <HeaderSidebarNavChildItem navChild={navChild} />
-          ))}
+          ))} */}
         </div>
       </div>
     </div>

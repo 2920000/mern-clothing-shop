@@ -13,10 +13,9 @@ import { openSearchHeader } from "../../../helper";
 import SidebarNavMobile from "./SidebarNavMobile";
 
 const HeaderLeft = () => {
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
   const [resizeToggle, setResizeToggle] = useState(true);
   const path = useLocation().pathname;
-
 
   useEffect(() => {
     let event;
@@ -29,7 +28,7 @@ const HeaderLeft = () => {
     });
     return () => window.removeEventListener("resize", event);
   });
-  
+
   if (path === "/checkout") {
     return <></>;
   }
@@ -37,7 +36,7 @@ const HeaderLeft = () => {
     <div className=" flex grow items-center max-w-[33.33%]  ">
       <User />
       <IoIosSearch
-        onClick={()=>openSearchHeader(true,dispatch)}
+        onClick={() => openSearchHeader(true, dispatch)}
         className="text-[2rem]  cursor-pointer hidden lg:block"
       />
       <MobileMenuToggleIcon />
@@ -104,12 +103,19 @@ const MobileMenuToggleIcon = () => {
   );
 };
 
-const UserExisting = ({ user }) => {
+const UserExisting = () => {
   const navigate = useNavigate();
   const userFeatureRef = useRef();
-  const userExistingRef = useRef();
-  const hovered = useHover(userExistingRef, userFeatureRef);
-   const featureUser=featureUserList()
+  const mouseout = () => {
+    userFeatureRef.current.style.opacity = "0";
+  };
+  const mouseover = () => {
+    setTimeout(() => {
+      userFeatureRef.current.style.opacity = "1";
+    }, 0);
+  };
+  const [userExistingRef, hovered] = useHover({ animation: true,mouseout,mouseover });
+  const featureUser = featureUserList();
   const handleNavigate = (link) => {
     if (link) {
       navigate(link);
@@ -125,23 +131,22 @@ const UserExisting = ({ user }) => {
         className="hidden lg:flex items-center mr-5 text-sm cursor-pointer"
       >
         <img
-          className="rounded-full w-8 mr-2"
+          className="rounded-full w-8 "
           src="https://www.pngkey.com/png/detail/202-2024792_user-profile-icon-png-download-fa-user-circle.png"
           alt=""
         />
-        <span>{user.username}</span>
         <ul
           style={hovered ? { display: "block" } : { display: "none" }}
           ref={userFeatureRef}
-          className={`absolute text-[0.95rem] rounded-sm  opacity-0 top-[calc(100%+8px)] left-[-12px] transition-opacity duration-150 shadow-lg bg-black z-30`}
+          className={`absolute text-[0.95rem] rounded-sm  opacity-0 top-[calc(100%+8px)] left-[-12px] transition-opacity duration-150 shadow-[0px_2px_5px_1px_rgba(0,0,0,0.4)] bg-white z-30`}
         >
-          <span className="absolute w-8 h-5 bg-black z-[-1] rotate-45 top-[-1px] left-[16px] "></span>
+          <span className="absolute w-8 h-5 bg-white z-[-1] rotate-45 top-[-1px] left-[16px] "></span>
           {featureUser.map((e, index) => (
             <li
               onClick={() => {
                 handleNavigate(e.link);
               }}
-              className="py-2.5 px-4 text-sm whitespace-nowrap z-20 text-white cursor-pointer hover:bg-light_grey"
+              className="py-2.5 px-4 text-sm whitespace-nowrap z-20 text-light_black cursor-pointer hover:text-black"
               key={index}
             >
               {e.displayName}
@@ -152,8 +157,8 @@ const UserExisting = ({ user }) => {
     </div>
   );
 };
-export const featureUserList=()=>{
-  return   [
+export const featureUserList = () => {
+  return [
     {
       displayName: "Tài Khoản Của Tôi",
       link: "user/profile",
@@ -164,7 +169,6 @@ export const featureUserList=()=>{
     },
     {
       displayName: "Đăng Xuất",
-      link:'/'
     },
   ];
-}
+};

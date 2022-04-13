@@ -8,9 +8,9 @@ import {
   OPEN_CART_SIDEBAR,
 } from "../../features/cartSlice";
 import useClickOutside from "../../hooks/useClickOutside";
-import ErrorBoundary from "../error-boundary";
-import CartData from "./cart-data/CartData";
-import EmptyCart from "./empty-cart/EmptyCart";
+import ErrorBoundary from "../ErrorBoundary";
+import CartData from "./CartData/CartData";
+import EmptyCart from "./EmptyCart/EmptyCart";
 
 const SidebarCart = () => {
   const dispatch = useDispatch();

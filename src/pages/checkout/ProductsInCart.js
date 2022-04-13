@@ -3,7 +3,7 @@ import { convertToPrice } from "../../helper/converToPrice";
 
 function ProductsInCart({ cartProduct }) {
   return (
-    <div className="w-full bg-white py-5 mder:py-10 px-8">
+    <div className="w-full bg-white py-5 mder:py-10 px-2   md:px-8">
       <div className="hidden mder:flex font-medium mb-5">
         <h3 className="w-[60%] text-lg">Sản phẩm</h3>
         <div className="flex w-[40%] text-sm text-light_grey">

@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { loadSelector } from "../../features/accountSlice";
+import { loadSelector } from "../../../features/accountSlice";
+import Loading from "../../../components/loading/Loading";
 import LoginForm from "./LoginForm";
-import Loading from "../../components/loading/Loading";
 
 function Login() {
   const load = useSelector(loadSelector);

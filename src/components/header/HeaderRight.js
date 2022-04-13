@@ -9,7 +9,7 @@ import {
 } from "../../features/cartSlice";
 import { openSearchHeader } from "../../helper";
 import SidebarCart from "../Cart";
-import ErrorBoundary from "../error-boundary/ErrorBoundary";
+import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 
 const HeaderRight = () => {
   const dispatch=useDispatch()

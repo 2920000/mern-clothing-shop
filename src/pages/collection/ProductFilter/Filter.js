@@ -1,18 +1,19 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { collectionSelector, isLoadSelector } from "../../../features/collectionSlice";
+import {existingBrandSelector, existingColourSelector} from "../../../features/collectionSlice";
 import Filter from "./filter/Filter";
 import RefineBy from "./refineBy/RefineBy";
 
 function ProductsFilter() {
-  const products = useSelector(collectionSelector);
+  const existingBrand=useSelector(existingBrandSelector)
+  const existingColour=useSelector(existingColourSelector)
   const size = ["L", "M", "S", "XL", "XXL", "XXXL"];
   const price = ["Dưới 600.000", "Từ 600.000 - 1.200.000", "Trên 1.200.000"];
 
   const productFilter = [
     {
       title: "Thương hiệu",
-      selection: products.brandData,
+      selection: existingBrand,
       name: "brand",
     },
     {
@@ -22,7 +23,7 @@ function ProductsFilter() {
     },
     {
       title: "Màu sắc",
-      selection: products.colourData,
+      selection:existingColour,
       name: "color",
     },
     {

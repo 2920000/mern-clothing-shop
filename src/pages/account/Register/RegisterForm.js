@@ -1,10 +1,11 @@
 import { memo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { FormGroup } from "../../components/form-group/FormGroup";
-import { errorMessageSelector, postAccount } from "../../features/accountSlice";
-import validateForm from "../../helper/validateForm";
-import formProps from "./form-group/register";
+import { FormGroup } from "../../../components/form-group/FormGroup";
+import { errorMessageSelector, postAccount } from "../../../features/accountSlice";
+import { validateForm } from "../../../helper";
+import formProps from "../form-group/register";
+
 
 const RegisterForm = () => {
     const dispatch=useDispatch()

@@ -1,27 +1,16 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import GridProducts from "./GridProduct/GridProducts";
-import { useParams } from "react-router-dom";
-import convertToVietnamese from "../../helper/convertToVietnamese";
-import SortOption from "./GridProduct/SortOption";
-import ErrorBoundary from "../../components/error-boundary/ErrorBoundary";
-import ProductsFilter from "./filterProduct/Filter";
+import ProductsFilter from "./ProductFilter/Filter";
+import ErrorBoundary from "../../components/ErrorBoundary";
+import CollectionHeader from "./CollectionHeader/CollectionHeader";
+import { FiChevronUp } from "react-icons/fi";
+import useEventListener from "../../hooks/useEventListener";
 function Collection() {
-  const { collection } = useParams();
   window.scrollTo(0, 0);
   return (
     <>
       <div className="pt-10 ">
-        <div className=" text-xs mb-2 mx-4 mder:mx-10">
-          <Link to="/" className="mr-2">
-            Trang chủ
-          </Link>
-          <span className="mr-2">/</span>
-          <span>{convertToVietnamese(collection)}</span>
-        </div>
-        <div className="block w-full text-right pr-[25px] lg:pr-[72px] mb-2 ">
-          <SortOption />
-        </div>
+        <CollectionHeader />
       </div>
       <div className="flex pb-10 mx-4 mder:mx-10">
         <ErrorBoundary>
@@ -29,8 +18,27 @@ function Collection() {
           <GridProducts />
         </ErrorBoundary>
       </div>
+      <BackToTop />
     </>
   );
 }
 
+const BackToTop = () => {
+  const [show, setShow] = useState(false);
+  useEventListener("scroll", () => {
+    if (window.scrollY > 100) {
+      setShow(true);
+    } else {
+      setShow(false);
+    }
+  });
+  if(!show){
+    return <></>
+  }
+  return (
+    <div onClick={()=>window.scrollTo({behavior:'smooth',top:0})} className="fixed flex cursor-pointer items-center justify-center w-12 h-12 bg-black bottom-20 right-7">
+      <FiChevronUp className="text-white text-2xl" />
+    </div>
+  );
+};
 export default Collection;

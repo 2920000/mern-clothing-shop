@@ -1,15 +1,10 @@
 import React from "react";
-import Login from "./Login";
-import {useParams} from 'react-router-dom'
-import Register from "./Register";
+import { Outlet } from "react-router-dom";
 function Account() {
-  const {option}=useParams()
-  
   return (
     <div className="border-b ">
       <div className="max-w-[1200px] m-auto">
-        {option==='login'&&<Login />}
-        {option==='register'&&<Register/>}
+        <Outlet />
       </div>
     </div>
   );

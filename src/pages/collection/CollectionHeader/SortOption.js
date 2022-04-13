@@ -32,6 +32,7 @@ function SortOption() {
 
   useEffect(() => {
     const inputFilterElement = document.querySelector("#filter-input");
+    if(!boxOptionRef.current){return}
     window.addEventListener("mousedown", (event) => {
       if (inputFilterElement !== document.activeElement) {
         boxOptionRef.current.classList.add("open");
@@ -80,37 +81,39 @@ function SortOption() {
   };
   return (
     <div>
-      <span ref={sortByWrapperRef} className={`inline-block relative `}>
-        <input
-          onChange={(e) => setInput(e.target.value)}
-          id="filter-input"
-          type="text"
-          placeholder="Sắp xếp theo"
-          className=" filter-input outline-none border border-[#efefef] placeholder:text-light_black text-sm cursor-pointer w-[220px] h-[54px] pl-4"
-        />
-        <ul
-          ref={boxOptionRef}
-          id="filter-list"
-          className={`absolute top-[calc(100%)] text-light_black max-h-0 overflow-hidden transition-all duration-300  shadow-lg text-sm z-30 w-full  bg-white text-left left-0`}
-        >
-          {optionFilter
-            .filter((option) => option.displayName.includes(input))
-            .map((item, index) => (
-              <li
-                onClick={(e) => {
-                  handleFilter(item.value, e);
-                }}
-                className="list-none pl-4 py-2 cursor-pointer"
-                key={index}
-              >
-                {item.displayName}
-              </li>
-            ))}
-        </ul>
-        <span className="absolute  right-3 top-1/2 translate-y-[-50%] ">
-          <IoIosArrowDown />
-        </span>
-      </span>
+      <div ref={sortByWrapperRef} className={`flex justify-end w-full relative `}>
+        <div className=" relative max-w-[220px]  ">
+          <input
+            onChange={(e) => setInput(e.target.value)}
+            id="filter-input"
+            type="text"
+            placeholder="Sắp xếp theo"
+            className=" filter-input outline-none border border-[#efefef] placeholder:text-light_black text-sm cursor-pointer  h-[54px] pl-4"
+          />
+          <ul
+            ref={boxOptionRef}
+            id="filter-list"
+            className={`absolute top-[calc(100%)] text-light_black max-h-0 overflow-hidden transition-all duration-300  shadow-lg text-sm z-30 w-full  bg-white text-left left-0`}
+          >
+            {optionFilter
+              .filter((option) => option.displayName.includes(input))
+              .map((item, index) => (
+                <li
+                  onClick={(e) => {
+                    handleFilter(item.value, e);
+                  }}
+                  className="list-none pl-4 py-2 cursor-pointer"
+                  key={index}
+                >
+                  {item.displayName}
+                </li>
+              ))}
+          </ul>
+          <span className="absolute  right-3 top-1/2 translate-y-[-50%] ">
+            <IoIosArrowDown />
+          </span>
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,20 +1,25 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-const useHover = (ref, ref2) => {
+const useHover = ({ animation, mouseover, mouseout }) => {
   const [hovered, setHovered] = useState(false);
   let timeoutOut;
+  const ref = useRef(null);
+
   const handleMouseOver = () => {
-    clearTimeout(timeoutOut);
+    animation && clearTimeout(timeoutOut);
     setHovered(true);
-    setTimeout(() => {
-      ref2.current && (ref2.current.style.opacity = "1");
-    }, 0);
+    mouseover && mouseover();
   };
   const handleMouseOut = () => {
-    timeoutOut = setTimeout(() => {
-      setHovered(false);
-    }, 150);
-    ref2.current && (ref2.current.style.opacity = "0");
+    if (animation) {
+      timeoutOut = setTimeout(() => {
+        setHovered(false);
+        mouseout && mouseout();
+      }, 150);
+      return;
+    }
+    setHovered(false);
+    mouseout && mouseout();
   };
   useEffect(() => {
     const node = ref.current;
@@ -25,7 +30,7 @@ const useHover = (ref, ref2) => {
       node.removeEventListener("mouseover", handleMouseOver);
       node.removeEventListener("mouseout", handleMouseOut);
     }
-  },[ref.current]);
-  return hovered;
+  }, [ref.current]);
+  return [ref, hovered];
 };
 export default useHover;
