@@ -6,14 +6,15 @@ import {
   shippingFeeSelector,
 } from "../../features/checkoutSlice";
 import { convertToPrice } from "../../helper/converToPrice";
-import { moneyTotal } from "../../helper/moneyTotal";
+import { calculateMoneyTotal} from "../../helper/calculateMoneyTotal";
 
 const Payment = ({ cartProducts }) => {
   const dispatch = useDispatch();
   const shippingFee = useSelector(shippingFeeSelector);
   const user = useSelector(userSelector);
-  const totalProductsMoney = moneyTotal(cartProducts);
-  const totalMoney = totalProductsMoney + shippingFee;
+  const totalProductsMoney = calculateMoneyTotal(cartProducts);
+  const moneyTotal = totalProductsMoney + shippingFee;
+
   const inforPayment = [
     {
       title: "Tổng tiền hàng",
@@ -25,9 +26,10 @@ const Payment = ({ cartProducts }) => {
     },
     {
       title: "Tổng thanh toán",
-      subInfor: totalMoney,
+      subInfor: moneyTotal,
     },
   ];
+
   const handleOrder = () => {
     const payload = {
       userId: user._id,

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { GoThreeBars } from "react-icons/go";
 import { IoIosSearch } from "react-icons/io";
 import { IoClose } from "react-icons/io5";
@@ -10,26 +10,23 @@ import { removeLocalStorage } from "../../../helper/localStoragefunction";
 import { useLocation } from "react-router-dom";
 import useHover from "../../../hooks/useHover";
 import { openSearchHeader } from "../../../helper";
-import SidebarNavMobile from "./SidebarNavMobile";
+import useEventListener from "../../../hooks/useEventListener";
+import SidebarMobileNav from "./SidebarMobileNav";
 
 const HeaderLeft = () => {
   const dispatch = useDispatch();
-  const [resizeToggle, setResizeToggle] = useState(true);
-  const path = useLocation().pathname;
+  const [toggleMobileNav, setToggleMobileNav] = useState(true);
+  const pathParms = useLocation().pathname;
 
-  useEffect(() => {
-    let event;
-    event = window.addEventListener("resize", (event) => {
-      if (event.target.innerWidth > 799) {
-        setResizeToggle(false);
-      } else {
-        setResizeToggle(true);
-      }
-    });
-    return () => window.removeEventListener("resize", event);
+  useEventListener("resize", (event) => {
+    if (event.target.innerWidth > 799) {
+      setToggleMobileNav(false);
+    } else {
+      setToggleMobileNav(true);
+    }
   });
 
-  if (path === "/checkout") {
+  if (pathParms === "/checkout") {
     return <></>;
   }
   return (
@@ -37,10 +34,10 @@ const HeaderLeft = () => {
       <User />
       <IoIosSearch
         onClick={() => openSearchHeader(true, dispatch)}
-        className="text-[2rem]  cursor-pointer hidden lg:block"
+        className="text-[2rem] cursor-pointer hidden lg:block"
       />
       <MobileMenuToggleIcon />
-      <SidebarNavMobile resizeToggle={resizeToggle} />
+      <SidebarMobileNav toggleMobileNav={toggleMobileNav} />
     </div>
   );
 };
@@ -114,7 +111,11 @@ const UserExisting = () => {
       userFeatureRef.current.style.opacity = "1";
     }, 0);
   };
-  const [userExistingRef, hovered] = useHover({ animation: true,mouseout,mouseover });
+  const [userExistingRef, hovered] = useHover({
+    animation: true,
+    mouseout,
+    mouseover,
+  });
   const featureUser = featureUserList();
   const handleNavigate = (link) => {
     if (link) {

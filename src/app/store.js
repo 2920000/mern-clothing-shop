@@ -8,6 +8,7 @@ import searchSlice from "../features/searchSlice";
 import userSlice from "../features/userSlice";
 import checkoutSlice from "../features/checkoutSlice";
 import { orderedApi } from "../services/orderedApi";
+import reviewSlice from "../features/reviewSlice";
 
 const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ const store = configureStore({
     account: accountSlice,
     user: userSlice,
     checkout: checkoutSlice,
+    review:reviewSlice
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

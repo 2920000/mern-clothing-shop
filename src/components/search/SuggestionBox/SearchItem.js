@@ -5,11 +5,15 @@ import {
 } from "../../../helper";
 
 const SearchItem = ({ product }) => {
-  const handleSaveCurrentSearch = (title) => {
-    const dataFromLocalStorage = getLocalStorage("currentSearch");
-    if (dataFromLocalStorage) {
-      const filterCurrentSearch = dataFromLocalStorage
-        .filter((e) => e !== title)
+  const handleSaveCurrentSearch = (productName) => {
+    const currentSearchFromLocalStorage = getLocalStorage("currentSearch");
+    const hasCurrentSearchFromLocalStorage = Boolean(
+      currentSearchFromLocalStorage
+    );
+
+    if (hasCurrentSearchFromLocalStorage) {
+      const filterCurrentSearch = currentSearchFromLocalStorage
+        .filter((e) => e !== productName)
         .splice(0, 2);
       addLocalStorage("currentSearch", [product.title, ...filterCurrentSearch]);
     } else {

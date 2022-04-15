@@ -1,6 +1,13 @@
-import { SET_SEARCH_HEADER } from "../features/searchSlice";
+import {
+  CLOSE_SEARCH_HEADER,
+  OPEN_SEARCH_HEADER,
+} from "../features/searchSlice";
 
-const openSearchHeader = (choice,dispatch) => {
-  dispatch(SET_SEARCH_HEADER(choice));
+const openSearchHeader = (choice, dispatch) => {
+  if (choice) {
+    dispatch(OPEN_SEARCH_HEADER(choice));
+    return;
+  }
+  dispatch(CLOSE_SEARCH_HEADER(choice));
 };
 export default openSearchHeader;

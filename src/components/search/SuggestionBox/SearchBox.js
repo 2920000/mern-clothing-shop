@@ -1,15 +1,15 @@
 import { IoIosArrowRoundForward } from "react-icons/io";
 import { useSelector } from "react-redux";
 import { ImSad2 } from "react-icons/im";
-import { currentProductsBySearchSelector, loadingSelector } from "../../../features/searchSlice";
+import { currentProductsBySearchSelector, isLoadingSelector } from "../../../features/searchSlice";
 import { SearchSkeleton } from "../../skeleton";
 import SearchItem from "./SearchItem";
 
-
 const SearchBox = () => {
   const currentProductsBySearch = useSelector(currentProductsBySearchSelector);
-  const isLoad = useSelector(loadingSelector);
-  if (isLoad) {
+  const isLoading = useSelector(isLoadingSelector);
+
+  if (isLoading) {
     return <SearchSkeleton/>;
   }
   if (currentProductsBySearch.length === 0) {

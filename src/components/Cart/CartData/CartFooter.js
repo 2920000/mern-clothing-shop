@@ -6,8 +6,8 @@ import {
   allCartProductsSelector,
   OPEN_CART_SIDEBAR,
 } from "../../../features/cartSlice";
+import { calculateMoneyTotal } from "../../../helper/calculateMoneyTotal";
 import { convertToPrice } from "../../../helper/converToPrice";
-import { moneyTotal } from "../../../helper/moneyTotal";
 
 const CartFooter = () => {
   const dispatch = useDispatch();
@@ -20,7 +20,7 @@ const CartFooter = () => {
         <div className="flex justify-between py-7">
           <span className=" font-bold text-light_grey text-sm">Tổng tiền</span>
           <span className="font-bold text-light_grey text-sm">
-            {convertToPrice(moneyTotal(allCartProducts))} đ
+            {convertToPrice(calculateMoneyTotal(allCartProducts))} đ
           </span>
         </div>
 

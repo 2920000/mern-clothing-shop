@@ -1,5 +1,5 @@
 import { addProductToMongodb } from "../api/cartApi";
-import { CHANGE_PRODUCTS_IN_CART, OPEN_CART_SIDEBAR } from "../features/cartSlice";
+import {OPEN_CART_SIDEBAR, UPDATE_PRODUCTS_IN_CART } from "../features/cartSlice";
 
 const addProductToDatabase = async(
   productDetail,
@@ -45,16 +45,16 @@ const addProductToDatabase = async(
     if (checkProductExist || !checkSizeExisting) {
      
       dispatch(
-        CHANGE_PRODUCTS_IN_CART(allProductsAfterAdded)
+        UPDATE_PRODUCTS_IN_CART(allProductsAfterAdded)
       );
     } else {
-      dispatch(CHANGE_PRODUCTS_IN_CART(newArray));
+      dispatch(UPDATE_PRODUCTS_IN_CART(newArray));
     }
   } else {
-    dispatch(CHANGE_PRODUCTS_IN_CART([productData]));
+    dispatch(UPDATE_PRODUCTS_IN_CART([productData]));
   }
 
-  dispatch(OPEN_CART_SIDEBAR(true))
+  dispatch(OPEN_CART_SIDEBAR())
 
 };
 export default addProductToDatabase;

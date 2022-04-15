@@ -1,9 +1,9 @@
-import { isOpenSelector } from "../../features/searchSlice";
 import { useSelector } from "react-redux";
 import HeaderLeft from "./HeaderLeft.js/HeaderLeft";
 import HeaderRight from "./HeaderRight";
 import Search from "../Search/Search";
 import HeaderCenter from "./HeaderCenter";
+import {isSearchHeaderOpeningSelector} from "../../features/searchSlice";
 
 function Header() {
   return (
@@ -13,10 +13,10 @@ function Header() {
   );
 }
 const MainHeader = (props) => {
-  const isOpen = useSelector(isOpenSelector);
+  const isSearchHeaderOpening = useSelector(isSearchHeaderOpeningSelector);
   return (
     <div
-      style={isOpen ? { backgroundColor: "black" } : {}}
+      style={isSearchHeaderOpening ? { backgroundColor: "black" } : {}}
       className={` relative border-b border-b-white border-t-[0.1px] border-t-light_grey transition-all duration-150 `}
     >
       <div
@@ -28,8 +28,9 @@ const MainHeader = (props) => {
   );
 };
 const HeaderContent = () => {
-  const isOpen = useSelector(isOpenSelector);
-  if (isOpen) {
+  const isSearchHeaderOpening = useSelector(isSearchHeaderOpeningSelector);
+
+  if (isSearchHeaderOpening) {
     return <Search />;
   }
   return (

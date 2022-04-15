@@ -5,12 +5,12 @@ import { Link } from "react-router-dom";
 import { userSelector } from "../../../features/accountSlice";
 import { FiChevronDown } from "react-icons/fi";
 import { featureUserList } from "./HeaderLeft";
-const SidebarNavMobile = ({ resizeToggle }) => {
+const SidebarMobileNav = ({ toggleMobileNav }) => {
   return (
     <div
       id="sidebar-nav"
       className={`absolute ${
-        !resizeToggle && "hidden"
+        !toggleMobileNav && "hidden"
       } top-[calc(100%-1px)] left-[-100%] transition-all duration-200  bg-white  z-40 w-full h-screen`}
     >
       <HeaderSidebarNavParentsList />
@@ -18,7 +18,7 @@ const SidebarNavMobile = ({ resizeToggle }) => {
   );
 };
 
-export default SidebarNavMobile;
+export default SidebarMobileNav;
 
 const HeaderSidebarNavParentsList = () => {
   const [active, setActive] = useState(0);

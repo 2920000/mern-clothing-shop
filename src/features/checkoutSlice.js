@@ -13,23 +13,23 @@ export const addOrdersToDatabase = createAsyncThunk(
   }
 );
 const initialState = {
-  orders: null,
+  orders: [],
   shippingFee: 0,
-  isOrder: false,
+  isOrdering: false,
   orderStatus: false,
 };
 const checkoutSlice = createSlice({
   name: "checkout",
   initialState,
   reducers: {
-    SET_SHIPPING_FEE: (state, action) => {
+    UPDATE_SHIPPING_FEE: (state, action) => {
       state.shippingFee = action.payload;
     },
     SET_ORDER_STATUS: (state, action) => {
       state.orderStatus = action.payload;
     },
     SET_LOADING: (state, action) => {
-      state.isOrder = action.payload;
+      state.isOrdering = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -43,8 +43,8 @@ const checkoutSlice = createSlice({
   },
 });
 export const orderStatusSelector = (state) => state.checkout.orderStatus;
-export const isOrderSelector = (state) => state.checkout.isOrder;
+export const isOrderingSelector = (state) => state.checkout.isOrdering;
 export const ordersSelector = (state) => state.checkout.orders;
 export const shippingFeeSelector = (state) => state.checkout.shippingFee;
-export const { SET_SHIPPING_FEE, SET_ORDER_STATUS,SET_LOADING } = checkoutSlice.actions;
+export const { UPDATE_SHIPPING_FEE, SET_ORDER_STATUS,SET_LOADING } = checkoutSlice.actions;
 export default checkoutSlice.reducer;

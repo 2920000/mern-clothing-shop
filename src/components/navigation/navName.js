@@ -92,4 +92,4 @@ const navName = [
   }
 ];
 
-export default navName;
+export default navName

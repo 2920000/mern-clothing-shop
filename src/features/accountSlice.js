@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { account } from "../api/accountApi";
 import { getLocalStorage } from "../helper/localStoragefunction";
 
-const postAccount = createAsyncThunk(
+export const postAccount = createAsyncThunk(
   "postAccount",
   async (payload, { rejectWithValue }) => {
     try {
@@ -17,9 +17,8 @@ const postAccount = createAsyncThunk(
 
 const initialState = {
   user: getLocalStorage('profile'),
-  errorMessage: null,
-  isLoad:false,
-  cart:null
+  errorMessage:'',
+  isLoading:false,
 };
 const accountSlice = createSlice({
   name: "account",
@@ -31,23 +30,22 @@ const accountSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(postAccount.pending, (state, action) => {
-      state.isLoad=true
+      state.isLoading=true
     });
     builder.addCase(postAccount.fulfilled, (state, action) => {
       state.user = action.payload;
       state.errorMessage = '';
-      state.isLoad=false
+      state.isLoading=false
     });
     builder.addCase(postAccount.rejected, (state, action) => {
       state.errorMessage = action.payload;
-      state.isLoad=false
+      state.isLoading=false
     });
   },
 });
 
-export { postAccount };
 export const errorMessageSelector = (state) => state.account.errorMessage;
-export const userSelector = (state) => state.account?.user;
-export const loadSelector = (state) => state.account.isLoad;
+export const userSelector = (state) => state.account.user;
+export const isLoadingSelector = (state) => state.account.isLoading;
 export const {CLEAR_ERRORMESSAGE}=accountSlice.actions
 export default accountSlice.reducer;

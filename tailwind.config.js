@@ -43,11 +43,16 @@ module.exports = {
        spinner:{
          '0%':{transform:'rotate(0)'},
          '100%':{transform:'rotate(360deg)'}
+       },
+       opacity:{
+         '0%':{opacity :'0'},
+         '100%':{opacity:'1'}
        }
     },
     animation:{
       'skeleton':'skeleton_loading 1s linear infinite alternate',
-      'spinner':'spinner 800ms linear infinite'
+      'spinner':'spinner 800ms linear infinite',
+      'opacity':'opacity 1000ms linear'
     },
 
   },

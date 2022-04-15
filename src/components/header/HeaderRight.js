@@ -13,10 +13,10 @@ import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 
 const HeaderRight = () => {
   const dispatch=useDispatch()
-  const path = useLocation().pathname;
+  const pathParams = useLocation().pathname;
  
 
-  if (path === "/checkout") {
+  if (pathParams === "/checkout") {
     return <></>;
   }
   return (

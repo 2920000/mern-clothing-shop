@@ -1,13 +1,22 @@
 import { useEffect, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { addProductToMongodb } from "../../../api/cartApi";
 import { FormGroup } from "../../../components/form-group/FormGroup";
-import { CLEAR_ERRORMESSAGE, errorMessageSelector, postAccount, userSelector } from "../../../features/accountSlice";
-import { fetchCartDataFromDatabase } from "../../../features/cartSlice";
-import { addLocalStorage, getLocalStorage, removeLocalStorage, validateForm } from "../../../helper";
+import {
+  CLEAR_ERRORMESSAGE,
+  errorMessageSelector,
+  postAccount,
+  userSelector,
+} from "../../../features/accountSlice";
+import { fetchCartData } from "../../../features/cartSlice";
+import {
+  addLocalStorage,
+  getLocalStorage,
+  removeLocalStorage,
+  validateForm,
+} from "../../../helper";
 import formProps from "../form-group/login";
-
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -18,11 +27,11 @@ const LoginForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const isAllowLogin = validateForm.validate();
-    if (!isAllowLogin) {
+    const canAllowLogin = validateForm.validate();
+    if (!canAllowLogin) {
       const values = validateForm.getAllValues();
       const payload = {
-        option: 'login',
+        option: "login",
         data: values,
       };
       dispatch(postAccount(payload));
@@ -43,7 +52,7 @@ const LoginForm = () => {
         const res = await addProductToMongodb(payload);
         if (res) {
           removeLocalStorage("cart");
-          dispatch(fetchCartDataFromDatabase(userId));
+          dispatch(fetchCartData(userId));
         }
       };
       cartFromLocal && addProductToDatabase();

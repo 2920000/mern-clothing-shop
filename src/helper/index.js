@@ -1,4 +1,4 @@
-import { moneyTotal } from "./moneyTotal";
+import { calculateMoneyTotal } from "./calculateMoneyTotal";
 import { addLocalStorage } from "./localStoragefunction";
 import { caculateSale } from "./caculateSale";
 import { convertToPrice } from "./converToPrice";
@@ -18,7 +18,7 @@ import openSearchHeader from "./openSearchHeader";
 export {
   openSearchHeader,
   getLocalStorage,
-  moneyTotal,
+  calculateMoneyTotal,
   addLocalStorage,
   caculateSale,
   convertToPrice,

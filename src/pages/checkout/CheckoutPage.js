@@ -9,7 +9,7 @@ import {
 import ShippingInforModal from "../../modal/ShippingInforModal";
 import { useGetCartProductsQuery } from "../../services/cartProductsApi";
 import {
-  isOrderSelector,
+  isOrderingSelector,
   orderStatusSelector,
   SET_ORDER_STATUS,
 } from "../../features/checkoutSlice";
@@ -26,26 +26,28 @@ function CheckoutPage() {
   const shouldUpdateShippingInfor = useSelector(
     shouldUpdateShippingInforSelector
   );
-  const isOrder = useSelector(isOrderSelector);
-  const orderStatus = useSelector(orderStatusSelector);
+  const isOrdering = useSelector(isOrderingSelector);
+  const isOrderStatus = useSelector(orderStatusSelector);
   const { data, isLoading, isError, refetch } = useGetCartProductsQuery(
     user._id
   );
 
   useEffect(() => {
-    if (orderStatus) {
+    if (isOrderStatus) {
       navigate("/user/purchase");
       dispatch(SET_ORDER_STATUS(false));
     }
-  }, [orderStatus]);
+  }, [isOrderStatus]);
 
   useEffect(() => {
-    dispatch(fetchShippingInfor(user._id));
+      dispatch(fetchShippingInfor(user._id));
     refetch();
   }, []);
 
   if (isLoading) {
-    return <></>;
+    return (
+      <div className="absolute bg-white top-0 right-0 bottom-0 left-0 z-50"></div>
+    );
   }
   if (isError) {
     return <>Something wrong</>;
@@ -64,7 +66,7 @@ function CheckoutPage() {
         </ErrorBoundary>
       </div>
       {shouldUpdateShippingInfor && <ShippingInforModal />}
-      {isOrder && <IsOrderingLoading/>}
+      {isOrdering && <IsOrderingLoading />}
     </div>
   );
 }

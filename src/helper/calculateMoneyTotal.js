@@ -1,7 +1,6 @@
 import { caculateSale } from "./caculateSale";
-import { convertToPrice } from "./converToPrice";
 
-export const moneyTotal = (allCartProducts) => {
+export const calculateMoneyTotal = (allCartProducts) => {
     let initialValue = 0;
      const total= allCartProducts.reduce((preValue, curProduct) => {
       const amount = curProduct.amount;

@@ -2,7 +2,7 @@ import { memo } from "react";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { updateCartProductAmountFromDatabase } from "../../api/cartApi";
-import { CHANGE_PRODUCTS_IN_CART } from "../../features/cartSlice";
+import {UPDATE_PRODUCTS_IN_CART } from "../../features/cartSlice";
 import { addLocalStorage } from "../../helper/localStoragefunction";
 
 const InputNumberBox = ({
@@ -111,7 +111,7 @@ const updateCartProductsAmountDatabase = (
     }
     return productCopy;
   });
-  dispatch(CHANGE_PRODUCTS_IN_CART(newArray));
+  dispatch(UPDATE_PRODUCTS_IN_CART(newArray));
   updateCartProductAmountFromDatabase(payloadInsc);
 };
 
@@ -128,5 +128,5 @@ const updateCartProductsAmountLocal=(product,allCartProducts,dispatch,action)=>{
     return productCopy;
   })
   addLocalStorage('cart',newArray)
-  dispatch(CHANGE_PRODUCTS_IN_CART(newArray));
+  dispatch(UPDATE_PRODUCTS_IN_CART(newArray));
 }

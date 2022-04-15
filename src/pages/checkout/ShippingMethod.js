@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { BiChevronDown } from "react-icons/bi";
 import { useDispatch } from "react-redux";
-import { SET_SHIPPING_FEE } from "../../features/checkoutSlice";
+import { UPDATE_SHIPPING_FEE } from "../../features/checkoutSlice";
 import { qs } from "../../helper/handleDOM";
 import useClickOutside from "../../hooks/useClickOutside";
 
 const ShippingMethod = () => {
     const dispatch = useDispatch();
-    const [open, setOpen] = useState(false);
-    const [method, setMethod] = useState({
+    const [toggleShippingMethodList, setToggleShippingMethodList] = useState(false);
+    const [shippingMethod, setShippingMethod] = useState({
       name: "Nhanh",
       value: "speed",
       price: 10000,
@@ -16,25 +16,25 @@ const ShippingMethod = () => {
     const methodListWrapperRef = useRef();
     
     useEffect(() => {
-      dispatch(SET_SHIPPING_FEE(method.price));
-    }, [method.price]);
+      dispatch(UPDATE_SHIPPING_FEE(shippingMethod.price));
+    }, [shippingMethod.price]);
   
     const handler = useCallback(() => {
       const iconElement = qs("#icon");
       iconElement.style.transform = "rotate(0deg)";
-      setOpen(false);
+      setToggleShippingMethodList(false);
     }, []);
   
     useClickOutside(methodListWrapperRef, handler);
   
     const handleOpenSelectShippingMethod = () => {
       const iconElement = qs("#icon");
-      if (open) {
+      if (toggleShippingMethodList) {
         iconElement.style.transform = "rotate(0deg)";
       } else {
         iconElement.style.transform = "rotate(180deg)";
       }
-      setOpen(!open);
+      setToggleShippingMethodList(!toggleShippingMethodList);
 
     };
     return (
@@ -44,13 +44,13 @@ const ShippingMethod = () => {
           <div className="mt-2" ref={methodListWrapperRef}>
             <div className="relative" onClick={handleOpenSelectShippingMethod}>
               <div className="flex items-center justify-between p-2 cursor-pointer min-w-[180px] min-h-[40px] border border-light_black ">
-                {method.name}-{method.price}{" "}
+                {shippingMethod.name}-{shippingMethod.price}{" "}
                 <BiChevronDown
                   id="icon"
                   className="text-xl transition-transform duration-150 "
                 />
               </div>
-              {open && <ShippingMethodList setMethod={setMethod} />}
+              {toggleShippingMethodList && <ShippingMethodList setShippingMethod={setShippingMethod} />}
             </div>
           </div>
         </div>
@@ -59,7 +59,7 @@ const ShippingMethod = () => {
   };
   export default ShippingMethod
   
-const ShippingMethodList = ({ setMethod }) => {
+const ShippingMethodList = ({ setShippingMethod }) => {
     const shippingMethod = [
       {
         name: "Nhanh",
@@ -73,7 +73,7 @@ const ShippingMethodList = ({ setMethod }) => {
       },
     ];
     const handleSelectShippingMethod = (method) => {
-      setMethod(method);
+      setShippingMethod(method);
     };
   
     return (

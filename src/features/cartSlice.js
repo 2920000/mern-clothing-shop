@@ -1,56 +1,65 @@
-import { createSlice ,createAsyncThunk} from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getCartFromDatabase } from "../api/cartApi";
 
- const fetchCartDataFromDatabase=createAsyncThunk(
-     'fetchCartDataFromDatabase',
-     async(userId)=>{
-         const response= await getCartFromDatabase(userId)
-         return response.data
-     }
- )
+export const fetchCartData = createAsyncThunk(
+  "fetchCartDataFromDatabase",
+  async (userId) => {
+    const response = await getCartFromDatabase(userId);
+    return response.data;
+  }
+);
 const cartDataFromLocalStorage = JSON.parse(localStorage.getItem("cart"));
-let amount = 0;
+
+let cartAmount = 0;
 for (let i = 0; i < cartDataFromLocalStorage?.length; i++) {
-  amount = Number(amount) + Number(cartDataFromLocalStorage[i].amount);
+  cartAmount += cartDataFromLocalStorage[i].amount;
 }
+
 const initialState = {
-  amount,
+  cartAmount,
   allCartProducts: cartDataFromLocalStorage,
-  isLoad:false,
-  isOpen:false
+  isLoading: false,
+  isCartOpening: false,
 };
+
 const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    GET_AMOUNT_CART_LOCALSTORAGE: (state, action) => {
-      state.amount = action.payload;
+    UPDATE_AMOUNT_CART_LOCALSTORAGE: (state, action) => {
+      state.cartAmount = action.payload;
     },
-    CHANGE_PRODUCTS_IN_CART: (state, action) => {
+    UPDATE_PRODUCTS_IN_CART: (state, action) => {
       state.allCartProducts = action.payload;
     },
-    OPEN_CART_SIDEBAR:(state,action)=>{
-       state.isOpen=action.payload
-    }
-    
+    OPEN_CART_SIDEBAR: (state) => {
+      state.isCartOpening = true;
+    },
+    CLOSE_CART_SIDEBAR: (state) => {
+      state.isCartOpening = false;
+    },
   },
-  extraReducers:(builder)=>{
-    builder.addCase(fetchCartDataFromDatabase.pending, (state, action) => {
-        state.isLoad=true
-      });
-      builder.addCase(fetchCartDataFromDatabase.fulfilled, (state, action) => {
-        state.allCartProducts=action.payload
-        state.isLoad=false
-      });
-      builder.addCase(fetchCartDataFromDatabase.rejected, (state, action) => {
-        state.isLoad=false
-      });
-  }
+  extraReducers: (builder) => {
+    builder.addCase(fetchCartData.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(fetchCartData.fulfilled, (state, action) => {
+      state.allCartProducts = action.payload;
+      state.isLoading = false;
+    });
+    builder.addCase(fetchCartData.rejected, (state) => {
+      state.isLoading = false;
+    });
+  },
 });
-export {fetchCartDataFromDatabase}
-export const cartAmoutSelector = (state) => state.cart.amount;
+
+export const cartAmountSelector = (state) => state.cart.cartAmount;
 export const allCartProductsSelector = (state) => state.cart.allCartProducts;
-export const isOpenCartSidebarSelector=(state)=>state.cart.isOpen
-export const { GET_AMOUNT_CART_LOCALSTORAGE, CHANGE_PRODUCTS_IN_CART,OPEN_CART_SIDEBAR } =
-  cartSlice.actions;
+export const isCartOpeningSelector = (state) => state.cart.isCartOpening;
+export const {
+ UPDATE_AMOUNT_CART_LOCALSTORAGE,
+ UPDATE_PRODUCTS_IN_CART,
+ OPEN_CART_SIDEBAR,
+ CLOSE_CART_SIDEBAR
+} = cartSlice.actions;
 export default cartSlice.reducer;

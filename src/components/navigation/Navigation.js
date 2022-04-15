@@ -3,8 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 import useHover from "../../hooks/useHover";
 import navName from "./navName";
 function Navigation() {
-  const path = useLocation().pathname;
-  if (path === "/checkout") {
+  const pathParams = useLocation().pathname;
+  if (pathParams === "/checkout") {
     return <></>;
   }
   return (
@@ -24,13 +24,13 @@ const NavList = (props) => {
   return <ul className="flex flex-wrap justify-center">{props.children}</ul>;
 };
 const NavItem = ({ e }) => {
-  const navBoxRef = useRef();
+  const menuRef = useRef();
   const mouseout = () => {
-    navBoxRef.current.style.opacity = "0";
+    menuRef.current.style.opacity = "0";
   };
   const mouseover = () => {
     setTimeout(() => {
-      navBoxRef.current.style.opacity = "1";
+      menuRef.current.style.opacity = "1";
     }, 0);
   };
   const [navItemRef,hovered] = useHover({animation:true,mouseout,mouseover});
@@ -45,7 +45,7 @@ const NavItem = ({ e }) => {
         className=" block absolute top-[calc(100%-4px)] w-0 h-[2px] transition-all duration-[400ms]  bg-white "
       ></span>
       <ul
-        ref={navBoxRef}
+        ref={menuRef}
         style={hovered ? { display: "block" } : { display: "none" }}
         className={`absolute shadow-lg  transition-opacity duration-150 opacity-0 top-[100%] z-30 left-[-15px] bg-white text-black `}
       >

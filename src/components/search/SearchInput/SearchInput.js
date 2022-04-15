@@ -1,56 +1,72 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  CLOSE_SUGGSETION_BOX,
+  OPEN_SUGGSETION_BOX,
+  SET_STATUS_LOADING,
+  UPDATE_CURRENT_SEARCH_PRODUCTS,
+  UPDATE_VALUE_INPUT,
   fetchProductsBySearch,
-  FINDING_PRODUCT,
-  GET_CURRENT_SEARCH_PRODUCTS,
+  inputValueSelector,
   preProductsBySearchSelector,
 } from "../../../features/searchSlice";
 import {
+  getLocalStorage,
   removeVietnameseTones,
   removeWhiteSpaceAndLowerCase,
 } from "../../../helper";
 
-const SearchInput = ({ setOpenSuggestionBox, input, setInput }) => {
+const SearchInput = () => {
   const dispatch = useDispatch();
   const [preInput, setPreInput] = useState([]);
   const preProductsBySearch = useSelector(preProductsBySearchSelector);
+  const inputValue = useSelector(inputValueSelector);
+
+  const currentSearchFromLocal = getLocalStorage("currentSearch");
 
   const handleOnchangeInput = (value) => {
-    setInput(value);
-    setOpenSuggestionBox(true);
+    dispatch(UPDATE_VALUE_INPUT(value));
+    dispatch(OPEN_SUGGSETION_BOX());
   };
 
   const handleShowSearchBox = (e) => {
-    setOpenSuggestionBox(true);
+    dispatch(OPEN_SUGGSETION_BOX());
   };
 
+// login dùng để kiểm tra - nếu là một input mới sẽ fetch data mới
+// nếu input cũ thì sẽ lấy trong mảng data cũ đã lưu , ko cần phải fetch data mới
   useEffect(() => {
     let timeout;
     timeout = setTimeout(() => {
-      if (!input) {
+      if (!inputValue && !currentSearchFromLocal) {
+        dispatch(SET_STATUS_LOADING(false));
+        dispatch(CLOSE_SUGGSETION_BOX());
         return;
       }
-      const newInput = removeWhiteSpaceAndLowerCase(input);
-      const checkInputSamePre = preInput.every((e) => e !== newInput);
-      if (checkInputSamePre) {
-        dispatch(fetchProductsBySearch(newInput));
-        setPreInput([...preInput, newInput]);
+      const inputCleaned = removeWhiteSpaceAndLowerCase(inputValue);
+      const isNewInput = preInput.every((e) => e !== inputCleaned);
+    
+      if (isNewInput) {
+        dispatch(fetchProductsBySearch(inputCleaned));
+        setPreInput([...preInput, inputCleaned]);
       } else {
-        const searchData = preProductsBySearch.filter((e) =>
+        const searchedData = preProductsBySearch.filter((e) =>
           removeVietnameseTones(removeWhiteSpaceAndLowerCase(e.title)).includes(
-            removeVietnameseTones(removeWhiteSpaceAndLowerCase(input))
+            removeVietnameseTones(removeWhiteSpaceAndLowerCase(inputValue))
           )
         );
         setPreInput(preInput);
-        dispatch(GET_CURRENT_SEARCH_PRODUCTS(searchData));
+        dispatch(UPDATE_CURRENT_SEARCH_PRODUCTS(searchedData));
       }
     }, 400);
     return () => {
       clearTimeout(timeout);
-      dispatch(FINDING_PRODUCT(true));
+      if (inputValue) {
+        dispatch(SET_STATUS_LOADING(true));
+      }
     };
-  }, [input]);
+  }, [inputValue]);
+
   return (
     <input
       onChange={(e) => {
