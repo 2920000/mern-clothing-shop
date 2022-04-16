@@ -32,8 +32,8 @@ function SortOption() {
 
   useEffect(() => {
     const inputFilterElement = document.querySelector("#filter-input");
-    if(!boxOptionRef.current){return}
     window.addEventListener("mousedown", (event) => {
+    if(!boxOptionRef.current){return}
       if (inputFilterElement !== document.activeElement) {
         boxOptionRef.current.classList.add("open");
         document.querySelector(".filter-input").placeholder = "Nhập để tìm";

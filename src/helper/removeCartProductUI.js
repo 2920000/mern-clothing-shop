@@ -1,5 +1,5 @@
 import { addLocalStorage } from "./localStoragefunction";
-const { CHANGE_PRODUCTS_IN_CART } = require("../features/cartSlice");
+const {UPDATE_PRODUCTS_IN_CART } = require("../features/cartSlice");
 
 const removeCartProductUI = (allCartProducts, id, dispatch, local) => {
   const filterCartProduct = allCartProducts.filter(
@@ -8,10 +8,10 @@ const removeCartProductUI = (allCartProducts, id, dispatch, local) => {
   local && addLocalStorage("cart", filterCartProduct);
   if (filterCartProduct.length === 0) {
     local && localStorage.removeItem("cart");
-    dispatch(CHANGE_PRODUCTS_IN_CART(null));
+    dispatch(UPDATE_PRODUCTS_IN_CART(null));
     return;
   }
-  dispatch(CHANGE_PRODUCTS_IN_CART(filterCartProduct));
+  dispatch(UPDATE_PRODUCTS_IN_CART(filterCartProduct));
 };
 
 export default removeCartProductUI;

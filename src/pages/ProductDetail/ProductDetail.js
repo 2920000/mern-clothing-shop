@@ -1,16 +1,15 @@
 import { Link, useParams } from "react-router-dom";
 import LeftProductDetail from "./LeftProductDetail";
 import RightProductDetail from "./RightProductDetail/RightProductDetail";
-import Review from "./Review";
 import { useGetProductDetailQuery } from "../../services/detailProductApi";
 import ProductDetailSkeleton from "../../components/skeleton/ProductDetailSkeleton";
-import { RoomableImage } from "../../modal";
+import ProductReviews from "./ProductReviews";
 function ProductDetail() {
   const { productId } = useParams();
   const {data,isLoading}=useGetProductDetailQuery(productId)
   window.scrollTo(0, 0);
 
-  if (isLoading) {
+  if (isLoading||!data) {
     return <ProductDetailSkeleton/>
   }
   return (
@@ -26,9 +25,7 @@ function ProductDetail() {
         <LeftProductDetail productDetail={data} />
         <RightProductDetail productDetail={data} />
       </div>
-      <div>
-        <Review />
-      </div>
+        <ProductReviews/>
     </div>
   );
 }

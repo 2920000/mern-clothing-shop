@@ -5,7 +5,7 @@ export const orderedApi = createApi({
   endpoints: (builder) => ({
     getOrdered: builder.query({
       query: (userId) => `user/orders/${userId}`,
-    }),
+    })
   }),
 });
 export const { useGetOrderedQuery } = orderedApi;

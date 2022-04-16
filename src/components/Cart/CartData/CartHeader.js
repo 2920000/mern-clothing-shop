@@ -3,7 +3,7 @@ import { IoClose } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import {
   allCartProductsSelector,
-  OPEN_CART_SIDEBAR,
+  CLOSE_CART_SIDEBAR,
 } from "../../../features/cartSlice";
 import { convertToPrice } from "../../../helper/converToPrice";
 
@@ -31,7 +31,7 @@ const CartHeader = () => {
       <IoClose
         className="absolute right-1 cursor-pointer"
         onClick={() => {
-          dispatch(OPEN_CART_SIDEBAR(false));
+          dispatch(CLOSE_CART_SIDEBAR());
         }}
       />
     </div>

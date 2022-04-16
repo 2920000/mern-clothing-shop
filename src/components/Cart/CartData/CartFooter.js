@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { userSelector } from "../../../features/accountSlice";
 import {
   allCartProductsSelector,
-  OPEN_CART_SIDEBAR,
+  CLOSE_CART_SIDEBAR,
 } from "../../../features/cartSlice";
 import { calculateMoneyTotal } from "../../../helper/calculateMoneyTotal";
 import { convertToPrice } from "../../../helper/converToPrice";
@@ -43,7 +43,7 @@ const CartFooter = () => {
       </div>
       <p
         onClick={() => {
-          dispatch(OPEN_CART_SIDEBAR(false));
+          dispatch(CLOSE_CART_SIDEBAR());
         }}
         className="text-center mt-5 underline cursor-pointer text-[13.5px]"
       >

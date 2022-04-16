@@ -1,18 +1,18 @@
 import React, { forwardRef } from "react";
 
 const classes = {
-  base: "focus:outline-none transition-all duration-300",
+  base: "focus:outline-none transition duration-300",
   disabled: "opacity-50 cursor-not-allowed",
   pill: "rounded-full",
   size: {
     small: "px-2 py-1 text-sm",
     normal: "px-4 py-2",
-    large: "px-8 py-3 text-lg",
+    large: "px-8 py-3 text-xl",
   },
   variant: {
     primary: "bg-black text-white",
-    secondary: "",
-    danger: "",
+    secondary:"bg-white text-black",
+    third:'bg-white border ',
   },
 };
 const Button = forwardRef(

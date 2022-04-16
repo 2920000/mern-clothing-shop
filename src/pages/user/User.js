@@ -2,6 +2,7 @@ import React from "react";
 import { Outlet, Link, useLocation } from "react-router-dom";
 import { VscAccount } from "react-icons/vsc";
 import { GiNotebook } from "react-icons/gi";
+import {HiAnnotation} from 'react-icons/hi'
 function User() {
   return (
     <div className="bg-[#F5F5F5] h-full">
@@ -28,6 +29,11 @@ const UserLeft = () => {
       link: "/user/purchase",
       icon: <GiNotebook />,
     },
+    // {
+    //   title:'Thông báo',
+    //   link:'/user/infor',
+    //   icon:<HiAnnotation/>
+    // }
   ];
   const path = useLocation().pathname;
 

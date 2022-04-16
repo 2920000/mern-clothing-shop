@@ -1,23 +1,30 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userSelector } from "../../features/accountSlice";
+import { isReviewModalOpeningSelector, OPEN_REVIEW_MODAL } from "../../features/reviewSlice";
 import { caculateSale } from "../../helper/caculateSale";
 import { convertToPrice } from "../../helper/converToPrice";
-import ReviewModal from "../../modal/ReviewModal";
 import { useGetOrderedQuery } from "../../services/orderedApi";
+import ReviewModal from "../../modal/ReviewModal";
+import Button from "../../components/Button/Button";
 
 function Purchase() {
+  const dispatch=useDispatch()
   const user = useSelector(userSelector);
+  const isReviewModalOpening=useSelector(isReviewModalOpeningSelector)
   let { data, isLoading, refetch, isError } = useGetOrderedQuery(user._id);
-  const [openReviewBox, setOpenReviewBox] = useState(false);
-  const [orderWantToReview,setOrderWantToReView]=useState({})
-  const handleShowReviewBox = (order) => {
-    setOpenReviewBox(true);
-    setOrderWantToReView(order)
+  const [orderWantToReview, setOrderWantToReView] = useState({});
+  const [reviewed,setReviewed]=useState({})
+
+  const handleShowReviewBox = (order,reviewed) => {
+    dispatch(OPEN_REVIEW_MODAL())
+    setOrderWantToReView(order);
+    setReviewed(reviewed)
   };
+  
   useEffect(() => {
     refetch();
-  }, []);
+  },[isReviewModalOpening]);
 
   if (isLoading) {
     return <></>;
@@ -26,11 +33,12 @@ function Purchase() {
     return <>Something wrong</>;
   }
 
+
   // let newData=[...data]
   // newData=newData.sort((a,b) => Date.parse(b.date) - Date.parse(a.date))
   return (
     <div>
-      {data.map((order) => (
+      {data.orders.map((order) => (
         <div className="bg-white  mb-4 p-2 md:p-7">
           <div className="flex relative justify-between items-center py-3 border-b border-border">
             <div className="flex">
@@ -71,16 +79,23 @@ function Purchase() {
               Đơn hàng sẽ được chuẩn bị và chuyển đi trước
               <span className="ml-2 underline">{formatDate(order.date)}</span>
             </p>
-            <button
-              onClick={() => handleShowReviewBox(order)}
-              className="bg-black text-white min-w-[150px] min-h-[40px] text-[0.9rem] hover:opacity-80 rounded-sm"
-            >
-              Đánh giá
-            </button>
+            {data.productsReviewed.some(
+              (productReviewed) => productReviewed._id === order._id
+            ) ? (
+              <Button variant='third' onClick={()=>handleShowReviewBox(order,data.productsReviewed.find(productReviewed=>productReviewed._id===order._id).review)} >Xem đánh giá</Button>
+            ) : (
+              <Button variant='primary' className='min-w-[130px] rounded-sm hover:opacity-80 ' onClick={()=>handleShowReviewBox(order)} >Đánh giá</Button>
+             
+            )}
           </div>
         </div>
       ))}
-      {openReviewBox && <ReviewModal setOpenReviewBox={setOpenReviewBox} orderWantToReview={orderWantToReview} />}
+      {isReviewModalOpening && (
+        <ReviewModal
+          orderWantToReview={orderWantToReview}
+          reviewed={reviewed}
+        />
+      )}
     </div>
   );
 }

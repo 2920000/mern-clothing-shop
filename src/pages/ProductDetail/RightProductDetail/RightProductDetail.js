@@ -24,6 +24,9 @@ function RightProductDetail({ productDetail }) {
 
   const bodyRef = useRef(qs("body"));
   const callbackSaved = useCallback((entry) => {
+    if (!emptyRightRef.current) {
+      return;
+    }
     if (window.innerWidth < 800) {
       setStyleDetailRight({});
       rightDetailInnerRef.current.style.width = `100%`;
@@ -33,7 +36,7 @@ function RightProductDetail({ productDetail }) {
     rightDetailInnerRef.current.style.width = `${width}px`;
   }, []);
   useResizeObserver(bodyRef, callbackSaved);
-  
+
   useEventListener("scroll", () => {
     if (window.innerWidth < 800) {
       return;
