@@ -6,9 +6,9 @@ export const productDetailApi = createApi({
     getProductDetail: builder.query({
       query: (productId) => `products/detail/${productId}`,
     }),
-    getReviews:builder.query({
-      query:(productId)=>`/reviews/${productId}`
+    getRating:builder.query({
+      query:(productId)=>`/rating/${productId}`
     })
   }),
 });
-export const { useGetProductDetailQuery,useGetReviewsQuery } = productDetailApi;
+export const { useGetProductDetailQuery,useGetRatingQuery } = productDetailApi;

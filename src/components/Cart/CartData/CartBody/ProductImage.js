@@ -1,8 +1,8 @@
-const ProductImage = ({ product }) => {
+const ProductImage = ({ cartProduct }) => {
   return (
-    <a href={`/products/${product.productId}`} className="mr-3">
+    <a href={`/products/${cartProduct.productId}`} className="mr-3">
       {" "}
-      <img className="max-w-[70px] " src={product.image} alt="" />
+      <img className="max-w-[70px] " src={cartProduct.image} alt="" />
     </a>
   );
 };

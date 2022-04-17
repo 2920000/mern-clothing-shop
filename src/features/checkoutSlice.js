@@ -34,11 +34,11 @@ const checkoutSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(addOrdersToDatabase.pending, (state) => {
-      state.isOrder = true;
+      state.isOrdering = true;
     });
     builder.addCase(addOrdersToDatabase.fulfilled, (state) => {
       state.orderStatus = true;
-      state.isOrder = false;
+      state.isOrdering = false;
     });
   },
 });

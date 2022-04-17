@@ -5,7 +5,7 @@ import { caculateSale } from "../../../../helper/caculateSale";
 import { convertToPrice } from "../../../../helper/converToPrice";
 import removeCartProductUI from "../../../../helper/removeCartProductUI";
 
-const ProductPrice = ({ product, allCartProducts, user }) => {
+const ProductPrice = ({ cartProduct, allCartProducts, user }) => {
   const dispatch = useDispatch();
   const handleDeleteCartFromLocal = (productId) => {
     removeCartProductUI(allCartProducts, productId, dispatch, "localstorage");
@@ -24,24 +24,24 @@ const ProductPrice = ({ product, allCartProducts, user }) => {
         <FiTrash
           onClick={() => {
             user
-              ? handleDeleteCartFromDatabase(product._id, user._id)
-              : handleDeleteCartFromLocal(product.id);
+              ? handleDeleteCartFromDatabase(cartProduct._id, user._id)
+              : handleDeleteCartFromLocal(cartProduct.id);
           }}
           className="text-xs cursor-pointer"
         />
       </span>
       <div className="relative">
-        {product.sale !== 0 && (
+        {cartProduct.sale !== 0 && (
           <span className="text-red absolute bottom-4 whitespace-nowrap mr-2">
-            {convertToPrice(caculateSale(product))} đ
+            {convertToPrice(caculateSale(cartProduct))} đ
           </span>
         )}
         <span
           className={`whitespace-nowrap ${
-            product.sale !== 0 && "line-through text-money_line_through_color"
+            cartProduct.sale !== 0 && "line-through text-money_line_through_color"
           } `}
         >
-          {convertToPrice(product.price * product.amount)} đ
+          {convertToPrice(cartProduct.price * cartProduct.amount)} đ
         </span>
       </div>
     </div>

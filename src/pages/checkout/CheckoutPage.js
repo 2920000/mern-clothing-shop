@@ -17,8 +17,8 @@ import { useNavigate } from "react-router-dom";
 import Address from "./Address";
 import ShippingMethod from "./ShippingMethod";
 import Payment from "./Payment";
-import IsOrderingLoading from "../../components/loading/IsOrderingLoading";
 import ErrorBoundary from "../../components/ErrorBoundary";
+import Loading from "../../components/Loading";
 function CheckoutPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -27,34 +27,35 @@ function CheckoutPage() {
     shouldUpdateShippingInforSelector
   );
   const isOrdering = useSelector(isOrderingSelector);
-  const isOrderStatus = useSelector(orderStatusSelector);
+  const orderStatus = useSelector(orderStatusSelector);
   const { data, isLoading, isError, refetch } = useGetCartProductsQuery(
     user._id
   );
 
   useEffect(() => {
-    if (isOrderStatus) {
+    if (orderStatus) {
       navigate("/user/purchase");
       dispatch(SET_ORDER_STATUS(false));
     }
-  }, [isOrderStatus]);
+  }, [orderStatus]);
 
   useEffect(() => {
-      dispatch(fetchShippingInfor(user._id));
+    dispatch(fetchShippingInfor(user._id));
     refetch();
   }, []);
 
-  if (isLoading) {
+
+  if (isLoading || !data) {
     return (
-      <div className="absolute bg-white top-0 right-0 bottom-0 left-0 z-50"></div>
+      <div className="fixed flex justify-center items-center bg-[rgba(0_0_0_0.4)] top-0 right-0 bottom-0 left-0 z-50">
+        <Loading />
+      </div>
     );
   }
   if (isError) {
     return <>Something wrong</>;
   }
-  if (!data) {
-    return <>Bị lỗi</>;
-  }
+
   return (
     <div className="bg-[#f5f5f5] overflow-auto min-h-screen w-full h-full">
       <div className="max-w-[1200px] m-auto">
@@ -66,7 +67,7 @@ function CheckoutPage() {
         </ErrorBoundary>
       </div>
       {shouldUpdateShippingInfor && <ShippingInforModal />}
-      {isOrdering && <IsOrderingLoading />}
+      {isOrdering && <Loading />}
     </div>
   );
 }

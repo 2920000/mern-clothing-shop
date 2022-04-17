@@ -3,7 +3,8 @@ import LeftProductDetail from "./LeftProductDetail";
 import RightProductDetail from "./RightProductDetail/RightProductDetail";
 import { useGetProductDetailQuery } from "../../services/detailProductApi";
 import ProductDetailSkeleton from "../../components/skeleton/ProductDetailSkeleton";
-import ProductReviews from "./ProductReviews";
+import ProductRatings from "./ProductRatings";
+
 function ProductDetail() {
   const { productId } = useParams();
   const {data,isLoading}=useGetProductDetailQuery(productId)
@@ -25,7 +26,7 @@ function ProductDetail() {
         <LeftProductDetail productDetail={data} />
         <RightProductDetail productDetail={data} />
       </div>
-        <ProductReviews/>
+        <ProductRatings />
     </div>
   );
 }

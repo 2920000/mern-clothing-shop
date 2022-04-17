@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import ReactDom from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Loading from "../components/loading/Loading";
 import { userSelector } from "../features/accountSlice";
-import {Link} from 'react-router-dom'
-import {  fetchShippingInfor, isUpdateShippingInforSelector, updateShippingInforToDatabase } from "../features/userSlice";
+import {
+  isUpdateShippingInforSelector,
+  updateShippingInforToDatabase,
+} from "../features/userSlice";
+import Loading from "../components/Loading";
 import validateForm from "../helper/validateForm";
+import { Link } from "react-router-dom";
 function ShippingInforModal() {
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
   const [shippingInfor, setShippingInfor] = useState({
     fullName: "",
     phoneNumber: "",
@@ -32,7 +35,9 @@ function ShippingInforModal() {
     e.preventDefault();
     const notAllowSubmitToDatabase = validateForm.validate();
     if (notAllowSubmitToDatabase) return;
-    dispatch(updateShippingInforToDatabase({userId: user._id, ...shippingInfor}))
+    dispatch(
+      updateShippingInforToDatabase({ userId: user._id, ...shippingInfor })
+    );
   };
   const handleOnchangeInput = (e) => {
     setShippingInfor({ ...shippingInfor, [e.target.name]: e.target.value });
@@ -78,9 +83,12 @@ function ShippingInforModal() {
             <span className="error-message"></span>
           </div>
           <div className="flex items-center justify-end mt-5">
-            <a href='/' className="flex items-center justify-center w-[140px] h-[40px] hover:opacity-60 mr-2 ">
+            <Link
+              to="/"
+              className="flex items-center justify-center w-[140px] h-[40px] hover:opacity-60 mr-2 "
+            >
               Trở về
-            </a>
+            </Link>
             <button
               disabled={!allowSubmit && true}
               onClick={handleSubmit}
@@ -95,7 +103,7 @@ function ShippingInforModal() {
           </div>
         </form>
       </div>
-      {isUpdateShippingInfor&&<Loading/>}
+      {isUpdateShippingInfor && <Loading />}
     </div>,
     document.getElementById("modal")
   );

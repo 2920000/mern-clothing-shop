@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { createUser } from "../../../api/userApi";
-import Loading from "../../../components/loading/Loading";
+import Loading from "../../../components/Loading";
 import {
   isLoadingSelector,
   userSelector,
@@ -29,7 +29,7 @@ function Register() {
   }, [user]);
 
   if (isLoading) {
-    return <Loading />;
+    return <Loading/>;
   }
 
   return (

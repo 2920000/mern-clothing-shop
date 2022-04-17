@@ -1,39 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userSelector } from "../../features/accountSlice";
-import { isReviewModalOpeningSelector, OPEN_REVIEW_MODAL } from "../../features/reviewSlice";
+import {
+  isRatingModalOpeningSelector,
+  OPEN_RATING_MODAL,
+} from "../../features/ratingSlice";
 import { caculateSale } from "../../helper/caculateSale";
 import { convertToPrice } from "../../helper/converToPrice";
 import { useGetOrderedQuery } from "../../services/orderedApi";
-import ReviewModal from "../../modal/ReviewModal";
 import Button from "../../components/Button/Button";
+import RatingModal from "../../modal/RatingModal";
 
 function Purchase() {
-  const dispatch=useDispatch()
   const user = useSelector(userSelector);
-  const isReviewModalOpening=useSelector(isReviewModalOpeningSelector)
   let { data, isLoading, refetch, isError } = useGetOrderedQuery(user._id);
-  const [orderWantToReview, setOrderWantToReView] = useState({});
-  const [reviewed,setReviewed]=useState({})
+  const isRatingModalOpening = useSelector(isRatingModalOpeningSelector);
+  const [orderInfor, setOrderInfor] = useState({});
+  const [productRating, setProductRating] = useState({});
 
-  const handleShowReviewBox = (order,reviewed) => {
-    dispatch(OPEN_REVIEW_MODAL())
-    setOrderWantToReView(order);
-    setReviewed(reviewed)
-  };
-  
   useEffect(() => {
     refetch();
-  },[isReviewModalOpening]);
+  }, [isRatingModalOpening]);
 
-  if (isLoading) {
+  if (isLoading || !data) {
     return <></>;
   }
   if (isError) {
     return <>Something wrong</>;
   }
-
-
   // let newData=[...data]
   // newData=newData.sort((a,b) => Date.parse(b.date) - Date.parse(a.date))
   return (
@@ -79,23 +73,15 @@ function Purchase() {
               Đơn hàng sẽ được chuẩn bị và chuyển đi trước
               <span className="ml-2 underline">{formatDate(order.date)}</span>
             </p>
-            {data.productsReviewed.some(
-              (productReviewed) => productReviewed._id === order._id
-            ) ? (
-              <Button variant='third' onClick={()=>handleShowReviewBox(order,data.productsReviewed.find(productReviewed=>productReviewed._id===order._id).review)} >Xem đánh giá</Button>
-            ) : (
-              <Button variant='primary' className='min-w-[130px] rounded-sm hover:opacity-80 ' onClick={()=>handleShowReviewBox(order)} >Đánh giá</Button>
-             
-            )}
+            <ReviewOrRatingButton
+              data={data}
+              order={order}
+              setOrderInfor={setOrderInfor}
+            />
           </div>
         </div>
       ))}
-      {isReviewModalOpening && (
-        <ReviewModal
-          orderWantToReview={orderWantToReview}
-          reviewed={reviewed}
-        />
-      )}
+      {isRatingModalOpening && <RatingModal orderInfor={orderInfor} />}
     </div>
   );
 }
@@ -110,4 +96,42 @@ const formatDate = (date) => {
   let year = dateNumberArray[0];
 
   return `${day}-${month}-${year}`;
+};
+
+const ReviewOrRatingButton = ({ data, order, setOrderInfor }) => {
+  const dispatch = useDispatch();
+
+  const productRatings = data.productRatings;
+  const isProductRatingExisting = productRatings.some(
+    (productRating) => productRating._id === order._id
+  );
+  const productRating = productRatings.find(
+    (productRating) => productRating._id === order._id
+  );
+
+  const handleShowRatingModal = (order, productRating) => {
+    dispatch(OPEN_RATING_MODAL());
+    setOrderInfor(order);
+    console.log(productRating)
+  };
+
+  if (isProductRatingExisting) {
+    return (
+      <Button
+        variant="third"
+        onClick={() => handleShowRatingModal(order, productRating)}
+      >
+        Xem đánh giá
+      </Button>
+    );
+  }
+  return (
+    <Button
+      variant="primary"
+      className="min-w-[130px] rounded-sm hover:opacity-80 "
+      onClick={() => handleShowRatingModal(order)}
+    >
+      Đánh giá
+    </Button>
+  );
 };

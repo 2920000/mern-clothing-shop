@@ -6,26 +6,27 @@ const addProductToDatabase = async(
   userId,
   dispatch,
   allCartProducts,
-  productSize
+  productSize,
+  quantity
 ) => {
-  let amount = Number(document.querySelector("#number-input")?.value);
   let productData;
   productData = {
     productId: productDetail._id,
     image: productDetail.image,
     title: productDetail.title,
     price: productDetail.price,
-    amount: amount || 1,
+    amount: quantity || 1,
     sale: productDetail.sale,
     size: productSize,
   };
  
   const allProductsAfterAdded=await addProductToMongodb({ productData, userId })
    
-  const checkProductExist = allCartProducts?.every(
-    (product) => product.productId !== productDetail._id
+  const isProductExisting = allCartProducts?.some(
+    (product) => product.productId === productDetail._id
   );
-  const checkSizeExisting = allCartProducts?.some(
+
+  const isSizeExisting = allCartProducts?.some(
     (product) =>
       product.productId === productDetail._id && product.size === productSize
   );
@@ -42,8 +43,7 @@ const addProductToDatabase = async(
       return productCopy;
     });
 
-    if (checkProductExist || !checkSizeExisting) {
-     
+    if (!isProductExisting || !isSizeExisting) {
       dispatch(
         UPDATE_PRODUCTS_IN_CART(allProductsAfterAdded)
       );

@@ -14,12 +14,15 @@ const InputNumberBox = ({
   allCartProducts,
 }) => {
   const dispatch = useDispatch();
+
   const handleIncrease = () => {
     const value = document.querySelector(
       `#number-input${index + 1 || ""}`
     ).value;
+
     document.querySelector(`#number-input${index + 1 || ""}`).value =
       Number(value) + 1;
+
     if (type === "sidebar") {
       user?updateCartProductsAmountDatabase(
         user,
@@ -35,9 +38,11 @@ const InputNumberBox = ({
     const value = document.querySelector(
       `#number-input${index + 1 || ""}`
     ).value;
+
     if (value > 1) {
       document.querySelector(`#number-input${index + 1 || ""}`).value =
         Number(value) - 1;
+        
       if (type === "sidebar") {
         user?updateCartProductsAmountDatabase(
           user,

@@ -1,8 +1,6 @@
-import { CHANGE_PRODUCTS_IN_CART, OPEN_CART_SIDEBAR, UPDATE_PRODUCTS_IN_CART } from "../features/cartSlice";
 import { addLocalStorage, getLocalStorage } from "./localStoragefunction";
 import { v4 as uuid } from "uuid";
-const addProductToLocal = (productDetail, dispatch, productSize) => {
-  const amount = Number(document.querySelector("#number-input")?.value);
+const addProductToLocal = (productDetail, productSize, quantity) => {
   let productData;
   productData = {
     id: uuid(),
@@ -10,21 +8,30 @@ const addProductToLocal = (productDetail, dispatch, productSize) => {
     image: productDetail.image,
     title: productDetail.title,
     price: productDetail.price,
-    amount: amount || 1,
+    amount: quantity || 1,
     sale: productDetail.sale,
     size: productSize,
   };
   const cartDataFromLocalStorage = getLocalStorage("cart");
 
-  const checkProductExist = cartDataFromLocalStorage?.every(
-    (product) => product.productId !== productDetail._id
+  const isProductExisting = cartDataFromLocalStorage?.some(
+    (product) => product.productId === productDetail._id
   );
-  const checkSizeExisting = cartDataFromLocalStorage?.some(
+  const isSizeExisting = cartDataFromLocalStorage?.some(
     (product) =>
       product.productId === productDetail._id && product.size === productSize
   );
 
-  if (cartDataFromLocalStorage) {
+  if (!cartDataFromLocalStorage) {
+    addLocalStorage("cart", [productData]);
+    return [productData];
+  }
+
+  if (!isProductExisting || !isSizeExisting) {
+    addLocalStorage("cart", [productData, ...cartDataFromLocalStorage]);
+    return [productData, ...cartDataFromLocalStorage];
+    
+  } else {
     const newArray = cartDataFromLocalStorage?.map((product) => {
       if (
         product.productId === productDetail._id &&
@@ -34,23 +41,9 @@ const addProductToLocal = (productDetail, dispatch, productSize) => {
       }
       return product;
     });
-
-    if (checkProductExist || !checkSizeExisting) {
-      addLocalStorage("cart", [productData, ...cartDataFromLocalStorage]);
-      dispatch(
-        UPDATE_PRODUCTS_IN_CART([productData, ...cartDataFromLocalStorage])
-      );
-    } else {
-      addLocalStorage("cart", newArray);
-      dispatch(UPDATE_PRODUCTS_IN_CART(newArray));
-    }
-  } else {
-    addLocalStorage("cart", [productData]);
-    dispatch(UPDATE_PRODUCTS_IN_CART([productData]));
+    addLocalStorage("cart", newArray);
+    return newArray;
   }
-
-  dispatch(OPEN_CART_SIDEBAR())
-  
 };
 
 export default addProductToLocal;
