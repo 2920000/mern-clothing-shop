@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { CgLoadbar } from "react-icons/cg";
 import { HiPlusSm } from "react-icons/hi";
-import {qs } from "../../../../helper/handleDOM";
+import { qs } from "../../../../../helper/handleDOM";
 
 function FilterName({ title, name}) {
   const [filterToggle, setFilterToggle] = useState(true);

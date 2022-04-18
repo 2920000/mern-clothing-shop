@@ -1,14 +1,14 @@
 import { FiTrash } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import { removeCartProductFromDatabase } from "../../../../api/cartApi";
+import { deleteCartProductFromLocal } from "../../../../helper";
 import { caculateSale } from "../../../../helper/caculateSale";
 import { convertToPrice } from "../../../../helper/converToPrice";
-import removeCartProductUI from "../../../../helper/removeCartProductUI";
 
 const ProductPrice = ({ cartProduct, allCartProducts, user }) => {
   const dispatch = useDispatch();
   const handleDeleteCartFromLocal = (productId) => {
-    removeCartProductUI(allCartProducts, productId, dispatch, "localstorage");
+    deleteCartProductFromLocal(allCartProducts, productId, dispatch, "localstorage");
   };
   const handleDeleteCartFromDatabase = (productId, userId) => {
     const payload = {
@@ -16,7 +16,7 @@ const ProductPrice = ({ cartProduct, allCartProducts, user }) => {
       userId,
     };
     removeCartProductFromDatabase(payload);
-    removeCartProductUI(allCartProducts, productId, dispatch);
+    deleteCartProductFromLocal(allCartProducts, productId, dispatch);
   };
   return (
     <div className=" flex items-end flex-col justify-between text-sm ">

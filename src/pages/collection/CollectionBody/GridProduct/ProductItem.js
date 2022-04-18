@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, memo } from "react";
 import { Link } from "react-router-dom";
-import { caculateSale } from "../../../helper/caculateSale";
-import { convertToPrice } from "../../../helper/converToPrice";
-import { qsa } from "../../../helper/handleDOM";
-import useHover from "../../../hooks/useHover";
+import { caculateSale } from "../../../../helper/caculateSale";
+import { convertToPrice } from "../../../../helper/converToPrice";
+import { qsa } from "../../../../helper/handleDOM";
+import useHover from "../../../../hooks/useHover";
 
 const ProductItem = ({ product }) => {
   const isSale = product.sale !== 0;

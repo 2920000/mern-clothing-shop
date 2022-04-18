@@ -3,32 +3,46 @@ import { getShippingInfor, updateShippingInfor } from "../api/userApi";
 
 export const fetchShippingInfor = createAsyncThunk(
   "user/shippingInfor",
-  async (userId) => {
-    const response = await getShippingInfor(userId);
-    return response;
-  }
-);
-export const updateShippingInforToDatabase = createAsyncThunk(
-  "user/updateShippingInfor",
-  async (payload, thunkApi) => {
+  async (userId, { dispatch }) => {
     try {
-      const response = await updateShippingInfor({ ...payload });
-      thunkApi.dispatch(fetchShippingInfor(payload.userId));
+      const response = await getShippingInfor(userId);
+      dispatch(CLOSE_SHIPPING_INFOR_MODAL());
       return response;
     } catch (error) {
-      return thunkApi.rejectWithValue(error.response);
+      dispatch(OPEN_SHIPPING_INFOR_MODAL());
+    }
+  }
+);
+
+export const updateShippingInforToDatabase = createAsyncThunk(
+  "user/updateShippingInfor",
+  async (payload, { dispatch, rejectWithValue }) => {
+    try {
+      const response = await updateShippingInfor({ ...payload });
+      dispatch(CLOSE_SHIPPING_INFOR_MODAL());
+      return response;
+    } catch (error) {
+      return rejectWithValue(error.response);
     }
   }
 );
 const initialState = {
   shippingInfor: null,
-  shouldUpdateShippingInfor: false,
+  hasShippingInfor: false,
   isUpdateShippingInfor: false,
 };
 const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    OPEN_SHIPPING_INFOR_MODAL: (state) => {
+      state.hasShippingInfor = true;
+    },
+    CLOSE_SHIPPING_INFOR_MODAL: (state) => {
+      state.hasShippingInfor = false;
+    },
+  },
+
   extraReducers: (builder) => {
     builder.addCase(updateShippingInforToDatabase.pending, (state, action) => {
       state.isUpdateShippingInfor = true;
@@ -37,23 +51,19 @@ const userSlice = createSlice({
       updateShippingInforToDatabase.fulfilled,
       (state, action) => {
         state.isUpdateShippingInfor = false;
+        state.shippingInfor = action.payload;
       }
     );
     builder.addCase(fetchShippingInfor.fulfilled, (state, action) => {
       state.shippingInfor = action.payload;
-      if (Object.keys(action.payload).length === 1) {
-        state.shouldUpdateShippingInfor = true;
-      } else {
-        state.shouldUpdateShippingInfor = false;
-      }
-      state.isUpdateShippingInfor = false;
     });
   },
 });
 export default userSlice.reducer;
 
-export const shouldUpdateShippingInforSelector = (state) =>
-  state.user.shouldUpdateShippingInfor;
+export const hasShippingInforSelector = (state) => state.user.hasShippingInfor;
 export const shippingInforSelector = (state) => state.user.shippingInfor;
 export const isUpdateShippingInforSelector = (state) =>
   state.user.isUpdateShippingInfor;
+export const { OPEN_SHIPPING_INFOR_MODAL, CLOSE_SHIPPING_INFOR_MODAL } =
+  userSlice.actions;

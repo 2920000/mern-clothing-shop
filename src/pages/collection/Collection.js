@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import GridProducts from "./GridProduct/GridProducts";
-import ProductsFilter from "./ProductFilter/Filter";
 import ErrorBoundary from "../../components/ErrorBoundary";
 import CollectionHeader from "./CollectionHeader/CollectionHeader";
 import { FiChevronUp } from "react-icons/fi";
 import useEventListener from "../../hooks/useEventListener";
+import GridProducts from "./CollectionBody/GridProduct";
+import ProductsFilter from "./CollectionBody/ProductsFilter";
 function Collection() {
   window.scrollTo(0, 0);
   return (

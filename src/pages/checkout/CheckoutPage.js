@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { userSelector } from "../../features/accountSlice";
 import {
   fetchShippingInfor,
-  shouldUpdateShippingInforSelector,
+  hasShippingInforSelector,
 } from "../../features/userSlice";
 import ShippingInforModal from "../../modal/ShippingInforModal";
 import { useGetCartProductsQuery } from "../../services/cartProductsApi";
@@ -23,9 +23,7 @@ function CheckoutPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector(userSelector);
-  const shouldUpdateShippingInfor = useSelector(
-    shouldUpdateShippingInforSelector
-  );
+  const hasShippingInfor = useSelector(hasShippingInforSelector);
   const isOrdering = useSelector(isOrderingSelector);
   const orderStatus = useSelector(orderStatusSelector);
   const { data, isLoading, isError, refetch } = useGetCartProductsQuery(
@@ -43,7 +41,6 @@ function CheckoutPage() {
     dispatch(fetchShippingInfor(user._id));
     refetch();
   }, []);
-
 
   if (isLoading || !data) {
     return (
@@ -66,7 +63,7 @@ function CheckoutPage() {
           <Payment cartProducts={data} />
         </ErrorBoundary>
       </div>
-      {shouldUpdateShippingInfor && <ShippingInforModal />}
+      {hasShippingInfor && <ShippingInforModal />}
       {isOrdering && <Loading />}
     </div>
   );

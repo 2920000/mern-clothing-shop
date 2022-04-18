@@ -1,5 +1,13 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import React from "react";
+import { useSelector } from "react-redux";
+import {
+  BrowserRouter as Router,
+  Navigate,
+  Route,
+  Routes,
+} from "react-router-dom";
 import { AnnouncemetBar, Footer, Header, Navigation } from "./components";
+import { userSelector } from "./features/accountSlice";
 import {
   Account,
   CheckoutPage,
@@ -14,6 +22,7 @@ import {
 import Login from "./pages/Account/Login/Login";
 import Register from "./pages/Account/Register/Register";
 function App() {
+  const user = useSelector(userSelector);
   return (
     <div>
       <Router>
@@ -30,7 +39,10 @@ function App() {
           </Route>
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="*" element={<NotFoundPage />} />
-          <Route path="/user" element={<User />}>
+          <Route
+            path="/user"
+            element={user ? <User /> : <Navigate to="/account/login" />}
+          >
             <Route path="profile" element={<Profile />} />
             <Route path="purchase" element={<Purchase />} />
           </Route>

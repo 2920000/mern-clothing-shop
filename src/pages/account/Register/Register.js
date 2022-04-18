@@ -28,9 +28,6 @@ function Register() {
     }
   }, [user]);
 
-  if (isLoading) {
-    return <Loading/>;
-  }
 
   return (
     <>
@@ -42,7 +39,7 @@ function Register() {
             Đã có tài khoản? <Link to="/account/login">Đăng nhập</Link>{" "}
           </div>
         </div>
-
+        {isLoading && <Loading />}
         {success && (
           <div className="absolute  bg-[rgba(0,0,0,0.4)] z-50 top-0 left-0 right-0 bottom-0 flex justify-center items-center ">
             <div

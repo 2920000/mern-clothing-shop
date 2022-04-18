@@ -1,6 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import convertPriceFilter from "../../../../helper/convertPriceFilter";
-import convertToVietnamese from "../../../../helper/convertToVietnamese";
+import { convertPriceFilter, convertToVietnamese } from "../../../../../helper";
 
 function FilterOption({ name, selection }) {
   return (

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userSelector } from "../../features/accountSlice";
 import {
@@ -8,16 +8,16 @@ import {
 import { caculateSale } from "../../helper/caculateSale";
 import { convertToPrice } from "../../helper/converToPrice";
 import { useGetOrderedQuery } from "../../services/orderedApi";
+import {AiOutlineDropbox} from 'react-icons/ai'
 import Button from "../../components/Button/Button";
 import RatingModal from "../../modal/RatingModal";
 
 function Purchase() {
   const user = useSelector(userSelector);
-  let { data, isLoading, refetch, isError } = useGetOrderedQuery(user._id);
+  let { data, isLoading, refetch, isError } = useGetOrderedQuery(user?._id);
   const isRatingModalOpening = useSelector(isRatingModalOpeningSelector);
   const [orderInfor, setOrderInfor] = useState({});
-  const [productRating, setProductRating] = useState({});
-
+ 
   useEffect(() => {
     refetch();
   }, [isRatingModalOpening]);
@@ -30,6 +30,11 @@ function Purchase() {
   }
   // let newData=[...data]
   // newData=newData.sort((a,b) => Date.parse(b.date) - Date.parse(a.date))
+
+  if(data.orders.length===0){
+    return <div className="flex flex-col gap-2 justify-center items-center min-h-[600px] w-full bg-white text-lg"><AiOutlineDropbox className="text-5xl"/>Chưa có đơn hàng</div>
+  }
+  
   return (
     <div>
       {data.orders.map((order) => (
@@ -105,21 +110,17 @@ const ReviewOrRatingButton = ({ data, order, setOrderInfor }) => {
   const isProductRatingExisting = productRatings.some(
     (productRating) => productRating._id === order._id
   );
-  const productRating = productRatings.find(
-    (productRating) => productRating._id === order._id
-  );
-
-  const handleShowRatingModal = (order, productRating) => {
+ 
+  const handleShowRatingModal = (order) => {
     dispatch(OPEN_RATING_MODAL());
     setOrderInfor(order);
-    console.log(productRating)
   };
 
   if (isProductRatingExisting) {
     return (
       <Button
         variant="third"
-        onClick={() => handleShowRatingModal(order, productRating)}
+        onClick={() => handleShowRatingModal(order)}
       >
         Xem đánh giá
       </Button>

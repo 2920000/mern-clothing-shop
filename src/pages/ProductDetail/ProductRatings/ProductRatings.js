@@ -6,7 +6,7 @@ import ProductRatingsList from "./ProductRatingsList";
 import ProductRatingsOverview from "./ProductRatingsOverview";
 function ProductRatings() {
   const { productId } = useParams();
-  const { data,refetch} = useGetRatingQuery(productId);
+  const { data, refetch } = useGetRatingQuery(productId);
   const [productRatingsList, setProductRatingsList] = useState(data);
 
   useEffect(() => {
@@ -15,14 +15,13 @@ function ProductRatings() {
     }
   }, [data]);
 
-  useEffect(()=>{
-    refetch()
-  },[])
+  useEffect(() => {
+    refetch();
+  }, []);
 
   if (data?.length === 0 || !data) {
     return <></>;
   }
-
 
   return (
     <div className="mt-20">
@@ -38,13 +37,4 @@ function ProductRatings() {
 
 export default ProductRatings;
 
-export const Star = ({ number, outline }) => {
-  if (outline) {
-    return Array(number)
-      .fill()
-      .map((star) => <AiOutlineStar />);
-  }
-  return Array(number)
-    .fill()
-    .map((star) => <AiFillStar />);
-};
+

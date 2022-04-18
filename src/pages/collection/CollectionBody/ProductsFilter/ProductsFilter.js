@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import {existingBrandSelector, existingColourSelector} from "../../../features/collectionSlice";
+import { existingBrandSelector, existingColourSelector } from "../../../../features/collectionSlice";
 import Filter from "./filter/Filter";
 import RefineBy from "./refineBy/RefineBy";
 

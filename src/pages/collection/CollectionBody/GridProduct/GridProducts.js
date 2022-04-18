@@ -1,15 +1,13 @@
 import React, { useEffect, useRef } from "react";
 import { useLocation, useParams } from "react-router-dom";
-import {
-  fetchByCollection,
-  isLoadingSelector,
-  productsCollectionSelector,
-} from "../../../features/collectionSlice";
+
 import { useDispatch, useSelector } from "react-redux";
 import queryString from "query-string";
 import Pagination from "./Pagination";
 import ProductItem from "./ProductItem";
-import Skeleton from "../../../components/skeleton/Skeleton";
+import { fetchByCollection, productsCollectionSelector } from "../../../../features/collectionSlice";
+import { isLoadingSelector } from "../../../../features/searchSlice";
+
 function GridProducts() {
   const dispatch = useDispatch();
   const { collection } = useParams();

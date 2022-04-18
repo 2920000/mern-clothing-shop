@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { Outlet, Link, useLocation } from "react-router-dom";
 import { VscAccount } from "react-icons/vsc";
 import { GiNotebook } from "react-icons/gi";
-import {HiAnnotation} from 'react-icons/hi'
+
 function User() {
+
   return (
     <div className="bg-[#F5F5F5] h-full">
       <div className="max-w-[1272px] pt-5 flex flex-col lg:flex-row px-2 m-auto">

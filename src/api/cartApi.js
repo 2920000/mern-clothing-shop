@@ -1,7 +1,6 @@
 import instance from "./axiosClient";
 
 const addProductToMongodb = async (payload) => {
-  console.log(payload)
   const data = await instance.post(`/cart/add`, {
     ...payload,
   });

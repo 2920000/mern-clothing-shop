@@ -3,8 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
-import useEventListener from "../../hooks/useEventListener";
-// import "./styles.css";
+import useEventListener from "../../../hooks/useEventListener";
 
 function LeftProductDetail({ productDetail }) {
   const [change, setChange] = useState(false);

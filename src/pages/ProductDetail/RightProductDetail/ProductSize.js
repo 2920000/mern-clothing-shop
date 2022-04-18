@@ -1,20 +1,29 @@
-const ProductSize = ({ productDetail, productSize, handleChangeSize }) => {
-  const sizeItemProps = {
-    productSize,
-    handleChangeSize,
-  };
+import { useDispatch, useSelector } from "react-redux";
+import {
+  producDetailtWantToBuySelecter,
+  UPDATE_PRODUCT_DETAIL_WANT_TO_BUY,
+} from "../../../features/productDetailWantToBySlice";
+
+const ProductSize = ({ productDetail }) => {
   return (
     <>
       <div className="flex">
-        {productDetail.size?.map((s, index) => (
-          <SizeItem key={index} size={s} {...sizeItemProps} />
+        {productDetail.size?.map((size, index) => (
+          <SizeItem key={index} size={size} />
         ))}
       </div>
     </>
   );
 };
 export default ProductSize;
-const SizeItem = ({ size, productSize, handleChangeSize }) => {
+const SizeItem = ({ size }) => {
+  const dispatch = useDispatch();
+  const productDetailWantToBuy = useSelector(producDetailtWantToBuySelecter);
+  const productSize = productDetailWantToBuy.size;
+  const handleChangeSize = (size) => {
+    dispatch(UPDATE_PRODUCT_DETAIL_WANT_TO_BUY({ size }));
+  };
+
   return (
     <li
       onClick={() => {

@@ -1,3 +1,4 @@
+import StarRating from "../../../modal/RatingModal/RatingModalMain/ProductReviews/StarRating";
 import { Star } from "./ProductRatings";
 
 const ProductRatingsList = ({ productRatingsList }) => {
@@ -30,12 +31,13 @@ export const ProductRatingItem = ({ productRating }) => {
       </div>
       <div>
         <span className="text-xs">{productRating.userInfor.username}</span>
-        <div className="flex items-center text-sm relative mt-1">
+        <StarRating  number={productRating.starRating}/>
+        {/* <div className="flex items-center text-sm relative mt-1">
           <Star number={5} outline />
           <div className="flex absolute">
             <Star number={productRating.starRating} />
           </div>
-        </div>
+        </div> */}
         <div className="my-4 text-xs">{productRating.created_at}</div>
         <p className="text-sm mb-2 ">{productRating.commentText}</p>
         <div className="flex  gap-3">
@@ -49,3 +51,4 @@ export const ProductRatingItem = ({ productRating }) => {
     </div>
   );
 };
+

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import StarRating from "../../../modal/RatingModal/RatingModalMain/ProductReviews/StarRating";
 import { Star } from "./ProductRatings";
 
 const ProductRatingsOverview = ({ data, setProductRatingsList }) => {
@@ -70,16 +71,11 @@ const ProductRatingsOverview = ({ data, setProductRatingsList }) => {
 
   return (
     <div className="flex justify-between gap-14 w-full min-h-[100px] p-10 mt-4 bg-[#F7F8FA]">
-      <div className="text-red">
+      <div className="">
         <div>
           <span className="text-3xl mr-1">{starsAverage}</span> trên 5
         </div>
-        <div className="flex items-center text-2xl relative">
-          <Star number={5} outline />
-          <div className="flex absolute">
-            <Star number={starsAverage} />
-          </div>
-        </div>
+       <StarRating className='text-2xl'  number={starsAverage} />
       </div>
       <div className="flex gap-2 text-sm">
         {filterByStarRatingList.map((item, index) => (

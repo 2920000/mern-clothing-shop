@@ -1,6 +1,6 @@
 import { addLocalStorage, getLocalStorage } from "./localStoragefunction";
 
-const updateQuantity = (productId, productSize, number = 0) => {
+const updateCartProductQuantityFromLocal = (productId, productSize, number = 0) => {
   const cartDataFromLocalStorage = getLocalStorage("cart");
   const cartDataFromLocalStorageAfterUpdated = cartDataFromLocalStorage.map(
     (productInLocal) => {
@@ -20,4 +20,4 @@ const updateQuantity = (productId, productSize, number = 0) => {
   addLocalStorage("cart", cartDataFromLocalStorageAfterUpdated);
   return cartDataFromLocalStorageAfterUpdated;
 };
-export default updateQuantity;
+export default updateCartProductQuantityFromLocal;

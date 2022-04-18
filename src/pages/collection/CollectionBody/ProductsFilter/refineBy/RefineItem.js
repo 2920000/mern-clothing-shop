@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { VscClose } from "react-icons/vsc";
 import { useNavigate } from "react-router-dom";
-import convertToVietnamese from "../../../../helper/convertToVietnamese";
+import { convertToVietnamese } from "../../../../../helper";
 import { deletePreParam } from "../filter/FilterOption";
 
 const RefineItem = ({ keySelected, value, collection }) => {

@@ -6,7 +6,7 @@ import {
   fetchByCollection,
   productsCollectionSelector,
   productsNumberTotalSelector,
-} from "../../../features/collectionSlice";
+} from "../../../../features/collectionSlice";
 import queryString from "query-string";
 
 function Pagination() {

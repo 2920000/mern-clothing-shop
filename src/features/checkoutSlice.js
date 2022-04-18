@@ -4,12 +4,14 @@ import { addOrders } from "../api/checkoutApi";
 
 export const addOrdersToDatabase = createAsyncThunk(
   "checkout/addOrders",
-  async (payload) => {
-    const response = await addOrders(payload);
-    if (response.status === 200) {
+  async (payload, { rejectWithValue }) => {
+    try {
+      const response = await addOrders(payload);
       clearCartFromDatabase(payload.userId);
+      return response;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
     }
-    return response;
   }
 );
 const initialState = {
@@ -46,5 +48,6 @@ export const orderStatusSelector = (state) => state.checkout.orderStatus;
 export const isOrderingSelector = (state) => state.checkout.isOrdering;
 export const ordersSelector = (state) => state.checkout.orders;
 export const shippingFeeSelector = (state) => state.checkout.shippingFee;
-export const { UPDATE_SHIPPING_FEE, SET_ORDER_STATUS,SET_LOADING } = checkoutSlice.actions;
+export const { UPDATE_SHIPPING_FEE, SET_ORDER_STATUS, SET_LOADING } =
+  checkoutSlice.actions;
 export default checkoutSlice.reducer;

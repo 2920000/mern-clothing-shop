@@ -16,6 +16,7 @@ function ShippingInforModal() {
     phoneNumber: "",
     address: "",
   });
+  
   const user = useSelector(userSelector);
   const isUpdateShippingInfor = useSelector(isUpdateShippingInforSelector);
   const allowSubmit = !!(
@@ -23,10 +24,12 @@ function ShippingInforModal() {
     shippingInfor.phoneNumber &&
     shippingInfor.address
   );
+
   useEffect(() => {
     document.body.style.overflowY = "hidden";
     return () => (document.body.style.overflowY = "auto");
   }, []);
+
   useEffect(() => {
     validateForm("shippingInforForm");
   });
@@ -39,6 +42,7 @@ function ShippingInforModal() {
       updateShippingInforToDatabase({ userId: user._id, ...shippingInfor })
     );
   };
+
   const handleOnchangeInput = (e) => {
     setShippingInfor({ ...shippingInfor, [e.target.name]: e.target.value });
   };

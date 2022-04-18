@@ -123,6 +123,7 @@ const UserExisting = () => {
     } else {
       removeLocalStorage("profile");
       window.location.reload();
+      navigate('/')
     }
   };
   return (

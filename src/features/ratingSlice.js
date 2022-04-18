@@ -3,9 +3,14 @@ import { createRating } from "../api/ratingApi";
 
 export const addRatingToDatabase = createAsyncThunk(
   "create",
-  async (ratingData) => {
-    const response = await createRating(ratingData);
-    return response;
+  async (ratingData, { dispatch, rejectWithValue }) => {
+    try {
+      const response = await createRating(ratingData);
+      dispatch(CLOSE_RATING_MODAL());
+      return response;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
   }
 );
 const initialState = {
@@ -13,7 +18,6 @@ const initialState = {
   selectedTagsRating: {},
   commentText: "",
   isLoading: false,
-  isCreateRatingSuccess: false,
   isRatingModalOpening: false,
 };
 
@@ -27,7 +31,7 @@ const ratingSlice = createSlice({
     UPDATE_SELECTED_TAGS_RATING: (state, action) => {
       state.selectedTagsRating = action.payload;
     },
-    UPDATE_TEXT_COMMENT:(state, action) => {
+    UPDATE_TEXT_COMMENT: (state, action) => {
       state.commentText = action.payload;
     },
     CLEAR_RATING_DATA: (state) => {
@@ -48,7 +52,6 @@ const ratingSlice = createSlice({
     });
     builder.addCase(addRatingToDatabase.fulfilled, (state) => {
       state.isLoading = false;
-      state.isCreateRatingSuccess = true;
     });
     builder.addCase(addRatingToDatabase.rejected, (state) => {
       state.isLoading = false;
@@ -56,21 +59,21 @@ const ratingSlice = createSlice({
   },
 });
 
-export const isRatingModalOpeningSelector=state=>state.review.isRatingModalOpening
+export const isRatingModalOpeningSelector = (state) =>
+  state.review.isRatingModalOpening;
 export const commnetTextSelector = (state) => state.review.commentText;
 export const selectedStarRatingIndexSelector = (state) =>
   state.review.selectedStarRatingIndex;
 export const selectedTagsRatingSelector = (state) =>
   state.review.selectedTagsRating;
 export const isLoadingSelector = (state) => state.review.isLoading;
-export const isCreateRatingSuccesSelector = (state) =>
-  state.review.isCreateRatingSuccess;
+
 export const {
   UPDATE_SELECTED_TAGS_RATING,
   UPDATE_STAR_RATING_INDEX,
   UPDATE_TEXT_COMMENT,
   CLEAR_RATING_DATA,
   OPEN_RATING_MODAL,
-  CLOSE_RATING_MODAL
+  CLOSE_RATING_MODAL,
 } = ratingSlice.actions;
 export default ratingSlice.reducer;

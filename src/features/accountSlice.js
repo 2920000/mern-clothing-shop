@@ -14,7 +14,6 @@ export const postAccount = createAsyncThunk(
   }
 );
 
-
 const initialState = {
   user: getLocalStorage('profile'),
   errorMessage:'',

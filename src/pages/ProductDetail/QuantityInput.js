@@ -4,8 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateCartProductAmountFromDatabase } from "../../api/cartApi";
 import { userSelector } from "../../features/accountSlice";
 import { UPDATE_PRODUCTS_IN_CART } from "../../features/cartSlice";
+import {
+  producDetailtWantToBuySelecter,
+  UPDATE_PRODUCT_DETAIL_WANT_TO_BUY,
+} from "../../features/productDetailWantToBySlice";
+import { updateCartProductQuantityFromLocal } from "../../helper";
 import { qsa } from "../../helper/handleDOM";
-import updateQuantity from "../../helper/updateQuantity";
 
 const QuantityInput = forwardRef((props, ref) => {
   const {
@@ -16,8 +20,13 @@ const QuantityInput = forwardRef((props, ref) => {
     shouldUpdateQuantityToDatabase = false,
     cartProduct,
   } = props;
+
   const dispatch = useDispatch();
+
   const user = useSelector(userSelector);
+  const productDetailWantToBuy = useSelector(producDetailtWantToBuySelecter);
+  const productQuantity = productDetailWantToBuy.amount;
+
   const handleNumberByArrow = (e, number = 0) => {
     const quantityBoxes = qsa(".product-quantity-box");
     quantityBoxes.forEach((quantityBox) => {
@@ -29,21 +38,25 @@ const QuantityInput = forwardRef((props, ref) => {
           return;
         }
         quantityElement.value = quantityAfterAdded;
+        dispatch(UPDATE_PRODUCT_DETAIL_WANT_TO_BUY({amount:quantityAfterAdded}))
       }
     });
   };
 
   const handleIncrease = async (e) => {
-    console.log(shouldUpdateQuantityToDatabase, shouldUpdateQuantityToLocal);
-
     handleNumberByArrow(e, 1);
     if (shouldUpdateQuantityToLocal) {
       dispatch(
         UPDATE_PRODUCTS_IN_CART(
-          updateQuantity(cartProduct.productId, cartProduct.size, 1)
+          updateCartProductQuantityFromLocal(
+            cartProduct.productId,
+            cartProduct.size,
+            1
+          )
         )
       );
     }
+
     if (shouldUpdateQuantityToDatabase) {
       dispatch(
         UPDATE_PRODUCTS_IN_CART(
@@ -58,10 +71,15 @@ const QuantityInput = forwardRef((props, ref) => {
     if (shouldUpdateQuantityToLocal) {
       dispatch(
         UPDATE_PRODUCTS_IN_CART(
-          updateQuantity(cartProduct.productId, cartProduct.size, -1)
+          updateCartProductQuantityFromLocal(
+            cartProduct.productId,
+            cartProduct.size,
+            -1
+          )
         )
       );
     }
+    
     if (shouldUpdateQuantityToDatabase) {
       dispatch(
         UPDATE_PRODUCTS_IN_CART(
@@ -79,7 +97,7 @@ const QuantityInput = forwardRef((props, ref) => {
         ref={ref}
         type="number"
         min={1}
-        value={cartProduct?.amount || 1}
+        value={cartProduct?.amount || productQuantity}
         readOnly
         className="number-input text-center w-full outline-none"
       />

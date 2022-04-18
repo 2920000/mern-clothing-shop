@@ -9,18 +9,9 @@ import ProductPolicy from "./ProductPolicy";
 import useResizeObserver from "../../../hooks/useResizeObserver";
 import { qs } from "../../../helper/handleDOM";
 function RightProductDetail({ productDetail }) {
-  const [productSize, setProductSize] = useState("S");
   const [styleDetailRight, setStyleDetailRight] = useState({});
   const emptyRightRef = useRef();
   const rightDetailInnerRef = useRef();
-  const handleChangeSize = (size) => {
-    setProductSize(size);
-  };
-  const productSizeProps = {
-    productDetail,
-    productSize,
-    handleChangeSize,
-  };
 
   const props = {
     productDetail,
@@ -76,8 +67,8 @@ function RightProductDetail({ productDetail }) {
       >
         <ProductTitle {...props} />
         <ProductPrice {...props} />
-        <ProductSize {...productSizeProps} />
-        <ProductPurchase productSize={productSize} {...props} />
+        <ProductSize {...props} />
+        <ProductPurchase {...props} />
         <ProductDescribe {...props} />
         <ProductPolicy />
       </div>

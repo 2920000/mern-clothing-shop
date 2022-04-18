@@ -3,16 +3,17 @@ import { addLocalStorage } from "./localStoragefunction";
 import { caculateSale } from "./caculateSale";
 import { convertToPrice } from "./converToPrice";
 import { removeLocalStorage } from "./localStoragefunction";
-import addProductToDatabase from "./addProductToDatabase";
-import addProductToLocal from "./addProductToLocal";
+import addCartProductToDatabase from "./addCartProductToDatabase";
+import addCartProductToLocal from "./addCartProductToLocal";
 import convertPriceFilter from "./convertPriceFilter";
 import convertToVietnamese from "./convertToVietnamese";
 import handleDOM from "./handleDOM";
-import removeCartProductUI from "./removeCartProductUI";
 import removeVietnameseTones from "./removeVietnameseTones";
 import removeWhiteSpaceAndLowerCase from "./removeWhiteSpace";
+import deleteCartProductFromLocal from "./deleteCartProductFromLocal";
 import { replaceWhitespace } from "./replaceWhitespace";
 import validateForm from "./validateForm";
+import updateCartProductQuantityFromLocal from "./updateCartProductQuantityFromLocal";
 import { getLocalStorage } from "./localStoragefunction";
 import openSearchHeader from "./openSearchHeader";
 export {
@@ -22,15 +23,16 @@ export {
   addLocalStorage,
   caculateSale,
   convertToPrice,
-  removeCartProductUI,
   removeLocalStorage,
   removeVietnameseTones,
   removeWhiteSpaceAndLowerCase,
   replaceWhitespace,
-  addProductToDatabase,
-  addProductToLocal,
+  addCartProductToDatabase,
+  addCartProductToLocal,
   convertPriceFilter,
   handleDOM,
   convertToVietnamese,
   validateForm,
+  deleteCartProductFromLocal,
+  updateCartProductQuantityFromLocal
 };
