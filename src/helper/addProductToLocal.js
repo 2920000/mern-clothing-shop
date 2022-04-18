@@ -1,6 +1,7 @@
 import { addLocalStorage, getLocalStorage } from "./localStoragefunction";
 import { v4 as uuid } from "uuid";
-const addProductToLocal = (productDetail, productSize, quantity) => {
+const addProductToLocal = (data) => {
+  const {productDetail,productSize,quantity}=data
   let productData;
   productData = {
     id: uuid(),

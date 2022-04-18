@@ -5,7 +5,7 @@ const fetchByCollection = createAsyncThunk(
   "collection/fetchByCollection",
   async (payload) => {
     const response = await getProductsByCollection(payload);
-    return response.data;
+    return response;
   }
 );
 const initialState = {

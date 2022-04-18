@@ -1,8 +1,9 @@
-import React, { forwardRef, useEffect } from "react";
+import React, { forwardRef } from "react";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { updateCartProductAmountFromDatabase } from "../../api/cartApi";
+import { userSelector } from "../../features/accountSlice";
 import { UPDATE_PRODUCTS_IN_CART } from "../../features/cartSlice";
-import addProductToLocal from "../../helper/addProductToLocal";
 import { qsa } from "../../helper/handleDOM";
 import updateQuantity from "../../helper/updateQuantity";
 
@@ -12,9 +13,11 @@ const QuantityInput = forwardRef((props, ref) => {
     arrowDown = "",
     wrapper = "",
     shouldUpdateQuantityToLocal = false,
+    shouldUpdateQuantityToDatabase = false,
     cartProduct,
   } = props;
   const dispatch = useDispatch();
+  const user = useSelector(userSelector);
   const handleNumberByArrow = (e, number = 0) => {
     const quantityBoxes = qsa(".product-quantity-box");
     quantityBoxes.forEach((quantityBox) => {
@@ -30,7 +33,9 @@ const QuantityInput = forwardRef((props, ref) => {
     });
   };
 
-  const handleIncrease = (e) => {
+  const handleIncrease = async (e) => {
+    console.log(shouldUpdateQuantityToDatabase, shouldUpdateQuantityToLocal);
+
     handleNumberByArrow(e, 1);
     if (shouldUpdateQuantityToLocal) {
       dispatch(
@@ -39,14 +44,28 @@ const QuantityInput = forwardRef((props, ref) => {
         )
       );
     }
+    if (shouldUpdateQuantityToDatabase) {
+      dispatch(
+        UPDATE_PRODUCTS_IN_CART(
+          await updateCartProductsAmountDatabase(user, cartProduct, "plus")
+        )
+      );
+    }
   };
 
-  const handleDescrease = (e) => {
+  const handleDescrease = async (e) => {
     handleNumberByArrow(e, -1);
     if (shouldUpdateQuantityToLocal) {
       dispatch(
         UPDATE_PRODUCTS_IN_CART(
           updateQuantity(cartProduct.productId, cartProduct.size, -1)
+        )
+      );
+    }
+    if (shouldUpdateQuantityToDatabase) {
+      dispatch(
+        UPDATE_PRODUCTS_IN_CART(
+          await updateCartProductsAmountDatabase(user, cartProduct, "subtract")
         )
       );
     }
@@ -83,3 +102,13 @@ const QuantityInput = forwardRef((props, ref) => {
 });
 
 export default QuantityInput;
+
+const updateCartProductsAmountDatabase = async (user, cartProduct, action) => {
+  const payloadInsc = {
+    userId: user._id,
+    cartProduct,
+    action,
+  };
+  const response = await updateCartProductAmountFromDatabase(payloadInsc);
+  return response.cart;
+};

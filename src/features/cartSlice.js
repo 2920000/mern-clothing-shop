@@ -5,7 +5,7 @@ export const fetchCartData = createAsyncThunk(
   "fetchCartDataFromDatabase",
   async (userId) => {
     const response = await getCartFromDatabase(userId);
-    return response.data;
+    return response;
   }
 );
 const cartDataFromLocalStorage = JSON.parse(localStorage.getItem("cart"));

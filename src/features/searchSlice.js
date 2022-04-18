@@ -5,8 +5,8 @@ export const fetchProductsBySearch = createAsyncThunk(
   "search/query",
   async (query, thunkAPI) => {
     const response = getProductBySearch(query);
-    thunkAPI.dispatch(UPDATE_CURRENT_SEARCH_PRODUCTS((await response).data));
-    return (await response).data;
+    thunkAPI.dispatch(UPDATE_CURRENT_SEARCH_PRODUCTS((await response)));
+    return (await response);
   }
 );
 

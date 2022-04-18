@@ -2,7 +2,6 @@ import { createRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userSelector } from "../../../features/accountSlice";
 import {
-  allCartProductsSelector,
   OPEN_CART_SIDEBAR,
   UPDATE_PRODUCTS_IN_CART,
 } from "../../../features/cartSlice";
@@ -12,28 +11,29 @@ import QuantityInput from "../QuantityInput";
 
 const ProductPurchase = ({ productDetail, productSize }) => {
   const user = useSelector(userSelector);
-  const allCartProducts = useSelector(allCartProductsSelector);
   const quantityRef = createRef();
   const dispatch = useDispatch();
-  const handleAddProductToCart = () => {
-    user
-      ? addProductToDatabase(
-          productDetail,
-          user._id,
-          dispatch,
-          allCartProducts,
-          productSize,
-          quantityRef.current.value
-        )
-      : dispatch(
-          UPDATE_PRODUCTS_IN_CART(
-            addProductToLocal(
-              productDetail,
-              productSize,
-              quantityRef.current.value
-            )
-          )
-        );
+
+  const handleAddProductToCart = async () => {
+    if (user) {
+      const data = {
+        productDetail,
+        userId: user._id,
+        productSize,
+        quantity: quantityRef.current.value,
+      };
+      const response = await addProductToDatabase(data);
+      dispatch(UPDATE_PRODUCTS_IN_CART(response));
+
+    } else {
+      const data = {
+        productDetail,
+        productSize,
+        quantity: quantityRef.current.value,
+      };
+      dispatch(UPDATE_PRODUCTS_IN_CART(addProductToLocal(data)));
+    }
+
     dispatch(OPEN_CART_SIDEBAR());
   };
   console.log("render");

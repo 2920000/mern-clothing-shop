@@ -5,17 +5,19 @@ export const fetchShippingInfor = createAsyncThunk(
   "user/shippingInfor",
   async (userId) => {
     const response = await getShippingInfor(userId);
-    return response.data;
+    return response;
   }
 );
 export const updateShippingInforToDatabase = createAsyncThunk(
   "user/updateShippingInfor",
   async (payload, thunkApi) => {
-    const response = await updateShippingInfor({ ...payload });
-    if (response.status === 200) {
+    try {
+      const response = await updateShippingInfor({ ...payload });
       thunkApi.dispatch(fetchShippingInfor(payload.userId));
+      return response;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.response);
     }
-    return response.data;
   }
 );
 const initialState = {

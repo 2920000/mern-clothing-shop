@@ -22,6 +22,10 @@ function RightProductDetail({ productDetail }) {
     handleChangeSize,
   };
 
+  const props = {
+    productDetail,
+  };
+
   const bodyRef = useRef(qs("body"));
   const callbackSaved = useCallback((entry) => {
     if (!emptyRightRef.current) {
@@ -70,14 +74,11 @@ function RightProductDetail({ productDetail }) {
         id="right-detail-inner"
         className="w-full relative lg:absolute  lg:max-w-[400px] "
       >
-        <ProductTitle productDetail={productDetail} />
-        <ProductPrice productDetail={productDetail} />
+        <ProductTitle {...props} />
+        <ProductPrice {...props} />
         <ProductSize {...productSizeProps} />
-        <ProductPurchase
-          productSize={productSize}
-          productDetail={productDetail}
-        />
-        <ProductDescribe productDetail={productDetail} />
+        <ProductPurchase productSize={productSize} {...props} />
+        <ProductDescribe {...props} />
         <ProductPolicy />
       </div>
     </div>

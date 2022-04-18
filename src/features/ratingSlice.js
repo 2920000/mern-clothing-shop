@@ -5,7 +5,7 @@ export const addRatingToDatabase = createAsyncThunk(
   "create",
   async (ratingData) => {
     const response = await createRating(ratingData);
-    return response.data;
+    return response;
   }
 );
 const initialState = {

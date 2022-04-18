@@ -7,7 +7,7 @@ export const postAccount = createAsyncThunk(
   async (payload, { rejectWithValue }) => {
     try {
       const response = await account(payload);
-      return response.data;
+      return response;
     } catch (error) {
       return rejectWithValue(error.response.data)
     }

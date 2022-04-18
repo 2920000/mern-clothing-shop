@@ -48,6 +48,7 @@ const LoginForm = () => {
         userId,
         cartDataFromLocal: cartFromLocal,
       };
+      console.log(payload)
       const addProductToDatabase = async () => {
         const res = await addProductToMongodb(payload);
         if (res) {

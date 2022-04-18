@@ -9,7 +9,7 @@ export const addOrdersToDatabase = createAsyncThunk(
     if (response.status === 200) {
       clearCartFromDatabase(payload.userId);
     }
-    return response.data;
+    return response;
   }
 );
 const initialState = {
