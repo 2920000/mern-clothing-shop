@@ -51,14 +51,7 @@ input.number-input{
   transition: opacity 150ms linear;
   z-index: 20;
 }
-.open{
-  max-height: 180px;
-  /* overflow: auto; */
-  padding: 10px 0;
-}
-/* .placeholderColor::placeholder{
-  color: red;
-} */
+
 ::placeholder{
   font-size: 14px;
 }

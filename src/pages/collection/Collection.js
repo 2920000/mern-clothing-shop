@@ -3,8 +3,8 @@ import ErrorBoundary from "../../components/ErrorBoundary";
 import CollectionHeader from "./CollectionHeader/CollectionHeader";
 import { FiChevronUp } from "react-icons/fi";
 import useEventListener from "../../hooks/useEventListener";
-import GridProducts from "./CollectionBody/GridProduct";
-import ProductsFilter from "./CollectionBody/ProductsFilter";
+import FilterSidebar from "./CollectionBody/FilterSidebar";
+import FilterProducts from "./CollectionBody/FilterProducts";
 function Collection() {
   window.scrollTo(0, 0);
   return (
@@ -14,8 +14,8 @@ function Collection() {
       </div>
       <div className="flex pb-10 mx-4 mder:mx-10">
         <ErrorBoundary>
-          <ProductsFilter />
-          <GridProducts />
+          <FilterSidebar />
+          <FilterProducts />
         </ErrorBoundary>
       </div>
       <BackToTop />
@@ -32,11 +32,14 @@ const BackToTop = () => {
       setShow(false);
     }
   });
-  if(!show){
-    return <></>
+  if (!show) {
+    return <></>;
   }
   return (
-    <div onClick={()=>window.scrollTo({behavior:'smooth',top:0})} className="fixed flex cursor-pointer items-center justify-center w-12 h-12 bg-black bottom-20 right-7">
+    <div
+      onClick={() => window.scrollTo({ behavior: "smooth", top: 0 })}
+      className="fixed flex cursor-pointer items-center justify-center w-12 h-12 bg-black bottom-20 right-7"
+    >
       <FiChevronUp className="text-white text-2xl" />
     </div>
   );

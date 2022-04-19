@@ -6,8 +6,7 @@ import {
   allCartProductsSelector,
   CLOSE_CART_SIDEBAR,
 } from "../../../features/cartSlice";
-import { calculateMoneyTotal } from "../../../helper/calculateMoneyTotal";
-import { convertToPrice } from "../../../helper/converToPrice";
+import { calculateMoneyTotal, convertToPrice } from "../../../helper";
 
 const CartFooter = () => {
   const dispatch = useDispatch();

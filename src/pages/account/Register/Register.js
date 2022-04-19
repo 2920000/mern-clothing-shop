@@ -7,7 +7,7 @@ import {
   isLoadingSelector,
   userSelector,
 } from "../../../features/accountSlice";
-import validateForm from "../../../helper/validateForm";
+import { validateForm } from "../../../helper";
 import RegisterForm from "./RegisterForm";
 
 function Register() {

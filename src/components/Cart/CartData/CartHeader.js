@@ -5,7 +5,7 @@ import {
   allCartProductsSelector,
   CLOSE_CART_SIDEBAR,
 } from "../../../features/cartSlice";
-import { convertToPrice } from "../../../helper/converToPrice";
+import { convertToPrice } from "../../../helper";
 
 const CartHeader = () => {
   const dispatch = useDispatch();

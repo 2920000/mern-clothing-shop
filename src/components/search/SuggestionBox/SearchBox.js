@@ -1,7 +1,7 @@
 import { IoIosArrowRoundForward } from "react-icons/io";
 import { useSelector } from "react-redux";
 import { ImSad2 } from "react-icons/im";
-import { currentProductsBySearchSelector, isLoadingSelector } from "../../../features/searchSlice";
+import { currentProductsBySearchSelector, isLoadingSelector } from "../../../features/headerSlice";
 import { SearchSkeleton } from "../../skeleton";
 import SearchItem from "./SearchItem";
 

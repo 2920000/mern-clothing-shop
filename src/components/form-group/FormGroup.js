@@ -2,8 +2,8 @@ export const FormGroup = ({ formProps }) => {
   return (
     <>
       {formProps.map((e, index) => (
-        <div key={index} className="mb-3">
-          <label className="block mb-2 font-semibold text-light_black" htmlFor={e.id}>
+        <div key={index} className="relative mb-3">
+          <label className="block mb-1 font-semibold text-light_black" htmlFor={e.id}>
             {e.title}
           </label>
           <input

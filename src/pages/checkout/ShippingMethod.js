@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { BiChevronDown } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import { UPDATE_SHIPPING_FEE } from "../../features/checkoutSlice";
-import { qs } from "../../helper/handleDOM";
+import { qs } from "../../helper";
 import useClickOutside from "../../hooks/useClickOutside";
 
 const ShippingMethod = () => {

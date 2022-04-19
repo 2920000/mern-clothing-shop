@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { qs } from "../helper/handleDOM";
+import { qs } from "../helper/DomUtilies/handleDOM";
 
 const useClickOutside = async(ref, cb) => {
   useEffect(() => {

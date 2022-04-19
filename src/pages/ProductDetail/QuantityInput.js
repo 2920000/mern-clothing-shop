@@ -8,8 +8,7 @@ import {
   producDetailtWantToBuySelecter,
   UPDATE_PRODUCT_DETAIL_WANT_TO_BUY,
 } from "../../features/productDetailWantToBySlice";
-import { updateCartProductQuantityFromLocal } from "../../helper";
-import { qsa } from "../../helper/handleDOM";
+import { qsa, updateCartProductQuantityFromLocal } from "../../helper";
 
 const QuantityInput = forwardRef((props, ref) => {
   const {
@@ -38,7 +37,9 @@ const QuantityInput = forwardRef((props, ref) => {
           return;
         }
         quantityElement.value = quantityAfterAdded;
-        dispatch(UPDATE_PRODUCT_DETAIL_WANT_TO_BUY({amount:quantityAfterAdded}))
+        dispatch(
+          UPDATE_PRODUCT_DETAIL_WANT_TO_BUY({ amount: quantityAfterAdded })
+        );
       }
     });
   };
@@ -79,7 +80,7 @@ const QuantityInput = forwardRef((props, ref) => {
         )
       );
     }
-    
+
     if (shouldUpdateQuantityToDatabase) {
       dispatch(
         UPDATE_PRODUCTS_IN_CART(

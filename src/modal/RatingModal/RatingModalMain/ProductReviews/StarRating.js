@@ -8,11 +8,11 @@ const StarRating = ({ className, number, onClick, flex='' }) => {
         .map((star, index) => (
           <div key={index} onClick={() => onClick(index)} className="relative">
             <AiOutlineStar
-              className={`text-orange-400 ${className}`}
+              className={`text-yellow ${className}`}
             />
             {index <= number && (
               <AiFillStar
-                className={`absolute top-0  text-orange-400 ${className}`}
+                className={`absolute top-0  text-yellow ${className}`}
               />
             )}
           </div>

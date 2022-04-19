@@ -8,10 +8,12 @@ function SortOption() {
   const [input, setInput] = useState("");
   const boxOptionRef = useRef();
   const sortByWrapperRef = useRef();
+
   const searchUrl = window.location.search;
   const queryObject = queryString.parse(searchUrl);
-
-  const optionFilter = [
+  //  console.log(searchUrl)
+  const url = new URLSearchParams(searchUrl);
+  const filterOption = [
     {
       displayName: "Bán chạy nhất",
       value: "best-selling",
@@ -33,56 +35,31 @@ function SortOption() {
   useEffect(() => {
     const inputFilterElement = document.querySelector("#filter-input");
     window.addEventListener("mousedown", (event) => {
-    if(!boxOptionRef.current){return}
-      if (inputFilterElement !== document.activeElement) {
-        boxOptionRef.current.classList.add("open");
-        document.querySelector(".filter-input").placeholder = "Nhập để tìm";
+      const isContain = sortByWrapperRef.current.contains(event.target);
+      if (!boxOptionRef.current) {
+        return;
       }
-      if (!sortByWrapperRef.current.contains(event.target)) {
-        boxOptionRef.current.classList.remove("open");
-        document.querySelector(".filter-input").placeholder = "Sắp xếp theo";
-      }
+      inputFilterElement.placeholder = `${
+        isContain ? "Nhập để tìm" : "Sắp xếp theo"
+      }`;
+      boxOptionRef.current.style.maxHeight = `${isContain ? "1000px" : "0"}`;
     });
   });
 
   const handleFilter = (value, e) => {
     e.stopPropagation();
-    const preQueryVlue = queryObject.sort;
-    const newSearchUrl = searchUrl.replace(
-      `sort=${preQueryVlue}`,
-      `sort=${value}`
-    );
-    if (newSearchUrl === searchUrl) {
-      if (!searchUrl) {
-        navigate({
-          pathname: `/collection/${collection}`,
-          search: `sort=${value}`,
-        });
-      } else {
-        navigate({
-          pathname: `/collection/${collection}`,
-          search: `${searchUrl}&sort=${value}`,
-        });
-        if (value === preQueryVlue) {
-          navigate({
-            pathname: `/collection/${collection}`,
-            search: `${searchUrl}`,
-          });
-        }
-      }
-    } else {
-      navigate({
-        pathname: `/collection/${collection}`,
-        search: newSearchUrl,
-      });
-    }
-    boxOptionRef.current.classList.remove("open");
+    const pathname = `/collection/${collection}`;
+    url.set("sort", value);
+    navigate({
+      pathname,
+      search: url.toString(),
+    });
     document.querySelector(".filter-input").placeholder = "Sắp xếp theo";
   };
   return (
     <div>
-      <div ref={sortByWrapperRef} className={`flex justify-end w-full relative `}>
-        <div className=" relative max-w-[220px]  ">
+      <div className={`flex justify-end w-full relative `}>
+        <div ref={sortByWrapperRef} className=" relative max-w-[220px]  ">
           <input
             onChange={(e) => setInput(e.target.value)}
             id="filter-input"
@@ -93,9 +70,9 @@ function SortOption() {
           <ul
             ref={boxOptionRef}
             id="filter-list"
-            className={`absolute top-[calc(100%)] text-light_black max-h-0 overflow-hidden transition-all duration-300  shadow-lg text-sm z-30 w-full  bg-white text-left left-0`}
+            className={`absolute top-[calc(100%)] text-light_black overflow-hidden max-h-0 transition-all duration-300  shadow-lg text-sm z-30 w-full  bg-white text-left left-0`}
           >
-            {optionFilter
+            {filterOption
               .filter((option) => option.displayName.includes(input))
               .map((item, index) => (
                 <li

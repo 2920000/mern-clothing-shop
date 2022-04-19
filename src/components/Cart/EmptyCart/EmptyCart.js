@@ -2,7 +2,7 @@ import { IoClose } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import {
   allCartProductsSelector,
-  OPEN_CART_SIDEBAR,
+  CLOSE_CART_SIDEBAR,
 } from "../../../features/cartSlice";
 
 const EmptyCart = () => {
@@ -17,14 +17,14 @@ const EmptyCart = () => {
         <IoClose
           className="cursor-pointer"
           onClick={() => {
-            dispatch(OPEN_CART_SIDEBAR(false));
+            dispatch(CLOSE_CART_SIDEBAR());
           }}
         />
       </div>
       <p className="text-xl text-center mt-3 mb-5 ">GIỎ HÀNG CỦA BẠN TRỐNG</p>
       <div
         onClick={() => {
-          dispatch(OPEN_CART_SIDEBAR(false));
+          dispatch(CLOSE_CART_SIDEBAR());
         }}
         className="max-w-[88%] rounded-sm cursor-pointer py-4 bg-black text-white  text-sm m-auto text-center"
       >

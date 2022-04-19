@@ -1,38 +1,47 @@
-import { calculateMoneyTotal } from "./calculateMoneyTotal";
-import { addLocalStorage } from "./localStoragefunction";
-import { caculateSale } from "./caculateSale";
-import { convertToPrice } from "./converToPrice";
-import { removeLocalStorage } from "./localStoragefunction";
-import addCartProductToDatabase from "./addCartProductToDatabase";
-import addCartProductToLocal from "./addCartProductToLocal";
-import convertPriceFilter from "./convertPriceFilter";
-import convertToVietnamese from "./convertToVietnamese";
-import handleDOM from "./handleDOM";
-import removeVietnameseTones from "./removeVietnameseTones";
-import removeWhiteSpaceAndLowerCase from "./removeWhiteSpace";
-import deleteCartProductFromLocal from "./deleteCartProductFromLocal";
-import { replaceWhitespace } from "./replaceWhitespace";
-import validateForm from "./validateForm";
-import updateCartProductQuantityFromLocal from "./updateCartProductQuantityFromLocal";
-import { getLocalStorage } from "./localStoragefunction";
-import openSearchHeader from "./openSearchHeader";
-export {
-  openSearchHeader,
-  getLocalStorage,
-  calculateMoneyTotal,
-  addLocalStorage,
-  caculateSale,
+import { calculateMoneyTotal, calculateSale } from "./Calculator";
+import {
+  convertPriceFilter,
   convertToPrice,
-  removeLocalStorage,
-  removeVietnameseTones,
-  removeWhiteSpaceAndLowerCase,
-  replaceWhitespace,
+  convertToVietnamese,
+} from "./Converter";
+import {
   addCartProductToDatabase,
   addCartProductToLocal,
-  convertPriceFilter,
-  handleDOM,
-  convertToVietnamese,
-  validateForm,
   deleteCartProductFromLocal,
-  updateCartProductQuantityFromLocal
+  updateCartProductQuantityFromLocal,
+} from "./CrudShoppingCart";
+import { handleDOM, qs, qsa, addClass, removeClass } from "./DomUtilies";
+import {
+  removeWhiteSpaceAndLowerCase,
+  removeVietnameseTones,
+  replaceWhitespace,
+  validateForm,
+} from "./Others";
+import {
+  addLocalStorage,
+  removeLocalStorage,
+  getLocalStorage,
+} from "./StorageUtilties";
+export {
+  calculateMoneyTotal,
+  calculateSale,
+  convertPriceFilter,
+  convertToPrice,
+  convertToVietnamese,
+  addCartProductToDatabase,
+  addCartProductToLocal,
+  deleteCartProductFromLocal,
+  updateCartProductQuantityFromLocal,
+  handleDOM,
+  qs,
+  qsa,
+  addClass,
+  removeClass,
+  removeWhiteSpaceAndLowerCase,
+  removeVietnameseTones,
+  replaceWhitespace,
+  validateForm,
+  addLocalStorage,
+  removeLocalStorage,
+  getLocalStorage,
 };

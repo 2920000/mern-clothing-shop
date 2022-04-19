@@ -7,14 +7,13 @@ import {
   allCartProductsSelector,
   OPEN_CART_SIDEBAR,
 } from "../../features/cartSlice";
-import { openSearchHeader } from "../../helper";
+import { OPEN_SEARCH_HEADER } from "../../features/headerSlice";
 import SidebarCart from "../Cart";
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 
 const HeaderRight = () => {
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
   const pathParams = useLocation().pathname;
- 
 
   if (pathParams === "/checkout") {
     return <></>;
@@ -22,7 +21,7 @@ const HeaderRight = () => {
   return (
     <div className="flex grow justify-end items-center max-w-[33.33%]">
       <IoIosSearch
-        onClick={()=>openSearchHeader(true,dispatch)}
+        onClick={() => dispatch(OPEN_SEARCH_HEADER())}
         className="text-[2rem]  cursor-pointer mr-5 block lg:hidden"
       />
       <CartIcon />

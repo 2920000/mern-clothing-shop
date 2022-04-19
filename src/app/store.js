@@ -4,12 +4,12 @@ import { cartProductsApi } from "../services/cartProductsApi";
 import accountSlice from "../features/accountSlice";
 import cartSlice from "../features/cartSlice";
 import collectionSlice from "../features/collectionSlice";
-import searchSlice from "../features/searchSlice";
 import userSlice from "../features/userSlice";
 import checkoutSlice from "../features/checkoutSlice";
 import { orderedApi } from "../services/orderedApi";
 import ratingSlice from "../features/ratingSlice";
 import productDetailWantToBySlice from "../features/productDetailWantToBySlice";
+import headerSlice from "../features/headerSlice";
 
 const store = configureStore({
   reducer: {
@@ -17,7 +17,7 @@ const store = configureStore({
     [cartProductsApi.reducerPath]: cartProductsApi.reducer,
     [orderedApi.reducerPath]: orderedApi.reducer,
     collection: collectionSlice,
-    search: searchSlice,
+    header:headerSlice,
     cart: cartSlice,
     account: accountSlice,
     user: userSlice,

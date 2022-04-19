@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { account } from "../api/accountApi";
-import { getLocalStorage } from "../helper/localStoragefunction";
+import { getLocalStorage } from "../helper/StorageUtilties";
 
 export const postAccount = createAsyncThunk(
   "postAccount",

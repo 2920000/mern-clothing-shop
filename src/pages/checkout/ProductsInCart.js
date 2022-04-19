@@ -1,5 +1,4 @@
-import { caculateSale } from "../../helper/caculateSale";
-import { convertToPrice } from "../../helper/converToPrice";
+import { calculateSale, convertToPrice } from "../../helper";
 
 function ProductsInCart({ cartProduct }) {
   return (
@@ -43,11 +42,11 @@ const OrderItem = ({ order }) => {
       </div>
       <div className="w-[40%] flex">
         <div className="text-sm w-full mder:w-[30%] text-center font-medium">
-          <span>{convertToPrice(caculateSale(order) / order.amount)} đ</span>
+          <span>{convertToPrice(calculateSale(order) / order.amount)} đ</span>
         </div>
         <span className="inline-block w-[30%] text-center">{order.amount}</span>
         <span className="hidden mder:flex justify-end grow text-sm font-medium ">
-          {convertToPrice(caculateSale(order))} đ
+          {convertToPrice(calculateSale(order))} đ
         </span>
       </div>
     </li>

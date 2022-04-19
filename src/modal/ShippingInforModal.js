@@ -7,8 +7,8 @@ import {
   updateShippingInforToDatabase,
 } from "../features/userSlice";
 import Loading from "../components/Loading";
-import validateForm from "../helper/validateForm";
 import { Link } from "react-router-dom";
+import { validateForm } from "../helper";
 function ShippingInforModal() {
   const dispatch = useDispatch();
   const [shippingInfor, setShippingInfor] = useState({

@@ -1,6 +1,6 @@
 import React, { useEffect,useRef} from "react";
 import { Link } from "react-router-dom";
-import banner from "../banner.png";
+import banner from "../assets/image/banner.png";
 function Home() {
   return (
     <div>

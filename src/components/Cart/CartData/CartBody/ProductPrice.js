@@ -1,9 +1,9 @@
 import { FiTrash } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import { removeCartProductFromDatabase } from "../../../../api/cartApi";
-import { deleteCartProductFromLocal } from "../../../../helper";
-import { caculateSale } from "../../../../helper/caculateSale";
-import { convertToPrice } from "../../../../helper/converToPrice";
+import { calculateSale } from "../../../../helper/Calculator";
+import { convertToPrice } from "../../../../helper/Converter";
+import { deleteCartProductFromLocal } from "../../../../helper/CrudShoppingCart";
 
 const ProductPrice = ({ cartProduct, allCartProducts, user }) => {
   const dispatch = useDispatch();
@@ -33,7 +33,7 @@ const ProductPrice = ({ cartProduct, allCartProducts, user }) => {
       <div className="relative">
         {cartProduct.sale !== 0 && (
           <span className="text-red absolute bottom-4 whitespace-nowrap mr-2">
-            {convertToPrice(caculateSale(cartProduct))} đ
+            {convertToPrice(calculateSale(cartProduct))} đ
           </span>
         )}
         <span

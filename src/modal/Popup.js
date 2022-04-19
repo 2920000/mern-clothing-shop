@@ -1,13 +1,9 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import useClickOutside from "../hooks/useClickOutside.js";
-import {
-  addLocalStorage,
-  getLocalStorage,
-} from "../helper/localStoragefunction.js";
 import ReactDOM from "react-dom";
-import { qs } from "../helper/handleDOM.js";
 import useResizeObserver from "../hooks/useResizeObserver.js";
+import { addLocalStorage, getLocalStorage, qs } from "../helper/index.js";
 
 const Popup = () => {
   const emailInputRef = useRef();

@@ -6,11 +6,10 @@ import {
   Route,
   Routes,
 } from "react-router-dom";
-import { AnnouncemetBar, Footer, Header, Navigation } from "./components";
+import { AnnouncemetBar, DesktopNav, Footer, Header } from "./components";
 import { userSelector } from "./features/accountSlice";
 import {
   Account,
-  CheckoutPage,
   Collection,
   Home,
   NotFoundPage,
@@ -21,6 +20,7 @@ import {
 } from "./pages";
 import Login from "./pages/Account/Login/Login";
 import Register from "./pages/Account/Register/Register";
+import Checkout from "./pages/Checkout";
 function App() {
   const user = useSelector(userSelector);
   return (
@@ -28,7 +28,7 @@ function App() {
       <Router>
         <AnnouncemetBar />
         <Header />
-        <Navigation />
+        <DesktopNav />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/collection/:collection" element={<Collection />} />
@@ -37,7 +37,10 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
           </Route>
-          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route
+            path="/checkout"
+            element={user ? <Checkout /> : <Navigate to="/account/login" />}
+          />
           <Route path="*" element={<NotFoundPage />} />
           <Route
             path="/user"

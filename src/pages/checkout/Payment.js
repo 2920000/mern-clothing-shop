@@ -5,8 +5,7 @@ import {
   SET_LOADING,
   shippingFeeSelector,
 } from "../../features/checkoutSlice";
-import { convertToPrice } from "../../helper/converToPrice";
-import { calculateMoneyTotal} from "../../helper/calculateMoneyTotal";
+import { calculateMoneyTotal, convertToPrice } from "../../helper";
 
 const Payment = ({ cartProducts }) => {
   const dispatch = useDispatch();
@@ -38,9 +37,9 @@ const Payment = ({ cartProducts }) => {
     dispatch(SET_LOADING(true));
     setTimeout(() => {
       dispatch(addOrdersToDatabase(payload));
-    },1500);
+    }, 1500);
   };
-  
+
   return (
     <div className="flex flex-col w-full px-2 items-end mt-5 mb-16 bg-white">
       <div className="flex flex-col gap-y-3 m-6">

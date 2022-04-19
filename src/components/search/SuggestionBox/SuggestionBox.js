@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import {
   inputValueSelector,
   isSuggestionBoxOpeningSelector,
-} from "../../../features/searchSlice";
+} from "../../../features/headerSlice";
 import { getLocalStorage } from "../../../helper";
 import CurrentSearchBox from "./CurrentSeachBox";
 import SearchBox from "./SearchBox";

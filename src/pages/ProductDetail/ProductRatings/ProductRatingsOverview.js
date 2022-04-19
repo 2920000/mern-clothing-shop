@@ -71,13 +71,13 @@ const ProductRatingsOverview = ({ data, setProductRatingsList }) => {
 
   return (
     <div className="flex justify-between gap-14 w-full min-h-[100px] p-10 mt-4 bg-[#F7F8FA]">
-      <div className="">
-        <div>
-          <span className="text-3xl mr-1">{starsAverage}</span> trên 5
+      <div className="flex flex-col items-center">
+        <div className="mb-1 text-lg">
+          <span className="text-4xl mr-1">{starsAverage}</span> trên 5
         </div>
        <StarRating className='text-2xl'  number={starsAverage} />
       </div>
-      <div className="flex gap-2 text-sm">
+      <div className="flex flex-wrap gap-2 text-sm">
         {filterByStarRatingList.map((item, index) => (
           <div
             key={index}

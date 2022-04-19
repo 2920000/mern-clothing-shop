@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import image from "../../logo.png";
+import image from "../../assets/image/logo.png";
 
 const HeaderCenter = () => {
     const pathParams = useLocation().pathname;

@@ -9,7 +9,7 @@ import {
   fetchProductsBySearch,
   inputValueSelector,
   preProductsBySearchSelector,
-} from "../../../features/searchSlice";
+} from "../../../features/headerSlice";
 import {
   getLocalStorage,
   removeVietnameseTones,

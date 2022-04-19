@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
-import HeaderLeft from "./HeaderLeft.js/HeaderLeft";
 import HeaderRight from "./HeaderRight";
 import Search from "../Search/Search";
 import HeaderCenter from "./HeaderCenter";
-import {isSearchHeaderOpeningSelector} from "../../features/searchSlice";
+import HeaderLeft from "./HeaderLeft";
+import { isSearchHeaderOpeningSelector } from "../../features/headerSlice";
 
 function Header() {
   return (

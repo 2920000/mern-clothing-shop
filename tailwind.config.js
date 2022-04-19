@@ -26,7 +26,8 @@ module.exports = {
         quick_view_color:'rgba(255, 255, 255, 0.75)',
         pagination_color:'rgba(93,92,92,0.2)',
         border_input:'#e0dede',
-        border:'#f1f0ed'
+        border:'#f1f0ed',
+        yellow:'#facf19'
       },
     },
 
@@ -52,7 +53,7 @@ module.exports = {
     animation:{
       'skeleton':'skeleton_loading 1s linear infinite alternate',
       'spinner':'spinner 800ms linear infinite',
-      'opacity':'opacity 1000ms linear'
+      'opacity':'opacity 500ms linear'
     },
 
   },

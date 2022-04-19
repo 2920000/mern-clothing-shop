@@ -32,15 +32,9 @@ export const ProductRatingItem = ({ productRating }) => {
       <div>
         <span className="text-xs">{productRating.userInfor.username}</span>
         <StarRating  number={productRating.starRating}/>
-        {/* <div className="flex items-center text-sm relative mt-1">
-          <Star number={5} outline />
-          <div className="flex absolute">
-            <Star number={productRating.starRating} />
-          </div>
-        </div> */}
         <div className="my-4 text-xs">{productRating.created_at}</div>
         <p className="text-sm mb-2 ">{productRating.commentText}</p>
-        <div className="flex  gap-3">
+        <div className="flex flex-wrap gap-3">
           {productRating.tagsRating.map((tagRating) => (
             <p className="p-1.5 px-3 text-sm rounded-3xl border border-border">
               {tagRating}

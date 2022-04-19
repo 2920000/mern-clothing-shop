@@ -1,7 +1,7 @@
 import { memo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FormGroup } from "../../../components/form-group/FormGroup";
-import { errorMessageSelector, postAccount } from "../../../features/accountSlice";
+import { CLEAR_ERRORMESSAGE, errorMessageSelector, postAccount } from "../../../features/accountSlice";
 import { validateForm } from "../../../helper";
 import formProps from "../form-group/register";
 
@@ -9,11 +9,16 @@ import formProps from "../form-group/register";
 const RegisterForm = () => {
     const dispatch=useDispatch()
     const errorMessage = useSelector(errorMessageSelector);
+
     useEffect(() => {
       validateForm("register-form");
     });
+    
     useEffect(() => {
       errorMessage && validateForm.addErrorMessage(errorMessage,"register-form");
+      return ()=>{
+        dispatch(CLEAR_ERRORMESSAGE(''))
+      }
     });
   
     
@@ -29,6 +34,7 @@ const RegisterForm = () => {
         dispatch(postAccount(payload))
       }
     };
+
     return (
       <form id="register-form" className=" w-full mt-5 lg:w-1/2">
         <FormGroup formProps={formProps} />

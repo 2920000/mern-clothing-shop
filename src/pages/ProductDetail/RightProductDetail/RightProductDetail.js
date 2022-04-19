@@ -2,12 +2,12 @@ import React, { useCallback, useRef, useState } from "react";
 import useEventListener from "../../../hooks/useEventListener";
 import ProductSize from "./ProductSize";
 import ProductPrice from "./ProductPrice";
-import ProductTitle from "./ProductTitle";
 import ProductPurchase from "./ProductPurchase";
 import ProductDescribe from "./ProductDescribe";
 import ProductPolicy from "./ProductPolicy";
 import useResizeObserver from "../../../hooks/useResizeObserver";
-import { qs } from "../../../helper/handleDOM";
+import ProductOverview from "./ProductOverview";
+import { qs } from "../../../helper";
 function RightProductDetail({ productDetail }) {
   const [styleDetailRight, setStyleDetailRight] = useState({});
   const emptyRightRef = useRef();
@@ -65,7 +65,7 @@ function RightProductDetail({ productDetail }) {
         id="right-detail-inner"
         className="w-full relative lg:absolute  lg:max-w-[400px] "
       >
-        <ProductTitle {...props} />
+        <ProductOverview {...props} />
         <ProductPrice {...props} />
         <ProductSize {...props} />
         <ProductPurchase {...props} />

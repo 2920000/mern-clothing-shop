@@ -1,23 +1,23 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userSelector } from "../../features/accountSlice";
 import {
   isRatingModalOpeningSelector,
   OPEN_RATING_MODAL,
 } from "../../features/ratingSlice";
-import { caculateSale } from "../../helper/caculateSale";
-import { convertToPrice } from "../../helper/converToPrice";
+
 import { useGetOrderedQuery } from "../../services/orderedApi";
-import {AiOutlineDropbox} from 'react-icons/ai'
+import { AiOutlineDropbox } from "react-icons/ai";
 import Button from "../../components/Button/Button";
 import RatingModal from "../../modal/RatingModal";
+import { calculateSale, convertToPrice } from "../../helper";
 
 function Purchase() {
   const user = useSelector(userSelector);
   let { data, isLoading, refetch, isError } = useGetOrderedQuery(user?._id);
   const isRatingModalOpening = useSelector(isRatingModalOpeningSelector);
   const [orderInfor, setOrderInfor] = useState({});
- 
+
   useEffect(() => {
     refetch();
   }, [isRatingModalOpening]);
@@ -31,10 +31,15 @@ function Purchase() {
   // let newData=[...data]
   // newData=newData.sort((a,b) => Date.parse(b.date) - Date.parse(a.date))
 
-  if(data.orders.length===0){
-    return <div className="flex flex-col gap-2 justify-center items-center min-h-[600px] w-full bg-white text-lg"><AiOutlineDropbox className="text-5xl"/>Chưa có đơn hàng</div>
+  if (data.orders.length === 0) {
+    return (
+      <div className="flex flex-col gap-2 justify-center items-center min-h-[600px] w-full bg-white text-lg">
+        <AiOutlineDropbox className="text-5xl" />
+        Chưa có đơn hàng
+      </div>
+    );
   }
-  
+
   return (
     <div>
       {data.orders.map((order) => (
@@ -61,7 +66,7 @@ function Purchase() {
               </span>
               <span className="">
                 {order.sale > 0 &&
-                  convertToPrice(caculateSale(order) / order.amount) + "đ"}
+                  convertToPrice(calculateSale(order) / order.amount) + "đ"}
               </span>
             </div>
           </div>
@@ -69,7 +74,7 @@ function Purchase() {
             <div className="text-right my-3 md:my-6 flex items-center justify-end ">
               <p className=" inline text-sm mr-2">Tổng số tiền:</p>
               <span className=" text-sm md:text-xl lg:text-2xl">
-                {convertToPrice(caculateSale(order))}đ
+                {convertToPrice(calculateSale(order))}đ
               </span>
             </div>
           </div>
@@ -110,7 +115,7 @@ const ReviewOrRatingButton = ({ data, order, setOrderInfor }) => {
   const isProductRatingExisting = productRatings.some(
     (productRating) => productRating._id === order._id
   );
- 
+
   const handleShowRatingModal = (order) => {
     dispatch(OPEN_RATING_MODAL());
     setOrderInfor(order);
@@ -118,10 +123,7 @@ const ReviewOrRatingButton = ({ data, order, setOrderInfor }) => {
 
   if (isProductRatingExisting) {
     return (
-      <Button
-        variant="third"
-        onClick={() => handleShowRatingModal(order)}
-      >
+      <Button variant="third" onClick={() => handleShowRatingModal(order)}>
         Xem đánh giá
       </Button>
     );

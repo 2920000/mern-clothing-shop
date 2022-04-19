@@ -1,5 +1,4 @@
-import { caculateSale } from "../../../helper/caculateSale";
-import { convertToPrice } from "../../../helper/converToPrice";
+import { calculateSale, convertToPrice } from "../../../helper";
 
 const ProductPrice = ({ productDetail }) => {
   return (
@@ -7,7 +6,7 @@ const ProductPrice = ({ productDetail }) => {
       {productDetail.sale > 0 ? (
         <div className="flex items-center">
           <span className="mr-2 text-lg text-red">
-            {convertToPrice(caculateSale(productDetail))}đ
+            {convertToPrice(calculateSale(productDetail))}đ
           </span>
           <span className="text-sm line-through text-light_grey mr-1">
             {convertToPrice(productDetail.price)}đ
