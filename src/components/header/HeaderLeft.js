@@ -100,7 +100,7 @@ const UserExisting = () => {
       navigate("/");
     }
   };
-console.log(hovered)
+
   return (
     <div className="relative">
       <div
@@ -117,6 +117,7 @@ console.log(hovered)
           ref={userFeatureRef}
           className={`absolute text-[0.95rem] rounded-sm top-[calc(100%+8px)] left-[-12px] shadow-[0px_2px_5px_1px_rgba(0,0,0,0.4)] bg-white z-30`}
         >
+          <span className="absolute block w-full h-5 top-[-20px]"></span>
           <span className="absolute w-8 h-5 bg-white z-[-1] rotate-45 top-[-1px] left-[16px] "></span>
           {featureUser.map((e, index) => (
             <li

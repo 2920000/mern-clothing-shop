@@ -22,7 +22,7 @@ function RatingModalFooter({ orderInfor }) {
   const productRating = data?.productRatings.find(
     (productRating) => productRating._id === orderInfor._id
   );
-
+  
   const handleSubmitRating = () => {
     const ratingData = {
       userInfor: user,
@@ -31,6 +31,7 @@ function RatingModalFooter({ orderInfor }) {
           _id: orderInfor._id,
           productId: orderInfor.productId,
           size: orderInfor.size,
+          slug: orderInfor.slug,
         },
         starRating: currentStarRatingIndex + 1,
         tagsRating: Object.values(selectedTagsRating),

@@ -2,17 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+body {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
 }
-.container input:checked ~ .checkmark::after{
-   display: block;
+.container input:checked ~ .checkmark::after {
+  display: block;
 }
-.checkmark::after{
-  content: '';
+.checkmark::after {
+  content: "";
   position: absolute;
   width: 6px;
   height: 10px;
@@ -22,16 +22,16 @@ body{
   left: 4px;
   display: none;
 }
-.number-box{
+.number-box {
   position: relative;
   border: 1px solid grey;
   /* padding: 0 5px; */
 }
 input.number-input::-webkit-inner-spin-button,
-input.number-input::-webkit-outer-spin-button{
+input.number-input::-webkit-outer-spin-button {
   -webkit-appearance: none;
 }
-input.number-input{
+input.number-input {
   border: none;
   text-align: center;
   outline: none;
@@ -40,22 +40,23 @@ input.number-input{
   align-items: center;
   width: 35px;
 }
-#overlay{
+#overlay {
   position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
-  background-color: rgb(0,0,0);
+  background-color: rgb(0, 0, 0);
   opacity: 0;
   right: 100%;
   transition: opacity 150ms linear;
   z-index: 20;
 }
 
-::placeholder{
+::placeholder {
   font-size: 14px;
 }
-.swiper-horizontal>.swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal{
+.swiper-horizontal > .swiper-pagination-bullets,
+.swiper-pagination-bullets.swiper-pagination-horizontal {
   bottom: -5px;
 }
 .lds-hourglass {
@@ -90,24 +91,34 @@ input.number-input{
   }
 }
 
-@media screen and (max-width:480px) {
-  html{
+@media screen and (max-width: 480px) {
+  html {
     font-size: 0.9rem;
   }
-  
 }
 
-.translate-transition{
+.translate-transition {
   transform: translateY(0);
   opacity: 1;
 }
 
 input[type="number"] {
   text-align: center;
-  -moz-appearance: textfield ;
+  -moz-appearance: textfield;
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+.swiper-button-prev,
+.swiper-button-next {
+  background-color: black;
+  width: 50px;
+  height: 50px;
+}
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 20px;
+  color: white;
 }

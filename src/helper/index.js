@@ -1,4 +1,8 @@
-import { calculateMoneyTotal, calculateSale } from "./Calculator";
+import {
+  calculateMoneyTotal,
+  calculateSale,
+  calculateStarsAverage,
+} from "./Calculator";
 import {
   convertPriceFilter,
   convertToPrice,
@@ -44,4 +48,5 @@ export {
   addLocalStorage,
   removeLocalStorage,
   getLocalStorage,
+  calculateStarsAverage,
 };

@@ -15,7 +15,7 @@ import {
   NotFoundPage,
   ProductDetail,
   Profile,
-  Purchase,
+  Purchased,
   User,
 } from "./pages";
 import Login from "./pages/Account/Login/Login";
@@ -47,7 +47,7 @@ function App() {
             element={user ? <User /> : <Navigate to="/account/login" />}
           >
             <Route path="profile" element={<Profile />} />
-            <Route path="purchase" element={<Purchase />} />
+            <Route path="purchase" element={<Purchased />} />
           </Route>
         </Routes>
         <Footer />

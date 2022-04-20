@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import ProductsInCart from "./ProductsInCart";
 import { useDispatch, useSelector } from "react-redux";
 import { userSelector } from "../../features/accountSlice";
 import {
@@ -14,12 +13,16 @@ import {
   SET_ORDER_STATUS,
 } from "../../features/checkoutSlice";
 import { useNavigate } from "react-router-dom";
-import Address from "./Address";
 import ShippingMethod from "./ShippingMethod";
 import Payment from "./Payment";
 import ErrorBoundary from "../../components/ErrorBoundary";
 import Loading from "../../components/Loading";
-import { allCartProductsSelector, fetchCartData } from "../../features/cartSlice";
+import {
+  allCartProductsSelector,
+  fetchCartData,
+} from "../../features/cartSlice";
+import ShippingAddress from "./ShippingAddress";
+import OrderSummary from "./OrderSummary";
 function Checkout() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -27,7 +30,7 @@ function Checkout() {
   const hasShippingInfor = useSelector(hasShippingInforSelector);
   const isOrdering = useSelector(isOrderingSelector);
   const orderStatus = useSelector(orderStatusSelector);
-  const cart=useSelector(allCartProductsSelector)
+  const cart = useSelector(allCartProductsSelector);
   // const isLoading =useSelector(isLoad)
   // const { data, isLoading, isError, refetch } = useGetCartProductsQuery(
   //   user._id
@@ -49,10 +52,10 @@ function Checkout() {
     // refetch();
   }, []);
 
-  if(!cart){
-    return <></>
+  if (!cart) {
+    return <></>;
   }
-  
+
   // if (isLoading || !cart) {
   //   return (
   //     <div className="fixed flex justify-center items-center bg-[rgba(0_0_0_0.4)] top-0 right-0 bottom-0 left-0 z-50">
@@ -68,8 +71,8 @@ function Checkout() {
     <div className="bg-[#f5f5f5] overflow-auto min-h-screen w-full h-full">
       <div className="max-w-[1200px] m-auto">
         <ErrorBoundary>
-          <Address />
-          <ProductsInCart cartProduct={cart} />
+          <ShippingAddress />
+          <OrderSummary cartProduct={cart} />
           <ShippingMethod />
           <Payment cartProducts={cart} />
         </ErrorBoundary>

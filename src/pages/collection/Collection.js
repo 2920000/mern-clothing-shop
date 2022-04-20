@@ -5,6 +5,7 @@ import { FiChevronUp } from "react-icons/fi";
 import useEventListener from "../../hooks/useEventListener";
 import FilterSidebar from "./CollectionBody/FilterSidebar";
 import FilterProducts from "./CollectionBody/FilterProducts";
+import SuggestedProducts from "./CollectionBody/SuggestedProducts";
 function Collection() {
   window.scrollTo(0, 0);
   return (
@@ -17,6 +18,9 @@ function Collection() {
           <FilterSidebar />
           <FilterProducts />
         </ErrorBoundary>
+      </div>
+      <div>
+        <SuggestedProducts/>
       </div>
       <BackToTop />
     </div>

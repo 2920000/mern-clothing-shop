@@ -8,7 +8,7 @@ import ProductPolicy from "./ProductPolicy";
 import useResizeObserver from "../../../hooks/useResizeObserver";
 import ProductOverview from "./ProductOverview";
 import { qs } from "../../../helper";
-function RightProductDetail({ productDetail }) {
+function ProductDetailInformation({ productDetail }) {
   const [styleDetailRight, setStyleDetailRight] = useState({});
   const emptyRightRef = useRef();
   const rightDetailInnerRef = useRef();
@@ -76,7 +76,7 @@ function RightProductDetail({ productDetail }) {
   );
 }
 
-export default RightProductDetail;
+export default ProductDetailInformation;
 
 const getDistance = () => {
   const rightDetailInnnerElement = document.querySelector(

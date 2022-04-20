@@ -1,15 +1,19 @@
 import { useGetProductDetailQuery } from "../../services/detailProductApi";
 import { Link, useParams } from "react-router-dom";
 import ProductDetailSkeleton from "../../components/skeleton/ProductDetailSkeleton";
-import ProductRatings from "./ProductRatings";
-import LeftProductDetail from "./LeftProductDetail";
-import RightProductDetail from "./RightProductDetail";
+import { useEffect } from "react";
+import ProductDetailImages from "./ProductDetailImages";
+import ProductDetailInformation from "./ProductDetailInformation";
+import ProductDetailRatings from "./ProductDetailRatings";
 
 function ProductDetail() {
   const { slug } = useParams();
-  const { data, isLoading } = useGetProductDetailQuery(slug);
+  const { data, isLoading, refetch } = useGetProductDetailQuery(slug);
   window.scrollTo(0, 0);
-  
+
+  useEffect(() => {
+    refetch();
+  }, []);
   if (isLoading || !data) {
     return <ProductDetailSkeleton />;
   }
@@ -24,10 +28,10 @@ function ProductDetail() {
         {data.title}
       </p>
       <div className="flex flex-col lg:flex-row relative  ">
-        <LeftProductDetail productDetail={data} />
-        <RightProductDetail productDetail={data} />
+        <ProductDetailImages productDetail={data} />
+        <ProductDetailInformation productDetail={data} />
       </div>
-      <ProductRatings />
+      <ProductDetailRatings />
     </div>
   );
 }

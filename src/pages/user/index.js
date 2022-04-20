@@ -1,4 +1,4 @@
 import User from "./User";
 import Profile from "./Profile";
-import Purchase from "./Purchase";
-export {User,Profile,Purchase}
+import Purchased from "./Purchased";
+export {User,Profile,Purchased}

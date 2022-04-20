@@ -1,9 +1,10 @@
+import { calculateStarsAverage } from "../../../helper";
 import StarRating from "../../../modal/RatingModal/RatingModalMain/ProductReviews/StarRating";
 import { useGetRatingQuery } from "../../../services/detailProductApi";
 
 const ProductOverview = ({ productDetail }) => {
-  // const {data}=useGetRatingQuery(productDetail._id)
-  // console.log(data)
+  const { data } = useGetRatingQuery(productDetail.slug);
+  const starsAverage = calculateStarsAverage(data);
   return (
     <>
       <div className="flex justify-between items-center mb-2">
@@ -15,7 +16,11 @@ const ProductOverview = ({ productDetail }) => {
       <h3 className="font-extrabold mb-2 text-[1.8rem]">
         {productDetail.title}
       </h3>
-      <div><StarRating/> <span></span></div>
+      {data && (
+        <div className="flex gap-2">
+          <StarRating number={starsAverage - 1} /> <span className="text-xs text-blue-700" >( {data.length} nhận xét )</span>
+        </div>
+      )}
     </>
   );
 };

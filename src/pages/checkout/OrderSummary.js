@@ -1,6 +1,6 @@
 import { calculateSale, convertToPrice } from "../../helper";
 
-function ProductsInCart({ cartProduct }) {
+function OrderSummary({ cartProduct }) {
   return (
     <div className="w-full bg-white py-5 mder:py-10 px-2   md:px-8">
       <div className="hidden mder:flex font-medium mb-5">
@@ -22,7 +22,7 @@ function ProductsInCart({ cartProduct }) {
   );
 }
 
-export default ProductsInCart;
+export default OrderSummary;
 
 const OrderItem = ({ order }) => {
   return (

@@ -9,8 +9,8 @@ import {
   isLoadingSelector,
   productsCollectionSelector,
 } from "../../../../features/collectionSlice";
-import Skeleton from "../../../../components/skeleton/Skeleton";
 import CollectionSkeleton from "../../../../components/skeleton/CollectionSkeleton";
+import ProductsFlex from "../../../../components/ProductsFlex/ProductsFlex";
 
 function FilterProducts() {
   const dispatch = useDispatch();
@@ -46,12 +46,12 @@ function FilterProducts() {
   }
 
   return (
-    <div className="flex gap-x-3 flex-wrap h-full justify-around lg:justify-start box-border w-full ">
+    <ProductsFlex>
       {products?.map((product) => (
         <ProductItem key={product._id} product={product} />
       ))}
       <Pagination />
-    </div>
+    </ProductsFlex>
   );
 }
 

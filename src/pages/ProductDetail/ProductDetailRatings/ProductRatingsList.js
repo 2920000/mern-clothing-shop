@@ -1,6 +1,5 @@
 import StarRating from "../../../modal/RatingModal/RatingModalMain/ProductReviews/StarRating";
-import { Star } from "./ProductRatings";
-
+import { BiLike } from "react-icons/bi";
 const ProductRatingsList = ({ productRatingsList }) => {
   if (productRatingsList?.length === 0) {
     return (
@@ -31,18 +30,18 @@ export const ProductRatingItem = ({ productRating }) => {
       </div>
       <div>
         <span className="text-xs">{productRating.userInfor.username}</span>
-        <StarRating  number={productRating.starRating}/>
+        <StarRating number={productRating.starRating - 1} />
         <div className="my-4 text-xs">{productRating.created_at}</div>
         <p className="text-sm mb-2 ">{productRating.commentText}</p>
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-wrap mb-3 gap-3">
           {productRating.tagsRating.map((tagRating) => (
             <p className="p-1.5 px-3 text-sm rounded-3xl border border-border">
               {tagRating}
             </p>
           ))}
         </div>
+        <BiLike className="text-xl cursor-pointer " />
       </div>
     </div>
   );
 };
-

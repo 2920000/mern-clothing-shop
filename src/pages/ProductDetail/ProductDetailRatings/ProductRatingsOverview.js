@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import { calculateStarsAverage } from "../../../helper";
 import StarRating from "../../../modal/RatingModal/RatingModalMain/ProductReviews/StarRating";
-import { Star } from "./ProductRatings";
+import { Star } from "./ProductDetailRatings";
 
 const ProductRatingsOverview = ({ data, setProductRatingsList }) => {
   const [starsAverage, setStarsAverage] = useState(0);
@@ -43,13 +44,7 @@ const ProductRatingsOverview = ({ data, setProductRatingsList }) => {
   ];
 
   useEffect(() => {
-    if (!data) {
-      return;
-    }
-    const starsTotal = data.reduce((preComment, curComment) => {
-      return preComment + curComment.starRating;
-    }, 0);
-    setStarsAverage(Math.floor(starsTotal / data.length));
+    setStarsAverage(calculateStarsAverage(data));
   }, [data]);
 
   const handleFilterReviews = (condition, index) => {
@@ -75,7 +70,7 @@ const ProductRatingsOverview = ({ data, setProductRatingsList }) => {
         <div className="mb-1 text-lg">
           <span className="text-4xl mr-1">{starsAverage}</span> trên 5
         </div>
-       <StarRating className='text-2xl'  number={starsAverage} />
+        <StarRating className="text-2xl" number={starsAverage - 1} />
       </div>
       <div className="flex flex-wrap gap-2 text-sm">
         {filterByStarRatingList.map((item, index) => (
@@ -86,7 +81,9 @@ const ProductRatingsOverview = ({ data, setProductRatingsList }) => {
             className="flex justify-center items-center min-w-[100px] min-h-[35px] max-h-[35px] cursor-pointer border border-black rounded-sm"
           >
             {item.displayName}
-            {item.condition !== "All" && <span>({item.starsNumberByFilter})</span>}
+            {item.condition !== "All" && (
+              <span>({item.starsNumberByFilter})</span>
+            )}
           </div>
         ))}
       </div>

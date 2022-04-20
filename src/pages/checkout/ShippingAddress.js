@@ -2,7 +2,7 @@ import { MdOutlinePlace } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { shippingInforSelector } from "../../features/userSlice";
 
-const Address = () => {
+const ShippingAddress = () => {
   const shippingInfor = useSelector(shippingInforSelector);
   return (
     <div className=" bg-white my-3 pt-6 pb-5 px-2 md:px-8 gap-2">
@@ -23,4 +23,4 @@ const Address = () => {
     </div>
   );
 };
-export default Address;
+export default ShippingAddress;

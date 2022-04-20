@@ -28,6 +28,7 @@ const ProductPurchase = ({ productDetail }) => {
         productId: productDetail._id,
         image: productDetail.image,
         title: productDetail.title,
+        slug: productDetail.slug,
         price: productDetail.price,
         sale: productDetail.sale,
       })

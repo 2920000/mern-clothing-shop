@@ -1,10 +1,46 @@
-import React from 'react'
+import React from "react";
 
 function Footer() {
-  console.log('footer')
+  const footerList = [
+    {
+      heading: "Liên hệ",
+      content: ["Liện hệ với chúng tôi", "lethanhhhhhha@gmail.com"],
+    },
+    {
+      heading: "Liên hệ",
+      content: ["Liện hệ với chúng tôi", "lethanhhhhhha@gmail.com"],
+    },
+    {
+      heading: "Liên hệ",
+      content: ["Liện hệ với chúng tôi", "lethanhhhhhha@gmail.com"],
+    },
+    {
+      heading: "Liên hệ",
+      content: ["Liện hệ với chúng tôi", "lethanhhhhhha@gmail.com"],
+    },
+  ];
   return (
-    <div>Footer</div>
-  )
+    <div className="min-h-[300px] border-t border-border mt-20">
+      <Container>
+        <div className="flex pt-14 justify-between">
+          {footerList.map((element, index) => (
+            <div key={index}>
+              <h3 className="text-lg"> {element.heading}</h3>
+              <div>
+                {element.content.map((element, index) => (
+                  <p key={index} className="text-sm pt-2 text-light_black ">{element}</p>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </Container>
+    </div>
+  );
 }
 
-export default Footer
+export default Footer;
+
+const Container = ({ children }) => {
+  return <div className="max-w-[1200px] m-auto">{children}</div>;
+};

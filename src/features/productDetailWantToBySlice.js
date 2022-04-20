@@ -5,6 +5,7 @@ const initialState = {
     productId: "",
     image: "",
     title: "",
+    slug:"",
     price: null,
     amount: 1,
     sale: null,

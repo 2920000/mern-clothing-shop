@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { userSelector } from "../../features/accountSlice";
 import {
   isRatingModalOpeningSelector,
@@ -13,7 +14,7 @@ import Button from "../../components/Button/Button";
 import RatingModal from "../../modal/RatingModal";
 import { calculateSale, convertToPrice } from "../../helper";
 
-function Purchase() {
+function Purchased() {
   const user = useSelector(userSelector);
   let { data, isLoading, refetch, isError } = useGetOrderedQuery(user?._id);
   const isRatingModalOpening = useSelector(isRatingModalOpeningSelector);
@@ -23,7 +24,7 @@ function Purchase() {
   useEffect(() => {
     refetch();
   }, [toggleUpdate]);
-  
+
   if (isLoading || !data) {
     return <></>;
   }
@@ -33,7 +34,7 @@ function Purchase() {
   let newData = [...data.orders];
   newData = newData.sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
 
-  if (data.orders.length === 0) {
+  if (data.orders.length === 0 || !data) {
     return (
       <div className="flex flex-col gap-2 justify-center items-center min-h-[600px] w-full bg-white text-lg">
         <AiOutlineDropbox className="text-5xl" />
@@ -43,13 +44,15 @@ function Purchase() {
   }
 
   return (
-    <div>
+    <div className="min-h-[600px]">
       {newData.map((order) => (
         <div className="bg-white  mb-4 p-2 md:p-7">
           <div className="flex relative justify-between items-center py-3 border-b border-border">
             <div className="flex">
               <div className="max-w-[80px] flex px-2 border border-border">
-                <img className="w-full" src={order.image} alt="" />
+                <Link to={`/products/${order.slug}`}>
+                  <img className="w-full" src={order.image} alt="" />
+                </Link>
               </div>
               <div className="flex text-sm md:text-base flex-col ml-5">
                 <span className="">{order.title}</span>
@@ -98,7 +101,7 @@ function Purchase() {
   );
 }
 
-export default Purchase;
+export default Purchased;
 
 const formatDate = (date) => {
   let newDate = date.slice(0, 10);

@@ -5,11 +5,11 @@ import "swiper/css";
 import "swiper/css/pagination";
 import useEventListener from "../../../hooks/useEventListener";
 
-function LeftProductDetail({ productDetail }) {
+function ProductDetailImages({ productDetail }) {
   const [change, setChange] = useState(false);
   const allPictureRef = useRef();
 
-  console.log('render')
+  console.log("render");
   useEventListener("scroll", () => {
     if (window.innerWidth < 800) {
       setChange(true);
@@ -39,9 +39,12 @@ function LeftProductDetail({ productDetail }) {
         className="flex relative flex-wrap w-full lg:w-[60%] mr-14  "
       >
         <Swiper
-          pagination={{clickable:true}}
-          spaceBetween={30}
+          loop={true}
+          slidesPerView={1  }
+          pagination={{ clickable: true }}
+          spaceBetween={7}
           modules={[Pagination]}
+          centeredSlides={true}
           className="mySwiper"
         >
           <SwiperSlide>
@@ -70,15 +73,20 @@ function LeftProductDetail({ productDetail }) {
   );
 }
 
-export default LeftProductDetail;
+export default ProductDetailImages;
 
 const ImageDetail = ({ img }) => {
-  const handleEnlarge=()=>{
-
-  }
+  const handleEnlarge = () => {};
   return (
-    <div onClick={handleEnlarge} className="min-w-full lg:min-w-0 lg:max-w-[calc(50%-16px)] lg:mr-2.5 mb-3">
-      <img className="w-full cursor-pointer top-0 object-cover h-full" src={img} alt="" />
+    <div
+      onClick={handleEnlarge}
+      className="min-w-full lg:min-w-0 lg:max-w-[calc(50%-16px)] lg:mr-2.5 mb-3"
+    >
+      <img
+        className="w-full cursor-pointer top-0 object-cover "
+        src={img}
+        alt=""
+      />
     </div>
   );
 };

@@ -40,7 +40,7 @@ const ProductItem = ({ product }) => {
   }, []);
 
   return (
-    <div className=" preview relative mb-5  w-[calc(50%-8px)] lg:w-[calc(33.33%-8px)] transition-all duration-150  ">
+    <div className="relative mb-5  w-[calc(50%-8px)] lg:w-[calc(33.33%-8px)] transition-all duration-150  ">
       <ProductImage {...props} />
       <ProductInfor {...props} />
     </div>
@@ -83,7 +83,7 @@ const ProductImage = ({ product, isSale }) => {
         <Link
           ref={hoverRef}
           to={`/products/${(product.slug)}`}
-          className="w-full absolute  image h-full bg-cover  top-0 left-0  "
+          className="w-full absolute image h-full bg-cover  top-0 left-0  "
           lazy-src={product.image}
         >
           <img
@@ -94,14 +94,6 @@ const ProductImage = ({ product, isSale }) => {
           />
         </Link>
       </div>
-      {/* <p
-        ref={addToCartRef}
-        className="absolute opacity-0 transition-all duration-150 cursor-pointer top-[80%] left-1/2 translate-y-[-50%] translate-x-[-50%] font-bold bg-white text-black  w-[60%] h-[45px] px-5 flex justify-center items-center hover:bg-black hover:text-white "
-      >
-        <span className="whitespace-nowrap overflow-hidden text-ellipsis">
-          Chi tiết
-        </span>
-      </p> */}
     </div>
   );
 };
@@ -134,3 +126,13 @@ const ProductInfor = ({ product, isSale }) => {
     </>
   );
 };
+
+
+ {/* <p
+        ref={addToCartRef}
+        className="absolute opacity-0 transition-all duration-150 cursor-pointer top-[80%] left-1/2 translate-y-[-50%] translate-x-[-50%] font-bold bg-white text-black  w-[60%] h-[45px] px-5 flex justify-center items-center hover:bg-black hover:text-white "
+      >
+        <span className="whitespace-nowrap overflow-hidden text-ellipsis">
+          Chi tiết
+        </span>
+      </p> */}

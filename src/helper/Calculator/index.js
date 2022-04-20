@@ -1,3 +1,4 @@
 import calculateMoneyTotal from "./calculateMoneyTotal";
 import calculateSale from "./calculateSale";
-export { calculateMoneyTotal, calculateSale };
+import calculateStarsAverage from "./calculateStarsAverage";
+export { calculateMoneyTotal, calculateSale,calculateStarsAverage };

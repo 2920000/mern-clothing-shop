@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { useGetRatingQuery } from "../../../services/detailProductApi";
 import ProductRatingsList from "./ProductRatingsList";
 import ProductRatingsOverview from "./ProductRatingsOverview";
-function ProductRatings() {
+function ProductDetailRatings() {
   const { slug } = useParams();
   const { data, refetch } = useGetRatingQuery(slug);
   const [productRatingsList, setProductRatingsList] = useState(data);
@@ -35,6 +35,6 @@ function ProductRatings() {
   );
 }
 
-export default ProductRatings;
+export default ProductDetailRatings;
 
 
