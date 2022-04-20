@@ -5,8 +5,8 @@ import { useGetRatingQuery } from "../../../services/detailProductApi";
 import ProductRatingsList from "./ProductRatingsList";
 import ProductRatingsOverview from "./ProductRatingsOverview";
 function ProductRatings() {
-  const { productId } = useParams();
-  const { data, refetch } = useGetRatingQuery(productId);
+  const { slug } = useParams();
+  const { data, refetch } = useGetRatingQuery(slug);
   const [productRatingsList, setProductRatingsList] = useState(data);
 
   useEffect(() => {

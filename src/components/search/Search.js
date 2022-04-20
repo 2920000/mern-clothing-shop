@@ -1,7 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import { IoIosClose } from "react-icons/io";
 import { useDispatch } from "react-redux";
-import { CLOSE_SEARCH_HEADER, CLOSE_SUGGSETION_BOX } from "../../features/headerSlice";
+import {
+  CLOSE_SEARCH_HEADER,
+  CLOSE_SUGGSETION_BOX,
+} from "../../features/headerSlice";
 import useClickOutside from "../../hooks/useClickOutside";
 import SearchInput from "./SearchInput";
 import SuggestionBox from "./SuggestionBox/SuggestionBox";

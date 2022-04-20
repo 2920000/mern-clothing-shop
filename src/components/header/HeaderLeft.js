@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import { GoThreeBars } from "react-icons/go";
 import { IoIosSearch } from "react-icons/io";
 import { IoClose } from "react-icons/io5";
@@ -24,7 +24,7 @@ const HeaderLeft = () => {
   useEventListener("resize", (event) => {
     if (event.target.innerWidth > 799) {
       dispatch(CLOSE_MOBILE_NAV());
-    } 
+    }
   });
 
   if (pathParms === "/checkout") {
@@ -83,20 +83,14 @@ const MobileMenuToggleIcon = () => {
 const UserExisting = () => {
   const navigate = useNavigate();
   const userFeatureRef = useRef();
-  const mouseout = () => {
-    userFeatureRef.current.style.opacity = "0";
-  };
-  const mouseover = () => {
-    setTimeout(() => {
-      userFeatureRef.current.style.opacity = "1";
-    }, 0);
-  };
-  const [userExistingRef, hovered] = useHover({
-    animation: true,
-    mouseout,
-    mouseover,
-  });
+  const [userExistingRef, hovered] = useHover();
+
   const featureUser = featureUserList();
+
+  useLayoutEffect(() => {
+    userFeatureRef.current.classList.add("animate-opacity");
+  }, [hovered]);
+
   const handleNavigate = (link) => {
     if (link) {
       navigate(link);
@@ -106,6 +100,7 @@ const UserExisting = () => {
       navigate("/");
     }
   };
+console.log(hovered)
   return (
     <div className="relative">
       <div
@@ -118,9 +113,9 @@ const UserExisting = () => {
           alt=""
         />
         <ul
-          style={hovered ? { display: "block" } : { display: "none" }}
+          style={{ display: hovered ? "block" : "none" }}
           ref={userFeatureRef}
-          className={`absolute text-[0.95rem] rounded-sm  opacity-0 top-[calc(100%+8px)] left-[-12px] transition-opacity duration-150 shadow-[0px_2px_5px_1px_rgba(0,0,0,0.4)] bg-white z-30`}
+          className={`absolute text-[0.95rem] rounded-sm top-[calc(100%+8px)] left-[-12px] shadow-[0px_2px_5px_1px_rgba(0,0,0,0.4)] bg-white z-30`}
         >
           <span className="absolute w-8 h-5 bg-white z-[-1] rotate-45 top-[-1px] left-[16px] "></span>
           {featureUser.map((e, index) => (

@@ -4,8 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import queryString from "query-string";
 import Pagination from "./Pagination";
 import ProductItem from "./ProductItem";
-import { fetchByCollection, productsCollectionSelector } from "../../../../features/collectionSlice";
-import { isLoadingSelector } from "../../../../features/headerSlice";
+import {
+  fetchByCollection,
+  isLoadingSelector,
+  productsCollectionSelector,
+} from "../../../../features/collectionSlice";
+import Skeleton from "../../../../components/skeleton/Skeleton";
+import CollectionSkeleton from "../../../../components/skeleton/CollectionSkeleton";
 
 function FilterProducts() {
   const dispatch = useDispatch();
@@ -36,30 +41,12 @@ function FilterProducts() {
     };
   }, []);
 
-  // xem lại
-  const gridRef = useRef();
-  useEffect(
-    function () {
-      const ref = gridRef.current;
+  if (isLoading || !products) {
+    return <CollectionSkeleton />;
+  }
 
-      if (products.length === 0) {
-        return;
-      }
-      ref.style.opacity = "1";
-      ref.style.transform = "translateY(0)";
-      return () => {};
-    },
-    [products, gridRef]
-  );
-
-  // if (isLoading) {
-  //   return <Skeleton type="collection" number={6} />;
-  // }
   return (
-    <div
-      ref={gridRef}
-      className="flex translate-y-[-40px] opacity-0 transition-all duration-500 flex-wrap h-full justify-around lg:justify-start box-border w-full "
-    >
+    <div className="flex gap-x-3 flex-wrap h-full justify-around lg:justify-start box-border w-full ">
       {products?.map((product) => (
         <ProductItem key={product._id} product={product} />
       ))}

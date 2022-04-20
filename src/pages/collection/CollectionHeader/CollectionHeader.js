@@ -7,14 +7,14 @@ function CollectionHeader() {
   const { collection } = useParams();
   return (
     <>
-      <div className=" text-xs mb-2 mx-4 mder:mx-10">
+      <div className=" text-xs mb-2 ">
         <Link to="/" className="mr-2">
           Trang chủ
         </Link>
         <span className="mr-2">/</span>
         <span>{convertToVietnamese(collection)}</span>
       </div>
-      <div className="block w-full text-right pr-[25px] lg:pr-[72px] mb-2 ">
+      <div className="block w-full text-right mb-2 ">
         <SortOption />
       </div>
     </>

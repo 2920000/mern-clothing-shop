@@ -7,7 +7,7 @@ export const productDetailApi = createApi({
       query: (productId) => `products/detail/${productId}`,
     }),
     getRating:builder.query({
-      query:(productId)=>`/rating/${productId}`
+      query:(slug)=>`/rating/${slug}`
     })
   }),
 });

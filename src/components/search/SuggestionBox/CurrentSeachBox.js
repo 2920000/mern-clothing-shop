@@ -1,6 +1,9 @@
 import { getLocalStorage } from "../../../helper";
-
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { CLOSE_SEARCH_HEADER } from "../../../features/headerSlice";
 const CurrentSearchBox = () => {
+  const dispatch = useDispatch();
   const dataFromLocalStorage = getLocalStorage("currentSearch");
 
   return (
@@ -9,12 +12,14 @@ const CurrentSearchBox = () => {
         Tìm kiếm gần đây
       </span>
       {dataFromLocalStorage.map((e, index) => (
-        <li
-          className="font-bold list-none px-3 text-light_grey py-1 text-sm cursor-pointer hover:bg-gray-300 "
+        <Link
+          onClick={() => dispatch(CLOSE_SEARCH_HEADER())}
+          to={`/products/${e.slug}`}
+          className="font-bold block list-none px-3 text-light_grey py-2 text-sm cursor-pointer hover:bg-gray-100 "
           key={index}
         >
-          {e}
-        </li>
+          {e.title}
+        </Link>
       ))}
     </>
   );

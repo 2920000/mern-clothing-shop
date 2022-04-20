@@ -26,15 +26,14 @@ const SearchInput = () => {
 
   const handleOnchangeInput = (value) => {
     dispatch(UPDATE_VALUE_INPUT(value));
-    dispatch(OPEN_SUGGSETION_BOX());
   };
 
   const handleShowSearchBox = (e) => {
     dispatch(OPEN_SUGGSETION_BOX());
   };
 
-// login dùng để kiểm tra - nếu là một input mới sẽ fetch data mới
-// nếu input cũ thì sẽ lấy trong mảng data cũ đã lưu , ko cần phải fetch data mới
+  // login dùng để kiểm tra - nếu là một input mới sẽ fetch data mới
+  // nếu input cũ thì sẽ lấy trong mảng data cũ đã lưu , ko cần phải fetch data mới
   useEffect(() => {
     let timeout;
     timeout = setTimeout(() => {
@@ -45,7 +44,7 @@ const SearchInput = () => {
       }
       const inputCleaned = removeWhiteSpaceAndLowerCase(inputValue);
       const isNewInput = preInput.every((e) => e !== inputCleaned);
-    
+
       if (isNewInput) {
         dispatch(fetchProductsBySearch(inputCleaned));
         setPreInput([...preInput, inputCleaned]);
@@ -59,11 +58,9 @@ const SearchInput = () => {
         dispatch(UPDATE_CURRENT_SEARCH_PRODUCTS(searchedData));
       }
     }, 400);
+
     return () => {
       clearTimeout(timeout);
-      if (inputValue) {
-        dispatch(SET_STATUS_LOADING(true));
-      }
     };
   }, [inputValue]);
 
@@ -72,6 +69,7 @@ const SearchInput = () => {
       onChange={(e) => {
         handleOnchangeInput(e.target.value);
       }}
+      value={inputValue}
       id="search-input"
       placeholder="Tìm kiếm"
       autoFocus

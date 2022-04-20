@@ -31,7 +31,7 @@ const TagsRating = () => {
   };
 
   return (
-    <div>
+    <div className="mb-5">
       {tagsRatingList.map((tagsRatingItem, index) => (
         <div className="flex justify-center gap-5 flex-wrap max-w-[500px ]">
           {index === currentStarRatingIndex &&

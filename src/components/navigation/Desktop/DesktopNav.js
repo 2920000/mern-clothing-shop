@@ -1,4 +1,4 @@
-import {useRef } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import useHover from "../../../hooks/useHover";
 import desktopNavName from "./desktopNavName";
@@ -25,15 +25,12 @@ const NavList = (props) => {
 };
 const NavItem = ({ e }) => {
   const menuRef = useRef();
-  const mouseout = () => {
-    menuRef.current.style.opacity = "0";
-  };
-  const mouseover = () => {
-    setTimeout(() => {
-      menuRef.current.style.opacity = "1";
-    }, 0);
-  };
-  const [navItemRef,hovered] = useHover({animation:true,mouseout,mouseover});
+  const [navItemRef, hovered] = useHover();
+
+  useLayoutEffect(() => {
+    menuRef.current.classList.add("animate-opacity");
+  }, [hovered]);
+
   return (
     <li
       ref={navItemRef}
@@ -46,8 +43,8 @@ const NavItem = ({ e }) => {
       ></span>
       <ul
         ref={menuRef}
-        style={hovered ? { display: "block" } : { display: "none" }}
-        className={`absolute shadow-lg  transition-opacity duration-150 opacity-0 top-[100%] z-30 left-[-15px] bg-white text-black `}
+        style={{ display: hovered ? "block" : "none" }}
+        className={`absolute shadow-lg top-[100%] z-30 left-[-15px] bg-white text-black `}
       >
         {e.sub?.map((e, index) => (
           <SubItem key={index} e={e} />

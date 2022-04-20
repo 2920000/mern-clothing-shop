@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
-import queryString from "query-string";
 function SortOption() {
   const { collection } = useParams();
   const navigate = useNavigate();
@@ -10,9 +9,9 @@ function SortOption() {
   const sortByWrapperRef = useRef();
 
   const searchUrl = window.location.search;
-  const queryObject = queryString.parse(searchUrl);
-  //  console.log(searchUrl)
+
   const url = new URLSearchParams(searchUrl);
+
   const filterOption = [
     {
       displayName: "Bán chạy nhất",
@@ -35,14 +34,23 @@ function SortOption() {
   useEffect(() => {
     const inputFilterElement = document.querySelector("#filter-input");
     window.addEventListener("mousedown", (event) => {
-      const isContain = sortByWrapperRef.current.contains(event.target);
-      if (!boxOptionRef.current) {
+      if (!boxOptionRef.current && !sortByWrapperRef.current) {
         return;
       }
+      const isSortByContainTarget = sortByWrapperRef.current.contains(
+        event.target
+      );
+      const isBoxOptionContainTarget = boxOptionRef.current.contains(
+        event.target
+      );
       inputFilterElement.placeholder = `${
-        isContain ? "Nhập để tìm" : "Sắp xếp theo"
+        isSortByContainTarget && !isBoxOptionContainTarget
+          ? "Nhập để tìm"
+          : "Sắp xếp theo"
       }`;
-      boxOptionRef.current.style.maxHeight = `${isContain ? "1000px" : "0"}`;
+      boxOptionRef.current.style.maxHeight = `${
+        isSortByContainTarget && !isBoxOptionContainTarget ? "1000px" : "0"
+      }`;
     });
   });
 
@@ -54,8 +62,8 @@ function SortOption() {
       pathname,
       search: url.toString(),
     });
-    document.querySelector(".filter-input").placeholder = "Sắp xếp theo";
   };
+  
   return (
     <div>
       <div className={`flex justify-end w-full relative `}>

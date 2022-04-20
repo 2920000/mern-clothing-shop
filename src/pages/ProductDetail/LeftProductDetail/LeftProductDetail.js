@@ -9,6 +9,7 @@ function LeftProductDetail({ productDetail }) {
   const [change, setChange] = useState(false);
   const allPictureRef = useRef();
 
+  console.log('render')
   useEventListener("scroll", () => {
     if (window.innerWidth < 800) {
       setChange(true);
@@ -76,7 +77,7 @@ const ImageDetail = ({ img }) => {
 
   }
   return (
-    <div onClick={handleEnlarge} className="min-w-full lg:min-w-0 lg:max-w-[calc(50%-16px)] lg:mr-2.5 mb-5">
+    <div onClick={handleEnlarge} className="min-w-full lg:min-w-0 lg:max-w-[calc(50%-16px)] lg:mr-2.5 mb-3">
       <img className="w-full cursor-pointer top-0 object-cover h-full" src={img} alt="" />
     </div>
   );

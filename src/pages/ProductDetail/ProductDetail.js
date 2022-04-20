@@ -6,16 +6,16 @@ import LeftProductDetail from "./LeftProductDetail";
 import RightProductDetail from "./RightProductDetail";
 
 function ProductDetail() {
-  const { productId } = useParams();
-  const { data, isLoading } = useGetProductDetailQuery(productId);
+  const { slug } = useParams();
+  const { data, isLoading } = useGetProductDetailQuery(slug);
   window.scrollTo(0, 0);
-
+  
   if (isLoading || !data) {
     return <ProductDetailSkeleton />;
   }
 
   return (
-    <div className="max-w-[1350px] px-2 lg:px-10 m-auto pt-[20px]">
+    <div className="max-w-[1450px] px-2 lg:px-10 m-auto pt-[20px]">
       <p className="text-xs mb-5 ">
         <Link to="/">Trang chủ</Link>
         <span className="mx-2">

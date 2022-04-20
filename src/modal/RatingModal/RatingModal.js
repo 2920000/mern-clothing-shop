@@ -29,6 +29,7 @@ function RatingModal({ orderInfor }) {
     };
   },[]);
 
+
   return ReactDOM.createPortal(
     <div className="fixed top-0 right-0 bottom-0 left-0 flex justify-center items-center bg-[rgba(0,0,0,0.4)]">
       <div
@@ -47,12 +48,4 @@ function RatingModal({ orderInfor }) {
 
 export default RatingModal;
 
-// const ProductRating = () => {
-//   return (
-//     <>
-//       <StarRating />
-//       <TagsRating />
-//       <TextComment />
-//     </>
-//   );
-// };
+

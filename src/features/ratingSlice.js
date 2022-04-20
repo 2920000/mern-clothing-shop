@@ -3,7 +3,7 @@ import { createRating } from "../api/ratingApi";
 
 export const addRatingToDatabase = createAsyncThunk(
   "create",
-  async (ratingData, { dispatch, rejectWithValue }) => {
+  async (ratingData, { dispatch, rejectWithValue, getState }) => {
     try {
       const response = await createRating(ratingData);
       dispatch(CLOSE_RATING_MODAL());
@@ -19,6 +19,7 @@ const initialState = {
   commentText: "",
   isLoading: false,
   isRatingModalOpening: false,
+  toggleUpdate: false,
 };
 
 const ratingSlice = createSlice({
@@ -51,6 +52,7 @@ const ratingSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(addRatingToDatabase.fulfilled, (state) => {
+      state.toggleUpdate = !state.toggleUpdate;
       state.isLoading = false;
     });
     builder.addCase(addRatingToDatabase.rejected, (state) => {
@@ -58,7 +60,7 @@ const ratingSlice = createSlice({
     });
   },
 });
-
+export const toggleUpdateSelector = (state) => state.review.toggleUpdate;
 export const isRatingModalOpeningSelector = (state) =>
   state.review.isRatingModalOpening;
 export const commnetTextSelector = (state) => state.review.commentText;

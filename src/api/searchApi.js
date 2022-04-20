@@ -1,6 +1,6 @@
 import instance from "./axiosClient";
 
-const getProductBySearch = (query) => {
+const getProductBySearch = async(query) => {
   return instance.get("/products/search", {
     params: {
       query,

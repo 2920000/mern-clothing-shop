@@ -4,6 +4,7 @@ import { userSelector } from "../../features/accountSlice";
 import {
   isRatingModalOpeningSelector,
   OPEN_RATING_MODAL,
+  toggleUpdateSelector,
 } from "../../features/ratingSlice";
 
 import { useGetOrderedQuery } from "../../services/orderedApi";
@@ -16,20 +17,21 @@ function Purchase() {
   const user = useSelector(userSelector);
   let { data, isLoading, refetch, isError } = useGetOrderedQuery(user?._id);
   const isRatingModalOpening = useSelector(isRatingModalOpeningSelector);
+  const toggleUpdate = useSelector(toggleUpdateSelector);
   const [orderInfor, setOrderInfor] = useState({});
 
   useEffect(() => {
     refetch();
-  }, [isRatingModalOpening]);
-
+  }, [toggleUpdate]);
+  
   if (isLoading || !data) {
     return <></>;
   }
   if (isError) {
     return <>Something wrong</>;
   }
-  // let newData=[...data]
-  // newData=newData.sort((a,b) => Date.parse(b.date) - Date.parse(a.date))
+  let newData = [...data.orders];
+  newData = newData.sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
 
   if (data.orders.length === 0) {
     return (
@@ -42,7 +44,7 @@ function Purchase() {
 
   return (
     <div>
-      {data.orders.map((order) => (
+      {newData.map((order) => (
         <div className="bg-white  mb-4 p-2 md:p-7">
           <div className="flex relative justify-between items-center py-3 border-b border-border">
             <div className="flex">

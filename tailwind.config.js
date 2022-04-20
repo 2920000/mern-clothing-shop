@@ -53,7 +53,7 @@ module.exports = {
     animation:{
       'skeleton':'skeleton_loading 1s linear infinite alternate',
       'spinner':'spinner 800ms linear infinite',
-      'opacity':'opacity 500ms linear'
+      'opacity':'opacity 200ms linear'
     },
 
   },

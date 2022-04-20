@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
 
 const classes = {
-  base: "focus:outline-none transition duration-300",
+  base: "focus:outline-none",
   disabled: "opacity-50 cursor-not-allowed",
   pill: "rounded-full",
   size: {

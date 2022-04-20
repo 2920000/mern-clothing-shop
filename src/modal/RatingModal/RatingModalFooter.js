@@ -37,7 +37,6 @@ function RatingModalFooter({ orderInfor }) {
         commentText,
       },
     };
-
     dispatch(addRatingToDatabase(ratingData));
   };
   if (productRating) {

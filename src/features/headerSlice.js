@@ -4,9 +4,9 @@ import { getProductBySearch } from "../api/searchApi";
 export const fetchProductsBySearch = createAsyncThunk(
   "search/query",
   async (query, thunkAPI) => {
-    const response = getProductBySearch(query);
-    thunkAPI.dispatch(UPDATE_CURRENT_SEARCH_PRODUCTS(await response));
-    return await response;
+    const response = await getProductBySearch(query);
+    thunkAPI.dispatch(UPDATE_CURRENT_SEARCH_PRODUCTS(response));
+    return response;
   }
 );
 
@@ -49,6 +49,8 @@ const headerSlice = createSlice({
     },
     UPDATE_VALUE_INPUT: (state, action) => {
       state.search.inputValue = action.payload;
+      state.search.isLoading = true;
+      state.search.isSuggestionBoxOpening = true;
     },
     OPEN_MOBILE_NAV: (state) => {
       state.mobileNav.isMobileNavOpening = true;
@@ -71,9 +73,9 @@ const headerSlice = createSlice({
       }
       state.search.isLoading = false;
     });
-    builder.addCase(fetchProductsBySearch.pending, (state) => {
-      state.search.isLoading = true;
-    });
+    // builder.addCase(fetchProductsBySearch.pending, (state) => {
+    //   state.search.isLoading = true;
+    // });
   },
 });
 
@@ -98,6 +100,6 @@ export const {
   CLOSE_SUGGSETION_BOX,
   UPDATE_VALUE_INPUT,
   OPEN_MOBILE_NAV,
-  CLOSE_MOBILE_NAV
+  CLOSE_MOBILE_NAV,
 } = headerSlice.actions;
 export default headerSlice.reducer;

@@ -32,7 +32,7 @@ const MobileNav = () => {
     >
       <MobileNavMenu>
         {mobileNavList.map((navItem, index) => (
-          <div className="w-full">
+          <div className="w-full" key={index}>
             <MobileNavItem
               className={` ${
                 mobileNavActive === index &&
@@ -45,8 +45,8 @@ const MobileNav = () => {
             <MobileMenu
               className={`${mobileNavActive === index ? "block" : "hidden"}`}
             >
-              {navItem.mobileMenu.map((mobileMenuItem) => (
-                <MobileMenuItem>
+              {navItem.mobileMenu.map((mobileMenuItem, index) => (
+                <MobileMenuItem key={index}>
                   <Link
                     onClick={() => dispatch(CLOSE_MOBILE_NAV())}
                     to={mobileMenuItem.link}
@@ -152,8 +152,8 @@ const MobileAccountNav = () => {
           style={toggleSubMenu ? mobileSubMenuStyle : {}}
           className="transition-all duration-300  overflow-hidden max-h-[1000px]"
         >
-          {userFeatureList.map((feature) => (
-            <MobileSubMenuItem>
+          {userFeatureList.map((feature,index) => (
+            <MobileSubMenuItem key={index}>
               <Link
                 onClick={() => dispatch(CLOSE_MOBILE_NAV())}
                 to={feature.link}

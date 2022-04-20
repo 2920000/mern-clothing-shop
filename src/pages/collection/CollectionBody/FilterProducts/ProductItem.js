@@ -1,6 +1,10 @@
 import React, { useEffect, useRef, memo } from "react";
 import { Link } from "react-router-dom";
-import { calculateSale, convertToPrice, qsa } from "../../../../helper";
+import {
+  calculateSale,
+  convertToPrice,
+  qsa,
+} from "../../../../helper";
 import useHover from "../../../../hooks/useHover";
 
 const ProductItem = ({ product }) => {
@@ -36,7 +40,7 @@ const ProductItem = ({ product }) => {
   }, []);
 
   return (
-    <div className=" preview relative mb-8 mx-[5px] w-[calc(50%-20px)]   lg:w-[calc(33.33%-20px)] transition-all duration-150  ">
+    <div className=" preview relative mb-5  w-[calc(50%-8px)] lg:w-[calc(33.33%-8px)] transition-all duration-150  ">
       <ProductImage {...props} />
       <ProductInfor {...props} />
     </div>
@@ -78,7 +82,7 @@ const ProductImage = ({ product, isSale }) => {
         <IsSale isSale={isSale} />
         <Link
           ref={hoverRef}
-          to={`/products/${product._id}`}
+          to={`/products/${(product.slug)}`}
           className="w-full absolute  image h-full bg-cover  top-0 left-0  "
           lazy-src={product.image}
         >

@@ -5,7 +5,7 @@ import {
 } from "../../../helper";
 
 const SearchItem = ({ product }) => {
-  const handleSaveCurrentSearch = (productName) => {
+  const handleSaveCurrentSearch = (slug) => {
     const currentSearchFromLocalStorage = getLocalStorage("currentSearch");
     const hasCurrentSearchFromLocalStorage = Boolean(
       currentSearchFromLocalStorage
@@ -13,19 +13,25 @@ const SearchItem = ({ product }) => {
 
     if (hasCurrentSearchFromLocalStorage) {
       const filterCurrentSearch = currentSearchFromLocalStorage
-        .filter((e) => e !== productName)
+        .filter((e) => e.slug !== slug)
         .splice(0, 2);
-      addLocalStorage("currentSearch", [product.title, ...filterCurrentSearch]);
+      addLocalStorage("currentSearch", [
+        { title: product.title, slug: product.slug },
+        ...filterCurrentSearch,
+      ]);
     } else {
-      addLocalStorage("currentSearch", [product.title]);
+      addLocalStorage("currentSearch", [
+        { title: product.title, slug: product.slug },
+      ]);
     }
   };
+
   return (
     <li className="list-none">
       <a
-        href={`/products/${product._id}`}
+        href={`/products/${product.slug}`}
         onClick={() => {
-          handleSaveCurrentSearch(product.title);
+          handleSaveCurrentSearch(product.slug);
         }}
         className="flex list-none py-2 mb-3"
       >
