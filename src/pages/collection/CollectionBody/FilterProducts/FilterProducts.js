@@ -46,12 +46,14 @@ function FilterProducts() {
   }
 
   return (
-    <ProductsFlex>
-      {products?.map((product) => (
-        <ProductItem key={product._id} product={product} />
-      ))}
+    <div className="w-full">
+      <ProductsFlex>
+        {products?.map((product) => (
+          <ProductItem key={product._id} product={product} />
+        ))}
+      </ProductsFlex>
       <Pagination />
-    </ProductsFlex>
+    </div>
   );
 }
 

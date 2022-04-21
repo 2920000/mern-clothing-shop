@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import ProductDetailImages from "./ProductDetailImages";
 import ProductDetailInformation from "./ProductDetailInformation";
 import ProductDetailRatings from "./ProductDetailRatings";
+import ProductList from "../../components/ProductList/ProductList";
 
 function ProductDetail() {
   const { slug } = useParams();
@@ -17,7 +18,7 @@ function ProductDetail() {
   if (isLoading || !data) {
     return <ProductDetailSkeleton />;
   }
-
+console.log(data)
   return (
     <div className="max-w-[1450px] px-2 lg:px-10 m-auto pt-[20px]">
       <p className="text-xs mb-5 ">
@@ -32,6 +33,7 @@ function ProductDetail() {
         <ProductDetailInformation productDetail={data} />
       </div>
       <ProductDetailRatings />
+      <ProductList productId={data._id} />
     </div>
   );
 }
