@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getShippingInfor, updateShippingInfor } from "../api/userApi";
+import userApi from "../api/userApi";
 
-export const fetchShippingInfor = createAsyncThunk(
+export const fetchShippingAddress = createAsyncThunk(
   "user/shippingInfor",
   async (userId, { dispatch }) => {
     try {
-      const response = await getShippingInfor(userId);
+      const response = await userApi.fetchShippingAddress(userId);
       dispatch(CLOSE_SHIPPING_INFOR_MODAL());
       return response;
     } catch (error) {
@@ -18,7 +18,7 @@ export const updateShippingInforToDatabase = createAsyncThunk(
   "user/updateShippingInfor",
   async (payload, { dispatch, rejectWithValue }) => {
     try {
-      const response = await updateShippingInfor({ ...payload });
+      const response = await userApi.updateShippingAddress({ ...payload });
       dispatch(CLOSE_SHIPPING_INFOR_MODAL());
       return response;
     } catch (error) {
@@ -54,7 +54,7 @@ const userSlice = createSlice({
         state.shippingInfor = action.payload;
       }
     );
-    builder.addCase(fetchShippingInfor.fulfilled, (state, action) => {
+    builder.addCase(fetchShippingAddress.fulfilled, (state, action) => {
       state.shippingInfor = action.payload;
     });
   },

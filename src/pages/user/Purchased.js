@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useLayoutEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { userSelector } from "../../features/accountSlice";
@@ -13,6 +13,7 @@ import { AiOutlineDropbox } from "react-icons/ai";
 import Button from "../../components/Button/Button";
 import RatingModal from "../../modal/RatingModal";
 import { calculateSale, convertToPrice } from "../../helper";
+import Loading from "../../components/Loading";
 
 function Purchased() {
   const user = useSelector(userSelector);
@@ -21,18 +22,24 @@ function Purchased() {
   const toggleUpdate = useSelector(toggleUpdateSelector);
   const [orderInfor, setOrderInfor] = useState({});
 
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   useEffect(() => {
     refetch();
   }, [toggleUpdate]);
 
-  if (isLoading || !data) {
-    return <></>;
-  }
   if (isError) {
     return <>Something wrong</>;
   }
-  let newData = [...data.orders];
-  newData = newData.sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
+  if (isLoading) {
+    return (
+      <div className="flex flex-col gap-2 justify-center items-center min-h-[600px] w-full bg-white text-lg">
+        <Loading />
+      </div>
+    );
+  }
 
   if (data.orders.length === 0 || !data) {
     return (
@@ -45,31 +52,34 @@ function Purchased() {
 
   return (
     <div className="min-h-[600px]">
-      {newData.map((order) => (
-        <div className="bg-white  mb-4 p-2 md:p-7">
-          <div className="flex relative justify-between items-center py-3 border-b border-border">
-            <div className="flex">
-              <div className="max-w-[80px] flex px-2 border border-border">
+      {data.orders.map((order, index) => (
+        <div key={index} className="bg-white relative w-full  mb-4 p-2 md:p-7 ">
+          <div className="flex justify-between items-center w-full relative  py-3 border-b border-border">
+            <div className="flex w-full">
+              <div className=" mder:w-[120px] w-[80px] px-2 border border-border">
                 <Link to={`/products/${order.slug}`}>
                   <img className="w-full" src={order.image} alt="" />
                 </Link>
               </div>
-              <div className="flex text-sm md:text-base flex-col ml-5">
-                <span className="">{order.title}</span>
+              <div className="flex text-sm md:text-base flex-col flex-grow w-[calc(100%-100px)] ml-5">
+                <span className="whitespace-nowrap md:whitespace-normal text-ellipsis overflow-hidden">
+                  {order.title}
+                </span>
                 <span className="text-sm">Size: {order.size}</span>
                 <span className="text-sm">Số lượng: {order.amount}</span>
               </div>
             </div>
-            <div className=" absolute right-0 bottom-0 md:relative text-sm whitespace-nowrap ">
+            <div className="absolute right-0 bottom-0 md:relative text-sm whitespace-nowrap ">
               <span
                 className={
-                  order.sale > 0 &&
-                  "line-through text-light_grey inline-block mr-2"
+                  order.sale > 0
+                    ? "line-through text-light_grey inline-block mr-2"
+                    : ""
                 }
               >
                 {convertToPrice(order.price)}đ
               </span>
-              <span className="">
+              <span>
                 {order.sale > 0 &&
                   convertToPrice(calculateSale(order) / order.amount) + "đ"}
               </span>
@@ -83,11 +93,7 @@ function Purchased() {
               </span>
             </div>
           </div>
-          <div className="flex items-center justify-between">
-            <p className="text-xs">
-              Đơn hàng sẽ được chuẩn bị và chuyển đi trước
-              <span className="ml-2 underline">{formatDate(order.date)}</span>
-            </p>
+          <div className="text-right">
             <ReviewOrRatingButton
               data={data}
               order={order}

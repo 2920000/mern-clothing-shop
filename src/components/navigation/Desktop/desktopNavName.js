@@ -23,6 +23,9 @@ const desktopNavName = [
     {
       subName:'T-shirt nam',
       params:'mens-t-shirt'
+    },{
+      subName:'Jacket nam',
+      params:'mens-jacket'
     }
    ]
   },
@@ -45,9 +48,6 @@ const desktopNavName = [
     },{
       subName:'Nữ',
       params:'womens-sale'
-    },{
-      subName:'Trẻ con',
-      params:'kid-sale'
     }]
   },
   {
@@ -87,7 +87,10 @@ const desktopNavName = [
     name:'Phụ kiện',
     sub:[{
       subName:'Khẩu trang',
-      params:'face-mask'
+      params:'mask'
+    },{
+      subName:'Đồng hồ',
+      params:'watches'
     }]
   }
 ];

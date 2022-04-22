@@ -1,24 +1,25 @@
 import { useGetProductDetailQuery } from "../../services/detailProductApi";
 import { Link, useParams } from "react-router-dom";
 import ProductDetailSkeleton from "../../components/skeleton/ProductDetailSkeleton";
-import { useEffect } from "react";
+import { useEffect} from "react";
 import ProductDetailImages from "./ProductDetailImages";
 import ProductDetailInformation from "./ProductDetailInformation";
 import ProductDetailRatings from "./ProductDetailRatings";
-import ProductList from "../../components/ProductList/ProductList";
+import ProductDetailRelated from "./ProductDetailRelated";
 
 function ProductDetail() {
   const { slug } = useParams();
-  const { data, isLoading, refetch } = useGetProductDetailQuery(slug);
+  const { data, isFetching, refetch } = useGetProductDetailQuery(slug);
   window.scrollTo(0, 0);
 
   useEffect(() => {
     refetch();
-  }, []);
-  if (isLoading || !data) {
+  },[slug]);
+  
+  if (isFetching || !data) {
     return <ProductDetailSkeleton />;
   }
-console.log(data)
+
   return (
     <div className="max-w-[1450px] px-2 lg:px-10 m-auto pt-[20px]">
       <p className="text-xs mb-5 ">
@@ -33,7 +34,7 @@ console.log(data)
         <ProductDetailInformation productDetail={data} />
       </div>
       <ProductDetailRatings />
-      <ProductList productId={data._id} />
+      <ProductDetailRelated productId={data._id} />
     </div>
   );
 }

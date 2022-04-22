@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userSelector } from "../../features/accountSlice";
 import {
-  fetchShippingInfor,
+  fetchShippingAddress,
   hasShippingInforSelector,
 } from "../../features/userSlice";
 import ShippingInforModal from "../../modal/ShippingInforModal";
@@ -19,7 +19,7 @@ import ErrorBoundary from "../../components/ErrorBoundary";
 import Loading from "../../components/Loading";
 import {
   allCartProductsSelector,
-  fetchCartData,
+  fetchCart,
 } from "../../features/cartSlice";
 import ShippingAddress from "./ShippingAddress";
 import OrderSummary from "./OrderSummary";
@@ -44,11 +44,11 @@ function Checkout() {
   }, [orderStatus]);
 
   useEffect(() => {
-    dispatch(fetchCartData(user._id));
+    dispatch(fetchCart(user._id));
   }, []);
 
   useEffect(() => {
-    dispatch(fetchShippingInfor(user._id));
+    dispatch(fetchShippingAddress(user._id));
     // refetch();
   }, []);
 

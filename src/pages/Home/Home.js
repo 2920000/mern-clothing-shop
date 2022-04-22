@@ -1,11 +1,13 @@
 import React, { useEffect,useRef} from "react";
 import { Link } from "react-router-dom";
-import banner from "../assets/image/banner.png";
+import banner from "../../assets/image/banner.png"
+import NewIn from "./NewIn";
 function Home() {
   return (
     <div>
       <MainBlockFirst />
       <MainBlockSecond />
+      <NewIn/>
     </div>
   );
 }
@@ -45,8 +47,6 @@ const MainBlockFirst = () => {
               backgroundImage: `url("https://cdn.shopify.com/s/files/1/2153/3679/files/AAE_MAIN_BANNER_1800_2500x.jpg?v=1646698029")`,
             }}
             className="hidden w-full absolute top-0 bg-cover  h-full lg:block"
-            // src="https://cdn.shopify.com/s/files/1/2153/3679/files/AAE_MAIN_BANNER_1800_2500x.jpg?v=1646698029"
-            // alt=""
           />
         </div>
         <Link

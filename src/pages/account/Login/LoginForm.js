@@ -1,7 +1,7 @@
 import { useEffect, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { addProductToMongodb } from "../../../api/cartApi";
+import cartApi from "../../../api/cartApi";
 import { FormGroup } from "../../../components/form-group/FormGroup";
 import {
   CLEAR_ERRORMESSAGE,
@@ -9,7 +9,7 @@ import {
   postAccount,
   userSelector,
 } from "../../../features/accountSlice";
-import { fetchCartData } from "../../../features/cartSlice";
+import { fetchCart} from "../../../features/cartSlice";
 import {
   addLocalStorage,
   getLocalStorage,
@@ -50,10 +50,10 @@ const LoginForm = () => {
       };
    
       const addProductToDatabase = async () => {
-        const res = await addProductToMongodb(payload);
+        const res = await cartApi.add(payload);
         if (res) {
           removeLocalStorage("cart");
-          dispatch(fetchCartData(userId));
+          dispatch(fetchCart(userId));
         }
       };
       cartFromLocal && addProductToDatabase();

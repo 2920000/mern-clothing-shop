@@ -39,7 +39,7 @@ const TagsRating = () => {
               <p
                 style={
                   selectedIndexList.includes(`${index}`)
-                    ? { borderColor: "red", color: "red" }
+                    ? { backgroundColor: "black   ", color: "white   " }
                     : {}
                 }
                 onClick={() => handleTagsRating(tagRating, index)}

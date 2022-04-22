@@ -100,7 +100,7 @@ function Pagination() {
   };
 
   return (
-    <div className="flex justify-between items-center w-full py-2.5 border-y border-light_grey">
+    <div className="flex justify-between items-center w-full py-2.5 mt-10 mb-14 border-y border-light_grey">
       <span className="font-bold text-light_grey">
         {productsLength} sản phẩm
       </span>

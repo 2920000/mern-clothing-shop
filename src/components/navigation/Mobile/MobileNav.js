@@ -129,11 +129,12 @@ const MobileAccountNav = () => {
     },
   ];
   const mobileSubMenuStyle = {
-    maxHeight: "0",
+    maxHeight: "1000PX",
     overflow: "hidden",
   };
+
   const mobileMenuIconStyle = {
-    transform: "rotate(360deg)",
+    transform: "rotate(180deg)",
   };
   const handleToggleSubMenu = () => {
     setToggleSubMenu(!toggleSubMenu);
@@ -145,12 +146,12 @@ const MobileAccountNav = () => {
           Tài khoản
           <FiChevronDown
             style={toggleSubMenu ? mobileMenuIconStyle : {}}
-            className="text-2xl rotate-180 transition-all duration-300 "
+            className="text-2xl rotate-360 transition-all duration-300 "
           />
         </div>
         <MobileSubMenu
           style={toggleSubMenu ? mobileSubMenuStyle : {}}
-          className="transition-all duration-300  overflow-hidden max-h-[1000px]"
+          className="transition-all duration-300  overflow-hidden max-h-[0]"
         >
           {userFeatureList.map((feature,index) => (
             <MobileSubMenuItem key={index}>

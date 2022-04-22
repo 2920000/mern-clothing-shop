@@ -4,7 +4,7 @@ import Footer from "./Footer";
 import Header from "./Header/Header";
 import DesktopNav from "./Navigation/Desktop";
 import ProductsFlex from "./ProductsFlex";
-import ProductCart from "./ProductCart";
+import ProductCard from "./ProductCard";
 export {
   SidebarCart,
   Footer,
@@ -12,5 +12,5 @@ export {
   DesktopNav,
   AnnouncemetBar,
   ProductsFlex,
-  ProductCart,
+  ProductCard,
 };

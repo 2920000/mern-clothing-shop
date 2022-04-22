@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { createRating } from "../api/ratingApi";
+import ratingApi from "../api/ratingApi";
 
 export const addRatingToDatabase = createAsyncThunk(
   "create",
-  async (ratingData, { dispatch, rejectWithValue, getState }) => {
+  async (ratingData, { dispatch, rejectWithValue }) => {
     try {
-      const response = await createRating(ratingData);
+      const response = await ratingApi.add(ratingData);
       dispatch(CLOSE_RATING_MODAL());
       return response;
     } catch (error) {

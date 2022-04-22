@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getCartFromDatabase } from "../api/cartApi";
+import cartApi from "../api/cartApi";
 
-export const fetchCartData = createAsyncThunk(
+export const fetchCart = createAsyncThunk(
   "fetchCartDataFromDatabase",
   async (userId) => {
-    const response = await getCartFromDatabase(userId);
+    const response = await cartApi.fetch(userId);
     return response;
   }
 );
@@ -40,14 +40,14 @@ const cartSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchCartData.pending, (state) => {
+    builder.addCase(fetchCart.pending, (state) => {
       state.isLoading = true;
     });
-    builder.addCase(fetchCartData.fulfilled, (state, action) => {
+    builder.addCase(fetchCart.fulfilled, (state, action) => {
       state.allCartProducts = action.payload;
       state.isLoading = false;
     });
-    builder.addCase(fetchCartData.rejected, (state) => {
+    builder.addCase(fetchCart.rejected, (state) => {
       state.isLoading = false;
     });
   },

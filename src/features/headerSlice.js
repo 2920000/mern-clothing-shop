@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getProductBySearch } from "../api/searchApi";
+import searchApi from "../api/searchApi";
 
 export const fetchProductsBySearch = createAsyncThunk(
   "search/query",
   async (query, thunkAPI) => {
-    const response = await getProductBySearch(query);
+    const response = await searchApi.fetch(query);
     thunkAPI.dispatch(UPDATE_CURRENT_SEARCH_PRODUCTS(response));
     return response;
   }

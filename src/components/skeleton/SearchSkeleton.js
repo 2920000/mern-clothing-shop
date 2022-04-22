@@ -3,7 +3,7 @@ import Skeleton from "./Skeleton";
 
 function SearchSkeleton() {
   return (
-    <>
+    <div className="p-2">
       {Array(3)
         .fill()
         .map((e) => (
@@ -24,7 +24,7 @@ function SearchSkeleton() {
             </div>
           </div>
         ))}
-    </>
+    </div>
   );
 }
 

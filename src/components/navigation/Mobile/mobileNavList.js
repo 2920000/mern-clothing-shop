@@ -12,6 +12,10 @@ const mobileNavList = [
         link: "/collection/mens-t-shirt",
       },
       {
+        displayName: "Jacket nam",
+        link: "/collection/mens-jacket",
+      },
+      {
         displayName: "Giảm giá",
         link: "/collection/mens-sale",
       },
@@ -39,7 +43,11 @@ const mobileNavList = [
     mobileMenu: [
       {
         displayName: "Khẩu trang",
-        link: "/collection/face-mask",
+        link: "/collection/mask",
+      },
+      {
+        displayName: "Đồng hồ",
+        link: "/collection/watches",
       },
     ],
   },

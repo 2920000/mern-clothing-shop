@@ -39,6 +39,8 @@ const SelectionItem = ({ index, name, e }) => {
     );
     if (searchParams.has(selectedKey) && isValueExisting) {
       searchParams.remove(selectedKey, selectedValue);
+    } else if (selectedKey === "price") {
+      searchParams.set("price", selectedValue);
     } else {
       searchParams.append(selectedKey, selectedValue);
     }
@@ -64,11 +66,11 @@ const SelectionItem = ({ index, name, e }) => {
           value={e.brand || e.color || convertPriceFilter(e) || e}
           className="hidden"
         />
-        {name !== "pricess" && (
+        {name !== "price" && (
           <span className=" relative checkmark w-[15px] h-[15px] border first-letter: border-border_checkbox inline-block mr-2  cursor-pointer"></span>
         )}
         {e.brand || convertToVietnamese(e.color) || (
-          <span className={name === "pricess" && ""}>{e}</span>
+          <span className={name === "price" && ""}>{e}</span>
         )}
       </div>
     </button>

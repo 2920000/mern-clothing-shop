@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
-import { updateCartProductAmountFromDatabase } from "../../api/cartApi";
+import cartApi from "../../api/cartApi";
 import { userSelector } from "../../features/accountSlice";
 import { UPDATE_PRODUCTS_IN_CART } from "../../features/cartSlice";
 import {
@@ -128,6 +128,6 @@ const updateCartProductsAmountDatabase = async (user, cartProduct, action) => {
     cartProduct,
     action,
   };
-  const response = await updateCartProductAmountFromDatabase(payloadInsc);
+  const response = await cartApi.updateQuantity(payloadInsc);
   return response.cart;
 };

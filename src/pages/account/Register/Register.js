@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { createUser } from "../../../api/userApi";
+import userApi from "../../../api/userApi";
 import Loading from "../../../components/Loading";
 import {
   isLoadingSelector,
@@ -22,7 +22,7 @@ function Register() {
       username: user?.username,
     };
     if (user?.register === "success") {
-      createUser(payload);
+      userApi.addUser(payload);
       setSuccess(true);
       validateForm.clearValue();
     }

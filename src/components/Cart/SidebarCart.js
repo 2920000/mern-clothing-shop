@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { userSelector } from "../../features/accountSlice";
 import {
   CLOSE_CART_SIDEBAR,
-  fetchCartData,
+  fetchCart,
   isCartOpeningSelector,
 } from "../../features/cartSlice";
 import useClickOutside from "../../hooks/useClickOutside";
@@ -36,7 +36,7 @@ const SidebarCart = () => {
   useEffect(() => {
     if (user) {
       const userId = user._id;
-      dispatch(fetchCartData(userId));
+      dispatch(fetchCart(userId));
     }
   }, [user]);
 

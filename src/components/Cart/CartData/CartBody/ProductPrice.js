@@ -1,6 +1,6 @@
 import { FiTrash } from "react-icons/fi";
 import { useDispatch } from "react-redux";
-import { removeCartProductFromDatabase } from "../../../../api/cartApi";
+import cartApi  from "../../../../api/cartApi";
 import { calculateSale } from "../../../../helper/Calculator";
 import { convertToPrice } from "../../../../helper/Converter";
 import { deleteCartProductFromLocal } from "../../../../helper/CrudShoppingCart";
@@ -15,7 +15,7 @@ const ProductPrice = ({ cartProduct, allCartProducts, user }) => {
       productId,
       userId,
     };
-    removeCartProductFromDatabase(payload);
+    cartApi.deleteOne(payload);
     deleteCartProductFromLocal(allCartProducts, productId, dispatch);
   };
   return (

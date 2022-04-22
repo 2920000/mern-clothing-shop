@@ -32,7 +32,7 @@ function FilterSidebar() {
     {
       title: "Giá",
       selection: price,
-      name: "pricess",
+      name: "price",
     },
   ];
   return (

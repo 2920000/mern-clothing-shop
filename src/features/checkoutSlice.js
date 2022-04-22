@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { clearCartFromDatabase } from "../api/cartApi";
+import cartApi from "../api/cartApi";
 import { addOrders } from "../api/checkoutApi";
 
 export const addOrdersToDatabase = createAsyncThunk(
@@ -7,7 +7,7 @@ export const addOrdersToDatabase = createAsyncThunk(
   async (payload, { rejectWithValue }) => {
     try {
       const response = await addOrders(payload);
-      clearCartFromDatabase(payload.userId);
+      cartApi.deleteAll(payload.userId);
       return response;
     } catch (error) {
       return rejectWithValue(error.response.data);

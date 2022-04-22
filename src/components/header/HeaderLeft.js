@@ -139,7 +139,7 @@ export const featureUserList = () => {
   return [
     {
       displayName: "Tài Khoản Của Tôi",
-      link: "user/profile",
+      link: "/",
     },
     {
       displayName: "Đơn Mua",

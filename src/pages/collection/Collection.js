@@ -42,7 +42,7 @@ const BackToTop = () => {
   return (
     <div
       onClick={() => window.scrollTo({ behavior: "smooth", top: 0 })}
-      className="fixed flex cursor-pointer items-center justify-center w-12 h-12 bg-black bottom-20 right-7"
+      className="fixed z-30 flex cursor-pointer items-center justify-center w-12 h-12 bg-black bottom-20 right-7"
     >
       <FiChevronUp className="text-white text-2xl" />
     </div>

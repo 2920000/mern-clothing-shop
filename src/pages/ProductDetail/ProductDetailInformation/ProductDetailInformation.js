@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import useEventListener from "../../../hooks/useEventListener";
 import ProductSize from "./ProductSize";
 import ProductPrice from "./ProductPrice";
@@ -8,7 +8,10 @@ import ProductPolicy from "./ProductPolicy";
 import useResizeObserver from "../../../hooks/useResizeObserver";
 import ProductOverview from "./ProductOverview";
 import { qs } from "../../../helper";
+import { useDispatch } from "react-redux";
+import { CLEAR_DATA } from "../../../features/productDetailWantToBySlice";
 function ProductDetailInformation({ productDetail }) {
+  const dispatch=useDispatch()
   const [styleDetailRight, setStyleDetailRight] = useState({});
   const emptyRightRef = useRef();
   const rightDetailInnerRef = useRef();
@@ -52,8 +55,14 @@ function ProductDetailInformation({ productDetail }) {
     }
   });
 
+  useEffect(() => {
+    return () => {
+      dispatch(CLEAR_DATA())
+    };
+  }, []);
+
   return (
-    <div className=" relative w-full lg:w-[40%] lg:max-w-[400px]">
+    <div className=" relative mt-5 lg:mt-0 w-full lg:w-[40%] lg:max-w-[400px]">
       <div
         ref={emptyRightRef}
         id="empty-right-detail-inner"

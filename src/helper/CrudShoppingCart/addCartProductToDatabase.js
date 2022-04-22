@@ -1,8 +1,8 @@
-import { addProductToMongodb } from "../../api/cartApi";
+import cartApi from "../../api/cartApi";
 
 const addCartProductToDatabase = async (data) => {
   const { productDetailWantToBuy, userId } = data;
-  const allProductsAfterAdded = await addProductToMongodb({
+  const allProductsAfterAdded = await cartApi.add({
     productData:productDetailWantToBuy,
     userId,
   });

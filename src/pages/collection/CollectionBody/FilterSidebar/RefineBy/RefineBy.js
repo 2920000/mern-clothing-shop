@@ -58,7 +58,6 @@ const FilterOptionTitle = ({ allCheckBoxes, collection, navigate }) => {
 
 const RefineGroup = ({arrayParams}) => {
   const { collection } = useParams();
- 
   return (
     <>
       {arrayParams.map((param) => {

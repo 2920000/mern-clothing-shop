@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getProductsByCollection } from "../api/collectionApi";
+import collectionApi from "../api/collectionApi";
 
 const fetchByCollection = createAsyncThunk(
   "collection/fetchByCollection",
   async (payload) => {
-    const response = await getProductsByCollection(payload);
+    const response = await collectionApi.fetchByCollection(payload);
     return response;
   }
 );

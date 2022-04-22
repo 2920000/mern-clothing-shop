@@ -9,7 +9,6 @@ function ProductDetailImages({ productDetail }) {
   const [change, setChange] = useState(false);
   const allPictureRef = useRef();
 
-  console.log("render");
   useEventListener("scroll", () => {
     if (window.innerWidth < 800) {
       setChange(true);

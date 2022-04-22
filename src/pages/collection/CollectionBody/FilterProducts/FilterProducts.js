@@ -1,9 +1,8 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import queryString from "query-string";
 import Pagination from "./Pagination";
-import ProductItem from "./ProductItem";
 import {
   fetchByCollection,
   isLoadingSelector,
@@ -11,6 +10,7 @@ import {
 } from "../../../../features/collectionSlice";
 import CollectionSkeleton from "../../../../components/skeleton/CollectionSkeleton";
 import ProductsFlex from "../../../../components/ProductsFlex/ProductsFlex";
+import { ProductCard } from "../../../../components";
 
 function FilterProducts() {
   const dispatch = useDispatch();
@@ -48,8 +48,12 @@ function FilterProducts() {
   return (
     <div className="w-full">
       <ProductsFlex>
-        {products?.map((product) => (
-          <ProductItem key={product._id} product={product} />
+        {products?.map((product, index) => (
+          <ProductCard
+            key={index}
+            product={product}
+            className=" mb-5  w-[calc(50%-8px)] lg:w-[calc(33.33%-8px)] "
+          />
         ))}
       </ProductsFlex>
       <Pagination />

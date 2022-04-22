@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { account } from "../api/accountApi";
+import accountApi from "../api/accountApi";
 import { getLocalStorage } from "../helper/StorageUtilties";
 
 export const postAccount = createAsyncThunk(
   "postAccount",
   async (payload, { rejectWithValue }) => {
     try {
-      const response = await account(payload);
+      const response = await accountApi.post(payload);
       return response;
     } catch (error) {
       return rejectWithValue(error.response.data)
